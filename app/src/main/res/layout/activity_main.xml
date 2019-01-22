@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="JAP Activity"
+        android:textSize="22sp"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select time period"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        />
+    <Spinner
+        android:id="@+id/byTime"
+        android:layout_marginTop="5dp"
+        android:prompt="@string/time_prompt"
+        android:layout_width="250dp"
+        android:layout_marginStart="30dp"
+        android:layout_height="50dp">
+        
+    </Spinner>
+    <Button
+        android:id="@+id/withPujyaGurudev"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="With Pujya Gurudev "
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        />
+    <Button
+        android:id="@+id/withMataji"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:text="With Vandaniya Mataji"
+        />
+    <Button
+        android:id="@+id/startJap"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:text="Start Jap"
+        />
+    <Button
+        android:id="@+id/stopJap"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="@string/stop_jap"
+         />
+
+    <TextView
+        android:id="@+id/timer_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="Timer "
+        />
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+
+        />
+</LinearLayout>
