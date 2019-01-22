@@ -123,9 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
     public class MyCountdownTimer extends CountDownTimer {
 
         /**
@@ -146,11 +144,13 @@ public class MainActivity extends AppCompatActivity {
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
             timer_text.setText(hms);
             sendNotification(hms);
-
-
         }
         @Override
         public void onFinish() {
+
+        }
+
+        public void stopCountDown(){
 
         }
 

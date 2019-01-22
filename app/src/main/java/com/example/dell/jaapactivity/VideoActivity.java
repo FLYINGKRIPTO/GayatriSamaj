@@ -1,5 +1,6 @@
 package com.example.dell.jaapactivity;
 
+import android.app.ProgressDialog;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 public class VideoActivity extends AppCompatActivity  {
@@ -18,19 +18,25 @@ public class VideoActivity extends AppCompatActivity  {
     VideoView videoView;
     MyCountdownTimer myCountdownTimer;
     int videoTime = 0;
+    private ProgressDialog progressDialog;
+    private int position = 0;
+
     private static final String TAG = "VideoActivity";
-    Vector<YouTubeVideos> youTubeVideos= new Vector<YouTubeVideos>();
+    //Vector<YouTubeVideos> youTubeVideos= new Vector<YouTubeVideos>();
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         timerTextView = findViewById(R.id.Jtimer);
         videoView = findViewById(R.id.videoViewV);
+
+
         final MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
 
-        videoView.setMediaController(mediaController);
 
+        videoView.setMediaController(mediaController);
+        videoView.start();
 
 
        // youTubeVideos.add( new YouTubeVideos("<iframe width=\"100%\" height=\"100%\" src=\"http://www.ebookfrenzy.com/android_book/movie.mp4\" frameborder=\"0\" allowfullscreen></iframe>",2222000l) );
@@ -39,8 +45,9 @@ public class VideoActivity extends AppCompatActivity  {
 
        // VideoAdapter videoAdapter = new VideoAdapter(youTubeVideos);
        // recyclerView.setAdapter(videoAdapter);
-        videoView.setVideoURI(Uri.parse("http://www.ebookfrenzy.com/android_book/movie.mp4"));
+        videoView.setVideoURI(Uri.parse("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
         videoView.requestFocus();
+
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -49,9 +56,11 @@ public class VideoActivity extends AppCompatActivity  {
 
             }
         });
+
       videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
           @Override
           public void onPrepared(MediaPlayer mp) {
+
               int dr = mp.getDuration();
               int duration=mp.getDuration()/1000;
               int hours = duration / 3600;
