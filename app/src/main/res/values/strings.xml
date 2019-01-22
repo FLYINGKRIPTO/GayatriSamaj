@@ -11,5 +11,11 @@
         <item>25</item>
         <item>30</item>
     </string-array>
+    <string-array name="japOptions">
+        <item>by Time</item>
+        <item>by Mala</item>
+        <item>with Pujya Gurudev</item>
+        <item>with Pujya Mataji</item>
+    </string-array>
 
 </resources>

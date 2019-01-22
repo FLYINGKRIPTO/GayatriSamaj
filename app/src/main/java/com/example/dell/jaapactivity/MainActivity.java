@@ -2,7 +2,6 @@ package com.example.dell.jaapactivity;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -20,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     Spinner time_spinner;
+    Spinner options_spinner;
     MyCountdownTimer myCountdownTimer;
     TextView timer_text;
     Button startJap;
@@ -42,10 +42,16 @@ public class MainActivity extends AppCompatActivity {
         withGurudev = findViewById(R.id.withPujyaGurudev);
         withMataji = findViewById(R.id.withMataji);
         stopJap = findViewById(R.id.stopJap);
+        options_spinner = findViewById(R.id.options);
         //creating adapter for spinner
         final ArrayAdapter<CharSequence> timeAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.timelist,android.R.layout.simple_spinner_item);
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         time_spinner.setAdapter(timeAdapter);
+
+        final ArrayAdapter<CharSequence> optionsAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.japOptions,android.R.layout.simple_spinner_item);
+        optionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        options_spinner.setAdapter(optionsAdapter);
+
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         time_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -72,17 +78,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+
+
         withGurudev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
             }
         });
         withMataji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 Intent videoPlayerIntent = new Intent(MainActivity.this,VideoActivity.class);
-                 startActivity(videoPlayerIntent);
+
             }
         });
         startJap.setOnClickListener(new View.OnClickListener() {
