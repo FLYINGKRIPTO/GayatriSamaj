@@ -4,12 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".VideoActivity">
-
- <android.support.v7.widget.RecyclerView
-     android:id="@+id/recyclerView"
+ <TextView
+     android:id="@+id/Jtimer"
      android:layout_width="match_parent"
-     android:layout_height="match_parent">
+     android:layout_height="wrap_content"
+     android:text="00:00:00"
+     android:padding="10dp"
+     android:layout_gravity="center_horizontal"
+     android:textSize="20sp"
+     />
 
- </android.support.v7.widget.RecyclerView>
+    <VideoView
+        android:id="@+id/videoViewV"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
 </LinearLayout>

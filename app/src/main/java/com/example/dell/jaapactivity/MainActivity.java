@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         time_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 String item = parent.getItemAtPosition(position).toString();
                 Long time = Long.parseLong(item);
                 Long time_in_minutes = time*60000;
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+
+
         });
         withGurudev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
         stopJap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                myCountdownTimer = new MyCountdownTimer(0,0);
+                myCountdownTimer.start();
 
             }
         });

@@ -5,13 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
+import android.widget.TextView;
+import android.widget.VideoView;
 
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
     List<YouTubeVideos> youTubeVideoList;
+    TextView timerTextView;
     public  VideoAdapter(){
 
     }
@@ -28,27 +29,25 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
-        holder.videoWeb.loadData(youTubeVideoList.get(position).getVideoUrl(), "text/html" , "utf-8" );
+        holder.videoWeb.setVideoPath(youTubeVideoList.get(position).getVideoUrl());
+        //holder.videoWeb.loadData(youTubeVideoList.get(position).getVideoUrl(), "text/html" , "utf-8" );
+      //  holder.videoWeb.loadData(youTubeVideoList.get(position).getVideoLength().toString(),"long","utf-8");
     }
 
     @Override
     public int getItemCount() {
         return youTubeVideoList.size();
     }
-    public class VideoViewHolder extends RecyclerView.ViewHolder{
+    public class VideoViewHolder extends RecyclerView.ViewHolder {
 
-        WebView videoWeb;
+        VideoView videoWeb;
+
 
         public VideoViewHolder(View itemView) {
             super(itemView);
 
-            videoWeb = (WebView) itemView.findViewById(R.id.videoWebView);
 
-            videoWeb.getSettings().setJavaScriptEnabled(true);
-            videoWeb.setWebChromeClient(new WebChromeClient() {
 
-            });
         }
-}
 
-}
+    };}
