@@ -15,7 +15,14 @@
      android:layout_gravity="center_horizontal"
      android:textSize="20sp"
      />
+   <TextView
+       android:id="@+id/time_in_milli"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="20sp"
+       android:visibility="invisible"
 
+       />
     <VideoView
         android:id="@+id/videoViewV"
         android:layout_width="match_parent"

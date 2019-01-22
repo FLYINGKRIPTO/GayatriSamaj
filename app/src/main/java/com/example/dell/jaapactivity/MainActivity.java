@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
         withGurudev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent videoPlayerIntent = new Intent(MainActivity.this,VideoActivity.class);
-                startActivity(videoPlayerIntent);
 
             }
         });
@@ -118,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
         stopJap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myCountdownTimer = new MyCountdownTimer(0,0);
-                myCountdownTimer.start();
+                timer_text.setText("00:00:00");
+                myCountdownTimer.cancel();
 
             }
         });
@@ -147,10 +145,6 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         public void onFinish() {
-
-        }
-
-        public void stopCountDown(){
 
         }
 
