@@ -7,9 +7,15 @@
     android:orientation="vertical"
     tools:context=".MeditationActivity">
 
-    <ImageView
+    <TextView
+        android:id="@+id/soundTrackName"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="150dp"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+
+        />
     <LinearLayout
         android:layout_width="wrap_content"
         android:orientation="horizontal"
