@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences.Editor optionEditor;
     AlertDialog.Builder builder;
     String selectedItemFromOptions;
+    Button meditationActivity;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String OPTION_PREFERENCE = "OptionPref";
     public static final String selected_item = "item_selected";
@@ -49,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
     // Instance Variables from video activity
     TextView timerTextView;
     VideoView videoView;
-    TextView timeInMilliTextView;
-    MyCountdownTimer myCountdownTimerNew;
-    MyCountdownTimer myNewCountdownTimer;
+    TextView timeInMilliTextView;;
     int dr= 0;
     private ProgressDialog progressDialog;
     private int position = 0;
@@ -66,10 +66,19 @@ public class MainActivity extends AppCompatActivity {
         stopJap = findViewById(R.id.stopJap);
         display_time_selected = findViewById(R.id.display_selected_time);
         options_spinner = findViewById(R.id.options);
+        meditationActivity = findViewById(R.id.nextActivity);
+        meditationActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(MainActivity.this,MeditationActivity.class);
+                startActivity(in);
+            }
+        });
 
         //Variables initialisation from video Activity
        // timerTextView = findViewById(R.id.Jtimer);
         videoView = findViewById(R.id.videoViewV);
+
         timeInMilliTextView = findViewById(R.id.time_in_milli);
 
       /*  final MediaController mediaController = new MediaController(this);
@@ -80,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         videoView.setVideoURI(Uri.parse("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
         videoView.requestFocus();
         videoView.canPause();
+        progressDialog = new ProgressDialog(MainActivity.this);
       /*  progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading Video");
         progressDialog.setMessage("Please Hold on");
@@ -96,32 +106,6 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         optionSelectedPreference = getSharedPreferences(OPTION_PREFERENCE,Context.MODE_PRIVATE);
 
-   /*     time_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                String item = parent.getItemAtPosition(position).toString();
-                Long time = Long.parseLong(item);
-                Long time_in_minutes = time*60000;
-                time_textView_store.setText(time+"");
-
-                editor = sharedPreferences.edit();
-                editor.putLong(Time_in_minutes,time_in_minutes);
-                editor.commit();
-                Toast.makeText(getApplicationContext(),"You selected : "+time,Toast.LENGTH_SHORT).show();
-            //    myCountdownTimer = new MyCountdownTimer(time_in_minutes,100);
-             //   myCountdownTimer.start();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-
-
-        });
-
-*/
         options_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -192,11 +176,11 @@ public class MainActivity extends AppCompatActivity {
                    display_time_selected.setVisibility(View.INVISIBLE);
                    timer_text.setVisibility(View.VISIBLE);
                    videoView.setVisibility(View.VISIBLE);
-                 /*  progressDialog = new ProgressDialog(getApplicationContext());
+
                    progressDialog.setTitle("Loading Video");
                    progressDialog.setMessage("Please Hold on");
                    progressDialog.setCancelable(false);
-                   progressDialog.show();*/
+                   progressDialog.show();
                   // Intent intent = new Intent(MainActivity.this,VideoActivity.class);
                   // startActivity(intent);
                    videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -210,13 +194,17 @@ public class MainActivity extends AppCompatActivity {
                    videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                        @Override
                        public void onPrepared(MediaPlayer mp) {
-
-
+                           progressDialog.dismiss();
                            dr = mp.getDuration();
                            int duration = mp.getDuration() / 1000;
                            int hours = duration / 3600;
                            int minutes = (duration / 60) - (hours * 60);
                            int seconds = duration - (hours * 3600) - (minutes * 60);
+                           int videoWidth = videoView.getLayoutParams().width;
+                           int videoHeight = videoView.getLayoutParams().height;
+                           Log.d(TAG, "onPrepared: video Width "+videoWidth);
+                           Log.d(TAG, "onPrepared: video Height "+videoHeight);
+
                            String formatted = String.format("%d:%02d:%02d", hours, minutes, seconds);
                            Toast.makeText(getApplicationContext(), "duration is " + formatted, Toast.LENGTH_LONG).show();
                            if (position == 0) {

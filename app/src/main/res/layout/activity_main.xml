@@ -33,15 +33,19 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/blueColor"
         android:visibility="invisible"
-        android:text="Timer "
+        android:text=" "
         />
 
     <VideoView
         android:id="@+id/videoViewV"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="250dp"
         android:visibility="invisible"
         />
 
@@ -86,6 +90,13 @@
         android:textColor="#ffffff"
         android:text="@string/stop_jap"
          />
+    <Button
+        android:id="@+id/nextActivity"
+        android:text="Meditation Activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        />
 
 
     <TextView
