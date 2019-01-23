@@ -51,6 +51,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:text="Start Jap"
+        android:textColor="#ffffff"
+        android:background="@drawable/background"
+
         />
     <Button
         android:id="@+id/stopJap"
@@ -58,6 +61,8 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        android:background="@drawable/background"
+        android:textColor="#ffffff"
         android:text="@string/stop_jap"
          />
 
@@ -68,6 +73,7 @@
         android:textSize="30sp"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
+        android:visibility="invisible"
         android:text="Timer "
         />
     <TextView

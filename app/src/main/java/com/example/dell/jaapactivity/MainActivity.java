@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     String selectedItemFromOptions;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String OPTION_PREFERENCE = "OptionPref";
-    public static final String selcted_item = "item_selected";
+    public static final String selected_item = "item_selected";
     public static final String Time_in_minutes = "timeKey";
     private static final String TAG = "MainActivity";
     @Override
@@ -93,13 +93,12 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final String item = parent.getItemAtPosition(position).toString();
                 optionEditor = optionSelectedPreference.edit();
-                optionEditor.putString(selcted_item,item);
+                optionEditor.putString(selected_item,item);
                 optionEditor.commit();
              //   Toast.makeText(MainActivity.this,"You selected "+item,Toast.LENGTH_SHORT).show();
                 final String[] time = {"5","10","15","20","25","30"};
                 if(item.equalsIgnoreCase("by Time")){
                   //  Toast.makeText(MainActivity.this,"by Time Clicked"+item,Toast.LENGTH_SHORT).show();
-                    builder.setTitle("Choose your time for Jap");
                     builder.setItems(time, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -116,9 +115,12 @@ public class MainActivity extends AppCompatActivity {
 
                     });
                    AlertDialog alertDialog = builder.create();
-                   alertDialog.setTitle("Choose");
+                   alertDialog.setTitle("Choose Time for Jap (in Minutes)");
                    alertDialog.show();
 
+                }
+                else{
+                    display_time_selcted.setVisibility(View.INVISIBLE);
                 }
               /*  else if(item.equalsIgnoreCase("with Pujya Gurudev")){
                     Intent intent = new Intent(MainActivity.this,VideoActivity.class);
@@ -141,11 +143,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 optionSelectedPreference = getSharedPreferences(OPTION_PREFERENCE,Context.MODE_PRIVATE);
-                selectedItemFromOptions = optionSelectedPreference.getString(selcted_item,"Choose Options");
+                selectedItemFromOptions = optionSelectedPreference.getString(selected_item,"Choose Options");
                 Log.d(TAG, "onClick: Selected Item "+ selectedItemFromOptions);
 
                if(selectedItemFromOptions.equalsIgnoreCase("by Time")){
-
+                   timer_text.setVisibility(View.VISIBLE);
                    sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
                    Long timer_time = sharedPreferences.getLong(Time_in_minutes,10);
                    myCountdownTimer = new MyCountdownTimer(timer_time,100);
@@ -154,11 +156,13 @@ public class MainActivity extends AppCompatActivity {
                }
                else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")){
                    display_time_selcted.setVisibility(View.INVISIBLE);
+                   timer_text.setVisibility(View.INVISIBLE);
                    Intent intent = new Intent(MainActivity.this,VideoActivity.class);
                    startActivity(intent);
                }
                else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
                    display_time_selcted.setVisibility(View.INVISIBLE);
+                   timer_text.setVisibility(View.INVISIBLE);
                    Intent intent = new Intent(MainActivity.this,VideoActivity.class);
                    startActivity(intent);
                }
@@ -189,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         stopJap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                display_time_selcted.setVisibility(View.INVISIBLE);
                 timer_text.setText("00:00:00");
                 myCountdownTimer.cancel();
 
