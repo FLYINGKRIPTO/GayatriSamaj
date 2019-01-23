@@ -3,6 +3,7 @@ package com.example.dell.jaapactivity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -20,7 +21,6 @@ import android.widget.TextView;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
-    Spinner time_spinner;
     Spinner options_spinner;
     MyCountdownTimer myCountdownTimer;
     TextView timer_text;
@@ -28,31 +28,31 @@ public class MainActivity extends AppCompatActivity {
     Long time_in_minutes = 0l;
     Long time_in_milli = 0l;
     Button stopJap;
-    Button withGurudev;
-    Button withMataji;
     TextView time_textView_store;
+    TextView display_time_selcted;
     SharedPreferences sharedPreferences;
+    SharedPreferences optionSelectedPreference;
     SharedPreferences.Editor editor;
+    SharedPreferences.Editor optionEditor;
     AlertDialog.Builder builder;
+    String selectedItemFromOptions;
     public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String OPTION_PREFERENCE = "OptionPref";
+    public static final String selcted_item = "item_selected";
     public static final String Time_in_minutes = "timeKey";
     private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        time_spinner = findViewById(R.id.byTime);
         time_textView_store = findViewById(R.id.time_text);
         timer_text = findViewById(R.id.timer_textView);
         startJap = findViewById(R.id.startJap);
-        withGurudev = findViewById(R.id.withPujyaGurudev);
-        withMataji = findViewById(R.id.withMataji);
         stopJap = findViewById(R.id.stopJap);
+        display_time_selcted = findViewById(R.id.display_selected_time);
         options_spinner = findViewById(R.id.options);
         //creating adapter for spinner
-        final ArrayAdapter<CharSequence> timeAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.timelist,android.R.layout.simple_spinner_item);
-        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        time_spinner.setAdapter(timeAdapter);
+
 
         final ArrayAdapter<CharSequence> optionsAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.japOptions,android.R.layout.simple_spinner_item);
         optionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         builder = new AlertDialog.Builder(this);
 
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        optionSelectedPreference = getSharedPreferences(OPTION_PREFERENCE,Context.MODE_PRIVATE);
 
    /*     time_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -91,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 final String item = parent.getItemAtPosition(position).toString();
+                optionEditor = optionSelectedPreference.edit();
+                optionEditor.putString(selcted_item,item);
+                optionEditor.commit();
              //   Toast.makeText(MainActivity.this,"You selected "+item,Toast.LENGTH_SHORT).show();
                 final String[] time = {"5","10","15","20","25","30"};
                 if(item.equalsIgnoreCase("by Time")){
@@ -100,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             time_in_minutes = Long.parseLong(time[which]);
+                            display_time_selcted.setVisibility(View.VISIBLE);
+                            display_time_selcted.setText((time_in_minutes).toString()+" Minutes ");
                             time_in_milli = time_in_minutes*60000;
                             Log.d(TAG, "onClick: Time selected :" + time_in_milli + " milliseconds");
                             editor = sharedPreferences.edit();
@@ -114,7 +120,15 @@ public class MainActivity extends AppCompatActivity {
                    alertDialog.show();
 
                 }
-
+              /*  else if(item.equalsIgnoreCase("with Pujya Gurudev")){
+                    Intent intent = new Intent(MainActivity.this,VideoActivity.class);
+                    startActivity(intent);
+                }
+                else if(item.equalsIgnoreCase("with Pujya Mataji")){
+                    Intent intent = new Intent(MainActivity.this,VideoActivity.class);
+                    startActivity(intent);
+                }
+           */
             }
 
             @Override
@@ -122,26 +136,35 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        withGurudev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-            }
-        });
-        withMataji.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         startJap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-                Long timer_time = sharedPreferences.getLong(Time_in_minutes,10);
-                myCountdownTimer = new MyCountdownTimer(timer_time,100);
-                myCountdownTimer.start();
+                optionSelectedPreference = getSharedPreferences(OPTION_PREFERENCE,Context.MODE_PRIVATE);
+                selectedItemFromOptions = optionSelectedPreference.getString(selcted_item,"Choose Options");
+                Log.d(TAG, "onClick: Selected Item "+ selectedItemFromOptions);
+
+               if(selectedItemFromOptions.equalsIgnoreCase("by Time")){
+
+                   sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                   Long timer_time = sharedPreferences.getLong(Time_in_minutes,10);
+                   myCountdownTimer = new MyCountdownTimer(timer_time,100);
+                   myCountdownTimer.start();
+
+               }
+               else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")){
+                   display_time_selcted.setVisibility(View.INVISIBLE);
+                   Intent intent = new Intent(MainActivity.this,VideoActivity.class);
+                   startActivity(intent);
+               }
+               else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
+                   display_time_selcted.setVisibility(View.INVISIBLE);
+                   Intent intent = new Intent(MainActivity.this,VideoActivity.class);
+                   startActivity(intent);
+               }
+
+
+
               /*) time_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

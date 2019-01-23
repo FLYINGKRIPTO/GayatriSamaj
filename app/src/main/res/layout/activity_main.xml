@@ -17,21 +17,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select time period"
+        android:text="Select Mode of Jap"
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         />
-    <Spinner
-        android:id="@+id/byTime"
-        android:layout_marginTop="5dp"
-        android:prompt="@string/time_prompt"
-        android:layout_width="250dp"
-        android:layout_marginStart="30dp"
-        android:layout_height="50dp">
-        
-    </Spinner>
+
     <Spinner
         android:id="@+id/options"
         android:layout_width="250dp"
@@ -41,21 +33,17 @@
         >
 
     </Spinner>
-    <Button
-        android:id="@+id/withPujyaGurudev"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="With Pujya Gurudev "
-        android:layout_marginTop="20dp"
+    <TextView
+        android:id="@+id/display_selected_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize = "20sp"
         android:layout_marginStart="30dp"
+        android:visibility="invisible"
+        android:layout_marginTop="30dp"
+
         />
-    <Button
-        android:id="@+id/withMataji"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="30dp"
-        android:text="With Vandaniya Mataji"
-        />
+
     <Button
         android:id="@+id/startJap"
         android:layout_width="200dp"
