@@ -2,18 +2,20 @@ package com.example.dell.jaapactivity;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,14 +25,18 @@ public class MainActivity extends AppCompatActivity {
     MyCountdownTimer myCountdownTimer;
     TextView timer_text;
     Button startJap;
+    Long time_in_minutes = 0l;
+    Long time_in_milli = 0l;
     Button stopJap;
     Button withGurudev;
     Button withMataji;
     TextView time_textView_store;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    AlertDialog.Builder builder;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String Time_in_minutes = "timeKey";
+    private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
         optionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         options_spinner.setAdapter(optionsAdapter);
 
+        builder = new AlertDialog.Builder(this);
+
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        time_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+   /*     time_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -78,8 +86,42 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+*/
+        options_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                final String item = parent.getItemAtPosition(position).toString();
+             //   Toast.makeText(MainActivity.this,"You selected "+item,Toast.LENGTH_SHORT).show();
+                final String[] time = {"5","10","15","20","25","30"};
+                if(item.equalsIgnoreCase("by Time")){
+                  //  Toast.makeText(MainActivity.this,"by Time Clicked"+item,Toast.LENGTH_SHORT).show();
+                    builder.setTitle("Choose your time for Jap");
+                    builder.setItems(time, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            time_in_minutes = Long.parseLong(time[which]);
+                            time_in_milli = time_in_minutes*60000;
+                            Log.d(TAG, "onClick: Time selected :" + time_in_milli + " milliseconds");
+                            editor = sharedPreferences.edit();
+                            editor.putLong(Time_in_minutes,time_in_milli);
+                            editor.commit();
 
+                        }
 
+                    });
+                   AlertDialog alertDialog = builder.create();
+                   alertDialog.setTitle("Choose");
+                   alertDialog.show();
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         withGurudev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +171,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
     public class MyCountdownTimer extends CountDownTimer {
 
         /**
