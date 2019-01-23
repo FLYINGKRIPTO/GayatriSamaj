@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 final String item = parent.getItemAtPosition(position).toString();
                 optionEditor = optionSelectedPreference.edit();
                 optionEditor.putString(selected_item,item);
-                optionEditor.commit();
+                optionEditor.apply();
              //   Toast.makeText(MainActivity.this,"You selected "+item,Toast.LENGTH_SHORT).show();
                 final String[] time = {"5","10","15","20","25","30"};
                 if(item.equalsIgnoreCase("by Time")){
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "onClick: Time selected :" + time_in_milli + " milliseconds");
                             editor = sharedPreferences.edit();
                             editor.putLong(Time_in_minutes,time_in_milli);
-                            editor.commit();
+                            editor.apply();
 
                         }
 
@@ -269,72 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        //copied from second Activity
-
-/*
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                Toast.makeText(getApplicationContext(), "Video over", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-
-                progressDialog.dismiss();
-                dr = mp.getDuration();
-                int duration = mp.getDuration() / 1000;
-                int hours = duration / 3600;
-                int minutes = (duration / 60) - (hours * 60);
-                int seconds = duration - (hours * 3600) - (minutes * 60);
-                String formatted = String.format("%d:%02d:%02d", hours, minutes, seconds);
-                Toast.makeText(getApplicationContext(), "duration is " + formatted, Toast.LENGTH_LONG).show();
-                if (position == 0) {
-                    videoView.start();
-                    myCountdownTimer = new MyCountdownTimer(dr, 100);
-                    myCountdownTimer.start();
-
-                }
-            }
-        });
-
-        videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                Log.d(TAG, "onError: \"API123\", \"What \" + what + \" extra \" + extra");
-                return false;
-            }
-        });
-        videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-            @Override
-            public boolean onInfo(MediaPlayer mp, int what, int extra) {
-                switch (what) {
-                    case MediaPlayer.MEDIA_INFO_BUFFERING_START:
-                        Log.d(TAG, "onInfo: "+timerTextView.getText());
-                        Log.d(TAG, "onInfo: "+timeInMilliTextView.getText());
-                        time_in_milli_to_store = Long.parseLong((String) timeInMilliTextView.getText());
-                        myCountdownTimer.cancel();
-                        //   case MediaPlayer.MEDIA_INFO_BUFFERING_END:
-                        //       myCountdownTimer.start();
-                    case MediaPlayer.MEDIA_INFO_BUFFERING_END:
-                        myCountdownTimer.cancel();
-                        myNewCountdownTimer = new MyCountdownTimer(time_in_milli_to_store,100);
-                        myNewCountdownTimer.onTick(time_in_milli_to_store);
-                        myNewCountdownTimer.start();
-
-                }
-
-                return false;
-            }
-        });
-
-*/
     }
-
     public class MyCountdownTimer extends CountDownTimer {
 
         /**
@@ -360,8 +295,6 @@ public class MainActivity extends AppCompatActivity {
         public void onFinish() {
 
         }
-
-
     }
     public void sendNotification(String timer){
         NotificationCompat.Builder mNotification = new NotificationCompat.Builder(getApplicationContext())
@@ -374,7 +307,4 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(1,mNotification.build());
 
     }
-
-
-
 }
