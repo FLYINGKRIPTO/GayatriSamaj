@@ -1,10 +1,12 @@
 package com.example.dell.jaapactivity;
 
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.NotificationCompat;
@@ -17,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     Long time_in_milli = 0l;
     Button stopJap;
     TextView time_textView_store;
-    TextView display_time_selcted;
+    TextView display_time_selected;
     SharedPreferences sharedPreferences;
     SharedPreferences optionSelectedPreference;
     SharedPreferences.Editor editor;
@@ -41,6 +45,17 @@ public class MainActivity extends AppCompatActivity {
     public static final String selected_item = "item_selected";
     public static final String Time_in_minutes = "timeKey";
     private static final String TAG = "MainActivity";
+
+    // Instance Variables from video activity
+    TextView timerTextView;
+    VideoView videoView;
+    TextView timeInMilliTextView;
+    MyCountdownTimer myCountdownTimerNew;
+    MyCountdownTimer myNewCountdownTimer;
+    int dr= 0;
+    private ProgressDialog progressDialog;
+    private int position = 0;
+    public static  Long time_in_milli_to_store = 0l;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +64,27 @@ public class MainActivity extends AppCompatActivity {
         timer_text = findViewById(R.id.timer_textView);
         startJap = findViewById(R.id.startJap);
         stopJap = findViewById(R.id.stopJap);
-        display_time_selcted = findViewById(R.id.display_selected_time);
+        display_time_selected = findViewById(R.id.display_selected_time);
         options_spinner = findViewById(R.id.options);
-        //creating adapter for spinner
+
+        //Variables initialisation from video Activity
+       // timerTextView = findViewById(R.id.Jtimer);
+        videoView = findViewById(R.id.videoViewV);
+        timeInMilliTextView = findViewById(R.id.time_in_milli);
+
+      /*  final MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(videoView);*/
+
+
+     //   videoView.setMediaController(mediaController);
+        videoView.setVideoURI(Uri.parse("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
+        videoView.requestFocus();
+        videoView.canPause();
+      /*  progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading Video");
+        progressDialog.setMessage("Please Hold on");
+        progressDialog.setCancelable(false);
+        progressDialog.show();*/
 
 
         final ArrayAdapter<CharSequence> optionsAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.japOptions,android.R.layout.simple_spinner_item);
@@ -87,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+
 */
         options_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -103,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             time_in_minutes = Long.parseLong(time[which]);
-                            display_time_selcted.setVisibility(View.VISIBLE);
-                            display_time_selcted.setText((time_in_minutes).toString()+" Minutes ");
+                            display_time_selected.setVisibility(View.VISIBLE);
+                            display_time_selected.setText((time_in_minutes).toString()+" Minutes ");
                             time_in_milli = time_in_minutes*60000;
                             Log.d(TAG, "onClick: Time selected :" + time_in_milli + " milliseconds");
                             editor = sharedPreferences.edit();
@@ -120,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 else{
-                    display_time_selcted.setVisibility(View.INVISIBLE);
+                    display_time_selected.setVisibility(View.INVISIBLE);
                 }
               /*  else if(item.equalsIgnoreCase("with Pujya Gurudev")){
                     Intent intent = new Intent(MainActivity.this,VideoActivity.class);
@@ -155,51 +189,162 @@ public class MainActivity extends AppCompatActivity {
 
                }
                else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")){
-                   display_time_selcted.setVisibility(View.INVISIBLE);
-                   timer_text.setVisibility(View.INVISIBLE);
-                   Intent intent = new Intent(MainActivity.this,VideoActivity.class);
-                   startActivity(intent);
+                   display_time_selected.setVisibility(View.INVISIBLE);
+                   timer_text.setVisibility(View.VISIBLE);
+                   videoView.setVisibility(View.VISIBLE);
+                 /*  progressDialog = new ProgressDialog(getApplicationContext());
+                   progressDialog.setTitle("Loading Video");
+                   progressDialog.setMessage("Please Hold on");
+                   progressDialog.setCancelable(false);
+                   progressDialog.show();*/
+                  // Intent intent = new Intent(MainActivity.this,VideoActivity.class);
+                  // startActivity(intent);
+                   videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                       @Override
+                       public void onCompletion(MediaPlayer mp) {
+                           Toast.makeText(getApplicationContext(), "Video over", Toast.LENGTH_SHORT).show();
+
+                       }
+                   });
+
+                   videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                       @Override
+                       public void onPrepared(MediaPlayer mp) {
+
+
+                           dr = mp.getDuration();
+                           int duration = mp.getDuration() / 1000;
+                           int hours = duration / 3600;
+                           int minutes = (duration / 60) - (hours * 60);
+                           int seconds = duration - (hours * 3600) - (minutes * 60);
+                           String formatted = String.format("%d:%02d:%02d", hours, minutes, seconds);
+                           Toast.makeText(getApplicationContext(), "duration is " + formatted, Toast.LENGTH_LONG).show();
+                           if (position == 0) {
+                               videoView.start();
+                               myCountdownTimer = new MyCountdownTimer(dr, 100);
+                               myCountdownTimer.start();
+
+                           }
+                       }
+                   });
+
+                   videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                       @Override
+                       public boolean onError(MediaPlayer mp, int what, int extra) {
+                           Log.d(TAG, "onError: \"API123\", \"What \" + what + \" extra \" + extra");
+                           return false;
+                       }
+                   });
+                   videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+                       @Override
+                       public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                          /* switch (what) {
+                               case MediaPlayer.MEDIA_INFO_BUFFERING_START:
+                                   Log.d(TAG, "onInfo: "+timerTextView.getText());
+                                   Log.d(TAG, "onInfo: "+timeInMilliTextView.getText());
+                                   //time_in_milli_to_store = Long.parseLong((String) timeInMilliTextView.getText());
+                                  // myCountdownTimer.cancel();
+                                   //   case MediaPlayer.MEDIA_INFO_BUFFERING_END:
+                                   //       myCountdownTimer.start();
+                               case MediaPlayer.MEDIA_INFO_BUFFERING_END:
+                                  // myCountdownTimer.cancel();
+                                 //  myNewCountdownTimer = new MyCountdownTimer(time_in_milli_to_store,100);
+                                  // myNewCountdownTimer.onTick(time_in_milli_to_store);
+                                  // myNewCountdownTimer.start();
+
+                           }*/
+
+                           return false;
+                       }
+
+                   });
+
+
                }
                else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
-                   display_time_selcted.setVisibility(View.INVISIBLE);
+                   display_time_selected.setVisibility(View.INVISIBLE);
                    timer_text.setVisibility(View.INVISIBLE);
-                   Intent intent = new Intent(MainActivity.this,VideoActivity.class);
-                   startActivity(intent);
+                   videoView.setVisibility(View.VISIBLE);
+                   //Intent intent = new Intent(MainActivity.this,VideoActivity.class);
+                   //startActivity(intent);
                }
-
-
-
-              /*) time_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        String item = parent.getItemAtPosition(position).toString();
-                        Long time = Long.parseLong(item);
-                        Long time_in_minutes = time*60000;
-                        time_textView_store.setText(time+"");
-                        Toast.makeText(getApplicationContext(),"You selected : "+time,Toast.LENGTH_SHORT).show();
-                        myCountdownTimer = new MyCountdownTimer(time_in_minutes,100);
-                        myCountdownTimer.start();
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });*/
-
 
             }
         });
         stopJap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                display_time_selcted.setVisibility(View.INVISIBLE);
+                display_time_selected.setVisibility(View.INVISIBLE);
+                videoView.stopPlayback();
                 timer_text.setText("00:00:00");
                 myCountdownTimer.cancel();
 
             }
         });
 
+        //copied from second Activity
+
+/*
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                Toast.makeText(getApplicationContext(), "Video over", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+
+                progressDialog.dismiss();
+                dr = mp.getDuration();
+                int duration = mp.getDuration() / 1000;
+                int hours = duration / 3600;
+                int minutes = (duration / 60) - (hours * 60);
+                int seconds = duration - (hours * 3600) - (minutes * 60);
+                String formatted = String.format("%d:%02d:%02d", hours, minutes, seconds);
+                Toast.makeText(getApplicationContext(), "duration is " + formatted, Toast.LENGTH_LONG).show();
+                if (position == 0) {
+                    videoView.start();
+                    myCountdownTimer = new MyCountdownTimer(dr, 100);
+                    myCountdownTimer.start();
+
+                }
+            }
+        });
+
+        videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.d(TAG, "onError: \"API123\", \"What \" + what + \" extra \" + extra");
+                return false;
+            }
+        });
+        videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+            @Override
+            public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                switch (what) {
+                    case MediaPlayer.MEDIA_INFO_BUFFERING_START:
+                        Log.d(TAG, "onInfo: "+timerTextView.getText());
+                        Log.d(TAG, "onInfo: "+timeInMilliTextView.getText());
+                        time_in_milli_to_store = Long.parseLong((String) timeInMilliTextView.getText());
+                        myCountdownTimer.cancel();
+                        //   case MediaPlayer.MEDIA_INFO_BUFFERING_END:
+                        //       myCountdownTimer.start();
+                    case MediaPlayer.MEDIA_INFO_BUFFERING_END:
+                        myCountdownTimer.cancel();
+                        myNewCountdownTimer = new MyCountdownTimer(time_in_milli_to_store,100);
+                        myNewCountdownTimer.onTick(time_in_milli_to_store);
+                        myNewCountdownTimer.start();
+
+                }
+
+                return false;
+            }
+        });
+
+*/
     }
 
     public class MyCountdownTimer extends CountDownTimer {

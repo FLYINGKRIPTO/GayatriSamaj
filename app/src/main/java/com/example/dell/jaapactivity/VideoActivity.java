@@ -1,7 +1,6 @@
 package com.example.dell.jaapactivity;
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,21 +20,13 @@ public class VideoActivity extends AppCompatActivity {
     TextView timeInMilliTextView;
     MyCountdownTimer myCountdownTimer;
     MyCountdownTimer myNewCountdownTimer;
-    CountDownTimer countDownTimer;
-    int videoTime = 0;
     int dr= 0;
-    boolean videoState = true;
     private ProgressDialog progressDialog;
     private int position = 0;
-    SharedPreferences shpre;
-    SharedPreferences.Editor shpreEditor;
     private static final String TAG = "VideoActivity";
-    public static final String PREFERENCE = "MyPreference";
-    public static final String Time_in_minutes = "timeKey";
     public static  Long time_in_milli_to_store = 0l;
 
 
-    //Vector<YouTubeVideos> youTubeVideos= new Vector<YouTubeVideos>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
