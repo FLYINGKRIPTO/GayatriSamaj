@@ -59,16 +59,20 @@ public class MeditationActivity extends AppCompatActivity {
                     }
 
                     mediaPlayer.start();
+                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                     soundTrackName.setText("No 1 Atam Bodh Dhyaan");
                 }
 
                 else if(playButtonPressCount==2){
+
                     mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_two);
                     if(pauseIsPressed){
                         mediaPlayer.seekTo(pausePosition);
                     }
                     soundTrackName.setText("No 2 Panchkosh Dhyaan");
                     mediaPlayer.start();
+                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+
                 }
                 else if(playButtonPressCount==3){
                     mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_three);
@@ -77,22 +81,30 @@ public class MeditationActivity extends AppCompatActivity {
                     }
                     soundTrackName.setText("No 3 Sharir Dhyaan");
                     mediaPlayer.start();
+                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+
                 }
                 else if(playButtonPressCount==4){
+
                     mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_four);
                     if(pauseIsPressed){
                         mediaPlayer.seekTo(pausePosition);
                     }
                     soundTrackName.setText("No 4 Amrit Varsha Dhyaan");
                     mediaPlayer.start();
+                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+
                 }
                 else if(playButtonPressCount==5){
+
                     mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_five);
                     if(pauseIsPressed){
                         mediaPlayer.seekTo(pausePosition);
                     }
                     soundTrackName.setText("No 5 Jyoti Avdhrnam Dhyaan");
                     mediaPlayer.start();
+                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+
                 }
                 else if(playButtonPressCount==6){
                     mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_six);
@@ -101,8 +113,11 @@ public class MeditationActivity extends AppCompatActivity {
                     }
                     soundTrackName.setText("No 6 Naad yog Dhyaan ");
                     mediaPlayer.start();
+                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+
                 }
                 else if(playButtonPressCount==7){
+
                     mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_seven);
                     if(pauseIsPressed){
                         mediaPlayer.seekTo(pausePosition);
@@ -110,7 +125,7 @@ public class MeditationActivity extends AppCompatActivity {
                     soundTrackName.setText("No 7 Tatv Bodh Dhyaan");
                     playButtonPressCount=0;
                     mediaPlayer.start();
-
+                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                 }
 
             }
@@ -129,6 +144,8 @@ public class MeditationActivity extends AppCompatActivity {
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pauseIsPressed = false;
+                pausePosition = 0;
                 mediaPlayer.stop();
             }
         });
