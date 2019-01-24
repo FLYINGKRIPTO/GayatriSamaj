@@ -31,7 +31,7 @@ public class JapDatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_WAITLIST_TABLE = "CREATE TABLE " +
                 WaitListEntry.TABLE_JAP_DATA + " ("
-                +WaitListEntry.KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                +WaitListEntry.KEY_ID +" INTEGER , "
                 +WaitListEntry.KEY_TYPE +" TEXT NOT NULL, "
                 +WaitListEntry.KEY_TIME +" INTEGER, "
                 +WaitListEntry.HAS_VIDEO +" INTEGER, "
@@ -47,7 +47,7 @@ public class JapDatabaseHandler extends SQLiteOpenHelper {
 
     }
     //code to add new Jap Data
-    void addJapData(JapData japData){
+    public long addJapData(JapData japData){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_ID,japData.getId());
@@ -57,8 +57,9 @@ public class JapDatabaseHandler extends SQLiteOpenHelper {
         values.put(VIDEO_URL,japData.getVideoURl());
 
         //inserting row
-        db.insert(TABLE_JAP_DATA,null,values);
-        db.close();
+
+         return db.insert(TABLE_JAP_DATA,null,values);
+
     }
 
     //code to get all japData in a list view

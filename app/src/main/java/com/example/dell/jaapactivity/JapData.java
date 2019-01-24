@@ -10,13 +10,14 @@ public class JapData {
     public JapData(){
 
     }
-    public JapData(int id, String type, Long time, int hasVideo, String videoURl){
-        this.id = id;
-        this.type = type;
-        this.time = time;
-        this.hasVideo = hasVideo;
-        this.videoURl = videoURl;
 
+    public JapData(int hasVideo,int id,Long time,String type,String videoURl){
+
+        this.hasVideo = hasVideo;
+        this.id = id;
+        this.time = time;
+        this.type= type;
+        this.videoURl = videoURl;
     }
     public int getId() {
         return id;
@@ -26,6 +27,7 @@ public class JapData {
         this.id = id;
     }
 
+
     public String getType() {
         return type;
     }
@@ -33,6 +35,8 @@ public class JapData {
     public void setType(String type) {
         this.type = type;
     }
+
+
 
     public Long getTime() {
         return time;
@@ -42,6 +46,8 @@ public class JapData {
         this.time = time;
     }
 
+
+
     public int isHasVideo() {
         return hasVideo;
     }
@@ -49,6 +55,8 @@ public class JapData {
     public void setHasVideo(int hasVideo) {
         this.hasVideo = hasVideo;
     }
+
+
 
     public String getVideoURl() {
         return videoURl;

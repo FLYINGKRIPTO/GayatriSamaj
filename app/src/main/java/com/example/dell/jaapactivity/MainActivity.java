@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     VideoView videoView;
     TextView timeInMilliTextView;;
     int dr= 0;
+    int primaryKey = 0;
     private ProgressDialog progressDialog;
     private int position = 0;
     public static  Long time_in_milli_to_store = 0l;
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 item = parent.getItemAtPosition(position).toString();
+                Log.d(TAG, "onItemSelected: item selected "+item);
                 optionEditor = optionSelectedPreference.edit();
                 optionEditor.putString(selected_item,item);
                 optionEditor.apply();
@@ -134,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     builder.setItems(time, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            primaryKey++;
                             time_in_minutes = Long.parseLong(time[which]);
                             display_time_selected.setVisibility(View.VISIBLE);
                             display_time_selected.setText((time_in_minutes).toString()+" Minutes ");
@@ -142,6 +146,15 @@ public class MainActivity extends AppCompatActivity {
                             editor = sharedPreferences.edit();
                             editor.putLong(Time_in_minutes,time_in_milli);
                             editor.apply();
+                            long inserted =   db.addJapData(new JapData(0,primaryKey,time_in_minutes,item,"null"));
+                            Log.d(TAG, "onClick: Row inserted "+ inserted);
+                            List<JapData> japDataList = db.getAllJapData();
+                             for(JapData jp : japDataList){
+                                 String log = "Id: " + jp.getId() + " ,Type : " + jp.getType() + " ,Time: " +
+                                         jp.getTime() + ", Has Video :"+ jp.isHasVideo() +", Video Url :" + jp.getVideoURl();
+                                 // Writing Contacts to log
+                                 Log.d("Name: ", log);
+                             }
 
                         }
 
@@ -149,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
                    AlertDialog alertDialog = builder.create();
                    alertDialog.setTitle("Choose Time for Jap (in Minutes)");
                    alertDialog.show();
-
 
                 }
                 else if(item.equalsIgnoreCase("by Mala")){
@@ -164,9 +176,12 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     display_time_selected.setVisibility(View.INVISIBLE);
                 }
-                db.addJapData(new JapData(0,item,time_in_minutes,0,null));
+            //    db.addJapData(new JapData(0,item,time_in_minutes,0,""));
+
 
             }
+
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
