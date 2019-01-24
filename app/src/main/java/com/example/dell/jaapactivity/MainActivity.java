@@ -13,11 +13,13 @@ import android.os.CountDownTimer;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String selected_item = "item_selected";
     public static final String Time_in_minutes = "timeKey";
     private static final String TAG = "MainActivity";
+    EditText userInput;
 
     // Instance Variables from video activity
     TextView timerTextView;
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Database
     JapDatabaseHandler db = new JapDatabaseHandler(this);
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         display_time_selected = findViewById(R.id.display_selected_time);
         options_spinner = findViewById(R.id.options);
         meditationActivity = findViewById(R.id.nextActivity);
+        userInput = new EditText(this);
+        userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
         //Meditation activity intent
         meditationActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,11 +104,6 @@ public class MainActivity extends AppCompatActivity {
         videoView.requestFocus();
         videoView.canPause();
         progressDialog = new ProgressDialog(MainActivity.this);
-      /*  progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading Video");
-        progressDialog.setMessage("Please Hold on");
-        progressDialog.setCancelable(false);
-        progressDialog.show();*/
 
          //Spinner items array
         final ArrayAdapter<CharSequence> optionsAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.japOptions,android.R.layout.simple_spinner_item);
@@ -133,8 +134,48 @@ public class MainActivity extends AppCompatActivity {
                 // if statement if user clicks option by Time
                 if(item.equalsIgnoreCase("by Time")){
                     videoUrl = null;
+
+                    builder.setView(userInput);
+
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            primaryKey++;
+                            time_in_minutes = Long.parseLong(String.valueOf(userInput.getText()));
+                           // time_in_minutes = Long.parseLong(time[which]);
+                            display_time_selected.setVisibility(View.VISIBLE);
+                            display_time_selected.setText((time_in_minutes).toString() + " Minutes ");
+                            time_in_milli = time_in_minutes * 60000;
+                            Log.d(TAG, "onClick: Time selected :" + time_in_milli + " milliseconds");
+                            editor = sharedPreferences.edit();
+                            editor.putLong(Time_in_minutes, time_in_milli);
+                            editor.apply();
+                            //adding data in the database
+                            long inserted = db.addJapData(new JapData(0, primaryKey, time_in_minutes, item, "null"));
+                            //displaying rows inserted
+                            Log.d(TAG, "onClick: Row inserted " + inserted);
+                            // Displaying all data in a list view
+                            List<JapData> japDataList = db.getAllJapData();
+                            for (JapData jp : japDataList) {
+                                String log = "Id: " + jp.getId() + " ,Type : " + jp.getType() + " ,Time: " +
+                                        jp.getTime() + ", Has Video :" + jp.isHasVideo() + ", Video Url :" + jp.getVideoURl();
+                                // Writing Contacts to log
+                                Log.d("Name: ", log);
+
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.setTitle("Enter Time for Jap (in Minutes)");
+                            alertDialog.show();
                   //  Toast.makeText(MainActivity.this,"by Time Clicked"+item,Toast.LENGTH_SHORT).show();
-                    builder.setItems(time, new DialogInterface.OnClickListener() {
+                  /*  builder.setItems(time, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             primaryKey++;
@@ -146,8 +187,11 @@ public class MainActivity extends AppCompatActivity {
                             editor = sharedPreferences.edit();
                             editor.putLong(Time_in_minutes,time_in_milli);
                             editor.apply();
+                            //adding data in the database
                             long inserted =   db.addJapData(new JapData(0,primaryKey,time_in_minutes,item,"null"));
+                            //displaying rows inserted
                             Log.d(TAG, "onClick: Row inserted "+ inserted);
+                            // Displaying all data in a list view
                             List<JapData> japDataList = db.getAllJapData();
                              for(JapData jp : japDataList){
                                  String log = "Id: " + jp.getId() + " ,Type : " + jp.getType() + " ,Time: " +
@@ -158,10 +202,8 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-                    });
-                   AlertDialog alertDialog = builder.create();
-                   alertDialog.setTitle("Choose Time for Jap (in Minutes)");
-                   alertDialog.show();
+                    });*/
+
 
                 }
                 else if(item.equalsIgnoreCase("by Mala")){
