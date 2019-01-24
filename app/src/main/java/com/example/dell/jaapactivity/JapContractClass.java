@@ -7,9 +7,9 @@ public class JapContractClass {
         public static final String TABLE_JAP_DATA = "japData";
         public static final String KEY_ID = "id";
         public static final String KEY_TYPE = "type";
-        public static final Long KEY_TIME = 0l;
-        public static final String VIDEO_URL = null;
-        public static final boolean HAS_VIDEO = false;
+        public static final String KEY_TIME = "time";
+        public static final String HAS_VIDEO = "hasVideo";
+        public static final String VIDEO_URL = "videoUrl";
 
     }
 }

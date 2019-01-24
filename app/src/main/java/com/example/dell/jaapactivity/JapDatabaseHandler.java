@@ -32,9 +32,9 @@ public class JapDatabaseHandler extends SQLiteOpenHelper {
         final String SQL_CREATE_WAITLIST_TABLE = "CREATE TABLE " +
                 WaitListEntry.TABLE_JAP_DATA + " ("
                 +WaitListEntry.KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
-                +WaitListEntry.KEY_TYPE + " TEXT NOT NULL, "
-                +WaitListEntry.KEY_TIME + " LONG NOT NULL, "
-                +WaitListEntry.HAS_VIDEO + " INTEGER "
+                +WaitListEntry.KEY_TYPE +" TEXT NOT NULL, "
+                +WaitListEntry.KEY_TIME +" INTEGER, "
+                +WaitListEntry.HAS_VIDEO +" INTEGER, "
                 +WaitListEntry.VIDEO_URL + " TEXT); ";
 
         db.execSQL(SQL_CREATE_WAITLIST_TABLE);
@@ -52,8 +52,8 @@ public class JapDatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_ID,japData.getId());
         values.put(KEY_TYPE,japData.getType());
-        values.put(String.valueOf(KEY_TIME),japData.getTime());
-        values.put(String.valueOf(HAS_VIDEO),japData.isHasVideo());
+        values.put(KEY_TIME,japData.getTime());
+        values.put(HAS_VIDEO,japData.isHasVideo());
         values.put(VIDEO_URL,japData.getVideoURl());
 
         //inserting row

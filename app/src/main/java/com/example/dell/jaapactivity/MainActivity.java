@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog.Builder builder;
     String selectedItemFromOptions;
     String videoUrl = null;
+    String item = null;
     Button meditationActivity;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String OPTION_PREFERENCE = "OptionPref";
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         display_time_selected = findViewById(R.id.display_selected_time);
         options_spinner = findViewById(R.id.options);
         meditationActivity = findViewById(R.id.nextActivity);
+        //Meditation activity intent
         meditationActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,25 +102,32 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();*/
 
-
+         //Spinner items array
         final ArrayAdapter<CharSequence> optionsAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.japOptions,android.R.layout.simple_spinner_item);
         optionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         options_spinner.setAdapter(optionsAdapter);
 
         builder = new AlertDialog.Builder(this);
 
+        //shared preferences for time
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        //shared preferences for option selected
         optionSelectedPreference = getSharedPreferences(OPTION_PREFERENCE,Context.MODE_PRIVATE);
 
+        //item click listener on option spinner
         options_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                final String item = parent.getItemAtPosition(position).toString();
+                item = parent.getItemAtPosition(position).toString();
                 optionEditor = optionSelectedPreference.edit();
                 optionEditor.putString(selected_item,item);
                 optionEditor.apply();
              //   Toast.makeText(MainActivity.this,"You selected "+item,Toast.LENGTH_SHORT).show();
                 final String[] time = {"5","10","15","20","25","30"};
+
+                //item click if statements
+                // if statement if user clicks option by Time
                 if(item.equalsIgnoreCase("by Time")){
                     videoUrl = null;
                   //  Toast.makeText(MainActivity.this,"by Time Clicked"+item,Toast.LENGTH_SHORT).show();
@@ -142,31 +151,28 @@ public class MainActivity extends AppCompatActivity {
                    alertDialog.show();
 
 
+                }
+                else if(item.equalsIgnoreCase("by Mala")){
+
+                }
+                else if(item.equalsIgnoreCase("with Pujya Gurudev")){
+
+                }
+                else if(item.equalsIgnoreCase("with Pujya Mataji")){
 
                 }
                 else{
                     display_time_selected.setVisibility(View.INVISIBLE);
                 }
-              /*  db.addJapData(new JapData(0,item,time_in_minutes,0,videoUrl));
+                db.addJapData(new JapData(0,item,time_in_minutes,0,null));
 
-                //Reading all Jap Data
-                List<JapData> japDataL = db.getAllJapData();
-                Log.d(TAG, "onItemSelected: jap data "+ japDataL);*/
-              /*  else if(item.equalsIgnoreCase("with Pujya Gurudev")){
-                    Intent intent = new Intent(MainActivity.this,VideoActivity.class);
-                    startActivity(intent);
-                }
-                else if(item.equalsIgnoreCase("with Pujya Mataji")){
-                    Intent intent = new Intent(MainActivity.this,VideoActivity.class);
-                    startActivity(intent);
-                }
-           */
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+
         });
 
         startJap.setOnClickListener(new View.OnClickListener() {
