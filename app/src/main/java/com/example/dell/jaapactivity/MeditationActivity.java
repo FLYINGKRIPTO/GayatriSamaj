@@ -44,7 +44,7 @@ public class MeditationActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                playButton.setEnabled(false);
                 playButtonPressCount++;
                 medSharedPreferences = getSharedPreferences(BUTTON_COUNT_PREFERENCE, Context.MODE_PRIVATE);
                 medEditor = medSharedPreferences.edit();
@@ -139,6 +139,7 @@ public class MeditationActivity extends AppCompatActivity {
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                playButton.setEnabled(true);
                 Log.d(TAG, "onClick: Pause Button Clicked");
                 playButtonPressCount--;
                 Log.d(TAG, "onClick: "+  mediaPlayer.getCurrentPosition());
@@ -150,21 +151,22 @@ public class MeditationActivity extends AppCompatActivity {
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                playButton.setEnabled(true);
                 pauseIsPressed = false;
                 pausePosition = 0;
+                Log.d(TAG, "onClick: stop button clicked "+mediaPlayer.getCurrentPosition()/1000 +" seconds" );
+
                 mediaPlayer.stop();
+
             }
         });
 
-
     }
-
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause: Method called");
-
     }
 
     @Override
@@ -178,7 +180,6 @@ public class MeditationActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "onStop: Method called");
-
     }
 
     @Override
