@@ -1,18 +1,16 @@
 package com.example.dell.jaapactivity;
 
-import java.net.URL;
-
 public class JapData {
     int id;
     String type;
     Long time;
-    boolean hasVideo;
-    URL videoURl;
+    int hasVideo;
+    String videoURl;
 
     public JapData(){
 
     }
-    public JapData(int id, String type, Long time, boolean hasVideo, URL videoURl){
+    public JapData(int id, String type, Long time, int hasVideo, String videoURl){
         this.id = id;
         this.type = type;
         this.time = time;
@@ -44,19 +42,19 @@ public class JapData {
         this.time = time;
     }
 
-    public boolean isHasVideo() {
+    public int isHasVideo() {
         return hasVideo;
     }
 
-    public void setHasVideo(boolean hasVideo) {
+    public void setHasVideo(int hasVideo) {
         this.hasVideo = hasVideo;
     }
 
-    public URL getVideoURl() {
+    public String getVideoURl() {
         return videoURl;
     }
 
-    public void setVideoURl(URL videoURl) {
+    public void setVideoURl(String videoURl) {
         this.videoURl = videoURl;
     }
 

@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences.Editor optionEditor;
     AlertDialog.Builder builder;
     String selectedItemFromOptions;
+    String videoUrl = null;
     Button meditationActivity;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String OPTION_PREFERENCE = "OptionPref";
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private int position = 0;
     public static  Long time_in_milli_to_store = 0l;
+
+    //Database
+    JapDatabaseHandler db = new JapDatabaseHandler(this);
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
              //   Toast.makeText(MainActivity.this,"You selected "+item,Toast.LENGTH_SHORT).show();
                 final String[] time = {"5","10","15","20","25","30"};
                 if(item.equalsIgnoreCase("by Time")){
+                    videoUrl = null;
                   //  Toast.makeText(MainActivity.this,"by Time Clicked"+item,Toast.LENGTH_SHORT).show();
                     builder.setItems(time, new DialogInterface.OnClickListener() {
                         @Override
@@ -136,10 +141,17 @@ public class MainActivity extends AppCompatActivity {
                    alertDialog.setTitle("Choose Time for Jap (in Minutes)");
                    alertDialog.show();
 
+
+
                 }
                 else{
                     display_time_selected.setVisibility(View.INVISIBLE);
                 }
+              /*  db.addJapData(new JapData(0,item,time_in_minutes,0,videoUrl));
+
+                //Reading all Jap Data
+                List<JapData> japDataL = db.getAllJapData();
+                Log.d(TAG, "onItemSelected: jap data "+ japDataL);*/
               /*  else if(item.equalsIgnoreCase("with Pujya Gurudev")){
                     Intent intent = new Intent(MainActivity.this,VideoActivity.class);
                     startActivity(intent);
@@ -172,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                    myCountdownTimer.start();
 
                }
+
                else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")){
                    display_time_selected.setVisibility(View.INVISIBLE);
                    timer_text.setVisibility(View.VISIBLE);
