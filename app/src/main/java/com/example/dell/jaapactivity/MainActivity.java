@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 // if statement if user clicks option by Time
                 if(item.equalsIgnoreCase("by Time")){
                     videoUrl = null;
-
                     builder.setView(userInput);
 
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -171,9 +170,10 @@ public class MainActivity extends AppCompatActivity {
 
                                         }
                                     });
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.setTitle("Enter Time for Jap (in Minutes)");
-                            alertDialog.show();
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.setTitle("Enter Time for Jap (in Minutes)");
+                    alertDialog.show();
+
                   //  Toast.makeText(MainActivity.this,"by Time Clicked"+item,Toast.LENGTH_SHORT).show();
                   /*  builder.setItems(time, new DialogInterface.OnClickListener() {
                         @Override
@@ -206,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }
+
                 else if(item.equalsIgnoreCase("by Mala")){
 
                 }
@@ -217,11 +218,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     display_time_selected.setVisibility(View.INVISIBLE);
+
                 }
             //    db.addJapData(new JapData(0,item,time_in_minutes,0,""));
 
 
             }
+
 
 
 
