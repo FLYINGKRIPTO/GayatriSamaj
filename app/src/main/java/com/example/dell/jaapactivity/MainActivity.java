@@ -1,5 +1,6 @@
 package com.example.dell.jaapactivity;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,10 +13,11 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,9 +30,10 @@ import android.widget.VideoView;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     Spinner options_spinner;
     MyCountdownTimer myCountdownTimer;
+    Context context;
     TextView timer_text;
     Button startJap;
     Long time_in_minutes = 0l;
@@ -42,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences optionSelectedPreference;
     SharedPreferences.Editor editor;
     SharedPreferences.Editor optionEditor;
-    AlertDialog.Builder builder;
     String selectedItemFromOptions;
     String videoUrl = null;
     String item = null;
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private int position = 0;
     public static  Long time_in_milli_to_store = 0l;
-
+    EditText JapTime;
     //Database
     JapDatabaseHandler db = new JapDatabaseHandler(this);
 
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         time_textView_store = findViewById(R.id.time_text);
+
         timer_text = findViewById(R.id.timer_textView);
         startJap = findViewById(R.id.startJap);
         stopJap = findViewById(R.id.stopJap);
@@ -82,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
         swadhyayActivity = findViewById(R.id.swadhyayButton);
         userInput = new EditText(this);
         userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        LayoutInflater li = LayoutInflater.from(this);
+        final View promptsView = li.inflate(R.layout.prompts,null);
+
+        //Alert Dialog builder
+
+
+        JapTime = promptsView.findViewById(R.id.editTextDialogUserInput);
         //Meditation activity intent
         meditationActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         optionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         options_spinner.setAdapter(optionsAdapter);
 
-        builder = new AlertDialog.Builder(this);
+
 
         //shared preferences for time
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -143,13 +154,18 @@ public class MainActivity extends AppCompatActivity {
                 // if statement if user clicks option by Time
                 if(item.equalsIgnoreCase("by Time")){
                     videoUrl = null;
-                    builder.setView(userInput);
-
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                   // builder.setView(promptsView);
+                    if(promptsView.getParent()!=null){
+                        ((ViewGroup)promptsView.getParent()).removeView(promptsView);
+                    }
+                    builder.setCancelable(false);
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             primaryKey++;
-                            time_in_minutes = Long.parseLong(String.valueOf(userInput.getText()));
+
+                            time_in_minutes = Long.parseLong(String.valueOf(JapTime.getText()));
                            // time_in_minutes = Long.parseLong(time[which]);
                             display_time_selected.setVisibility(View.VISIBLE);
                             display_time_selected.setText((time_in_minutes).toString() + " Minutes ");
@@ -177,12 +193,17 @@ public class MainActivity extends AppCompatActivity {
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-
+                                         dialog.cancel();
                                         }
                                     });
                     AlertDialog alertDialog = builder.create();
-                    alertDialog.setTitle("Enter Time for Jap (in Minutes)");
-                    alertDialog.show();
+                    alertDialog.setView(promptsView);
+                   alertDialog.show();
+
+
+                   // Dialog dialog = new Dialog(MainActivity.this);
+                  //  dialog.setContentView(promptsView);
+                  //  dialog.show();
 
                   //  Toast.makeText(MainActivity.this,"by Time Clicked"+item,Toast.LENGTH_SHORT).show();
                   /*  builder.setItems(time, new DialogInterface.OnClickListener() {

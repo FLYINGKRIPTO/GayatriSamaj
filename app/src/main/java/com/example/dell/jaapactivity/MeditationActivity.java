@@ -201,7 +201,7 @@ public class MeditationActivity extends AppCompatActivity {
                     Log.d(TAG, "onClick: inserted : "+ inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {
-                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                        String log = "Id: " + mp.getId() + " ,Audio Name : " + mp.getAudioName() + " ,Duration Time: " +
                          mp.getDuration();
                         // Writing Contacts to log
                         Log.d("Name: ", log);
