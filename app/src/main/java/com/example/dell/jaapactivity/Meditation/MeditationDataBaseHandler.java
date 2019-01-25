@@ -2,8 +2,12 @@ package com.example.dell.jaapactivity.Meditation;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.dell.jaapactivity.Meditation.MeditationContractClass.WaitListEntryMed.KEY_AUDIO_DURATION;
 import static com.example.dell.jaapactivity.Meditation.MeditationContractClass.WaitListEntryMed.KEY_AUDIO_NAME;
@@ -45,10 +49,10 @@ public class MeditationDataBaseHandler extends SQLiteOpenHelper {
 
         return db.insert(TABLE_MEDITATION_DATA,null,values);
     }
-  /*  public List<MeditationData> getAllMeditationData() {
+    public List<MeditationData> getAllMeditationData() {
        List<MeditationData> meditationDataList = new ArrayList<MeditationData>();
        //select all query
-        String selectQuery = "SELECT * FROM"+TABLE_MEDITATION_DATA;
+        String selectQuery = "SELECT * FROM "+TABLE_MEDITATION_DATA;
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor= db.rawQuery(selectQuery,null);
@@ -56,9 +60,15 @@ public class MeditationDataBaseHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
                 do {
                     MeditationData meditationData = new MeditationData();
-
+                    meditationData.setId(Integer.parseInt(cursor.getString(0)));
+                    meditationData.setAudioName(cursor.getString(1));
+                    meditationData.setDuration(Integer.parseInt(cursor.getString(2)));
+                    meditationDataList.add(meditationData);
                 }
+                while (cursor.moveToNext());
         }
-    }*/
+        //return
+        return meditationDataList;
+    }
 
 }

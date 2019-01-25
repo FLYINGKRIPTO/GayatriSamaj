@@ -3,7 +3,7 @@ package com.example.dell.jaapactivity.Meditation;
 public class MeditationData {
     int id;
     String audioName;
-    Long duration;
+    int duration;
 
     public MeditationData(){
 
@@ -25,15 +25,15 @@ public class MeditationData {
         this.audioName = audioName;
     }
 
-    public Long getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Long duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public MeditationData(String audioName, Long duration, int id){
+    public MeditationData(String audioName, int duration, int id){
         this.audioName = audioName;
         this.duration = duration;
         this.id = id;

@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.dell.jaapactivity.Meditation.MeditationData;
+import com.example.dell.jaapactivity.Meditation.MeditationDataBaseHandler;
+
+import java.util.List;
+
 public class MeditationActivity extends AppCompatActivity {
 
     Button playButton;
@@ -19,6 +24,7 @@ public class MeditationActivity extends AppCompatActivity {
     int playButtonPressCount = 0;
     int buttonCountOnDestroy = 0;
     int pausePosition = 0;
+    String soundTrack;
     boolean pauseIsPressed = false;
     private MediaPlayer mediaPlayer;
     private static final String TAG = "MeditationActivity";
@@ -26,6 +32,7 @@ public class MeditationActivity extends AppCompatActivity {
     SharedPreferences.Editor medEditor;
     public static final String BUTTON_COUNT_PREFERENCE = "CountPref" ;
     public static final String PLAY_BUTTON_CLICKS = "0";
+    MeditationDataBaseHandler mDb= new MeditationDataBaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,16 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                     soundTrackName.setText("No 1 Atam Bodh Dhyaan");
+                  long inserted=  mDb.addMeditationData(new MeditationData("No 1 Atam Bodh Dhyaan",mediaPlayer.getDuration(),1));
+                    Log.d(TAG, "onClick: inserted "+ inserted);
+                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                    for (MeditationData mp : meditationDataList) {
+                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                mp.getDuration();
+                        // Writing Contacts to log
+                        Log.d("Name: ", log);
+
+                    }
                 }
 
                 else if(playButtonPressCount==2){
@@ -73,6 +90,16 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                long inserted =     mDb.addMeditationData(new MeditationData("No 2 Panchkosh Dhyaan",mediaPlayer.getDuration(),2));
+                    Log.d(TAG, "onClick: inserted : "+ inserted);
+                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                    for (MeditationData mp : meditationDataList) {
+                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                mp.getDuration();
+                        // Writing Contacts to log
+                        Log.d("Name: ", log);
+
+                    }
 
                 }
                 else if(playButtonPressCount==3){
@@ -84,7 +111,16 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                  long inserted =   mDb.addMeditationData(new MeditationData("No 3 Sharir Dhyaan",mediaPlayer.getDuration(),2));
+                    Log.d(TAG, "onClick: inserted "+ inserted);
+                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                    for (MeditationData mp : meditationDataList) {
+                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                mp.getDuration();
+                        // Writing Contacts to log
+                        Log.d("Name: ", log);
 
+                    }
                 }
                 else if(playButtonPressCount==4){
 
@@ -96,7 +132,16 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                   long inserted =  mDb.addMeditationData(new MeditationData("No 4 Amrit Varsha Dhyaan",mediaPlayer.getDuration(),2));
+                    Log.d(TAG, "onClick: inserted: "+ inserted);
+                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                    for (MeditationData mp : meditationDataList) {
+                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                mp.getDuration();
+                        // Writing Contacts to log
+                        Log.d("Name: ", log);
 
+                    }
                 }
                 else if(playButtonPressCount==5){
 
@@ -108,7 +153,16 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                    long inserted = mDb.addMeditationData(new MeditationData("No 5  jyoti Avardham Dhyaan",mediaPlayer.getDuration(),2));
+                    Log.d(TAG, "onClick: inserted" + inserted);
+                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                    for (MeditationData mp : meditationDataList) {
+                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                mp.getDuration();
+                        // Writing Contacts to log
+                        Log.d("Name: ", log);
 
+                    }
                 }
                 else if(playButtonPressCount==6){
                     mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_six);
@@ -119,7 +173,16 @@ public class MeditationActivity extends AppCompatActivity {
                     soundTrackName.setText("No 6 Naad yog Dhyaan ");
                     mediaPlayer.start();
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                long inserted =     mDb.addMeditationData(new MeditationData("No 6 Naad yog Dhyaan",mediaPlayer.getDuration(),2));
+                    Log.d(TAG, "onClick: inserted "+ inserted);
+                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                    for (MeditationData mp : meditationDataList) {
+                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                mp.getDuration();
+                        // Writing Contacts to log
+                        Log.d("Name: ", log);
 
+                    }
                 }
                 else if(playButtonPressCount==7){
 
@@ -132,6 +195,16 @@ public class MeditationActivity extends AppCompatActivity {
                     playButtonPressCount=0;
                     mediaPlayer.start();
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                    long inserted = mDb.addMeditationData(new MeditationData("No 7 Tatva Bodh Dhyaan",mediaPlayer.getDuration(),2));
+                    Log.d(TAG, "onClick: inserted : "+ inserted);
+                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                    for (MeditationData mp : meditationDataList) {
+                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                         mp.getDuration();
+                        // Writing Contacts to log
+                        Log.d("Name: ", log);
+
+                    }
                 }
 
             }

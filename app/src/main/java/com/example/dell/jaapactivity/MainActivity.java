@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                             editor = sharedPreferences.edit();
                             editor.putLong(Time_in_minutes, time_in_milli);
                             editor.apply();
+
                             //adding data in the database
                             long inserted = db.addJapData(new JapData(0, primaryKey, time_in_minutes, item, "null"));
                             //displaying rows inserted
