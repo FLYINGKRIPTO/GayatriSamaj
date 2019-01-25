@@ -24,6 +24,7 @@ public class MeditationActivity extends AppCompatActivity {
     int playButtonPressCount = 0;
     int buttonCountOnDestroy = 0;
     int pausePosition = 0;
+    int id = 0;
     String soundTrack;
     boolean pauseIsPressed = false;
     private MediaPlayer mediaPlayer;
@@ -51,6 +52,7 @@ public class MeditationActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                id++;
                 playButton.setEnabled(false);
                 playButtonPressCount++;
                 medSharedPreferences = getSharedPreferences(BUTTON_COUNT_PREFERENCE, Context.MODE_PRIVATE);
@@ -68,7 +70,7 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                     soundTrackName.setText("No 1 Atam Bodh Dhyaan");
-                  long inserted=  mDb.addMeditationData(new MeditationData("No 1 Atam Bodh Dhyaan",mediaPlayer.getDuration(),1));
+                  long inserted=  mDb.addMeditationData(new MeditationData("No 1 Atam Bodh Dhyaan",mediaPlayer.getDuration(),id));
                     Log.d(TAG, "onClick: inserted "+ inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {
@@ -90,7 +92,7 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                long inserted =     mDb.addMeditationData(new MeditationData("No 2 Panchkosh Dhyaan",mediaPlayer.getDuration(),2));
+                long inserted =     mDb.addMeditationData(new MeditationData("No 2 Panchkosh Dhyaan",mediaPlayer.getDuration(),id));
                     Log.d(TAG, "onClick: inserted : "+ inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {
@@ -111,7 +113,7 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                  long inserted =   mDb.addMeditationData(new MeditationData("No 3 Sharir Dhyaan",mediaPlayer.getDuration(),2));
+                  long inserted =   mDb.addMeditationData(new MeditationData("No 3 Sharir Dhyaan",mediaPlayer.getDuration(),id));
                     Log.d(TAG, "onClick: inserted "+ inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {
@@ -132,7 +134,7 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                   long inserted =  mDb.addMeditationData(new MeditationData("No 4 Amrit Varsha Dhyaan",mediaPlayer.getDuration(),2));
+                   long inserted =  mDb.addMeditationData(new MeditationData("No 4 Amrit Varsha Dhyaan",mediaPlayer.getDuration(),id));
                     Log.d(TAG, "onClick: inserted: "+ inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {
@@ -153,7 +155,7 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                    long inserted = mDb.addMeditationData(new MeditationData("No 5  jyoti Avardham Dhyaan",mediaPlayer.getDuration(),2));
+                    long inserted = mDb.addMeditationData(new MeditationData("No 5  jyoti Avardham Dhyaan",mediaPlayer.getDuration(),id));
                     Log.d(TAG, "onClick: inserted" + inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {
@@ -173,7 +175,7 @@ public class MeditationActivity extends AppCompatActivity {
                     soundTrackName.setText("No 6 Naad yog Dhyaan ");
                     mediaPlayer.start();
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                long inserted =     mDb.addMeditationData(new MeditationData("No 6 Naad yog Dhyaan",mediaPlayer.getDuration(),2));
+                long inserted =     mDb.addMeditationData(new MeditationData("No 6 Naad yog Dhyaan",mediaPlayer.getDuration(),id));
                     Log.d(TAG, "onClick: inserted "+ inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {
@@ -195,7 +197,7 @@ public class MeditationActivity extends AppCompatActivity {
                     playButtonPressCount=0;
                     mediaPlayer.start();
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                    long inserted = mDb.addMeditationData(new MeditationData("No 7 Tatva Bodh Dhyaan",mediaPlayer.getDuration(),2));
+                    long inserted = mDb.addMeditationData(new MeditationData("No 7 Tatva Bodh Dhyaan",mediaPlayer.getDuration(),id));
                     Log.d(TAG, "onClick: inserted : "+ inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {
