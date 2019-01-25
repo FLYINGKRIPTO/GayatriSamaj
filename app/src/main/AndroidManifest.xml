@@ -14,11 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".YagyaActivity"></activity>
+        <activity android:name=".ReportActivity"></activity>
+        <activity android:name=".YagyaActivity" />
         <activity android:name=".Swadhyay" />
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme"
-            >
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
