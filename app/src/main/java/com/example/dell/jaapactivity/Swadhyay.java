@@ -14,6 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.dell.jaapactivity.Swadhaya.SwadhyayData;
+import com.example.dell.jaapactivity.Swadhaya.SwadhyayDatabaseHandler;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Swadhyay extends AppCompatActivity {
@@ -26,13 +30,15 @@ public class Swadhyay extends AppCompatActivity {
      Button stopSwadhyay;
      Long time_in_minutes = 0l;
      Long time_in_milli = 0l;
+     int id=0;
      MyCountdownTimer myCountdownTimer;
      public static final String SWADHYAYPREFERENCES = "TimePref";
      public static final String ENTERED_TIME = "time_entered";
     private static final String TAG = "SwadhyayActivity";
+    SwadhyayDatabaseHandler sDb = new SwadhyayDatabaseHandler(this);
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swadhyay);
         swadhyayTextView = findViewById(R.id.textViewSwadhyay);
@@ -56,6 +62,7 @@ public class Swadhyay extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        id++;
                         swadhyayTextView.setText(swadhyayTime.getText());
                         time_in_minutes = Long.parseLong(String.valueOf(swadhyayTime.getText()));
                         time_in_milli = time_in_minutes * 60000;
@@ -64,6 +71,14 @@ public class Swadhyay extends AppCompatActivity {
                         editor = sharedPreferences.edit();
                         editor.putLong(ENTERED_TIME,time_in_milli);
                         editor.apply();
+                        long inserted = sDb.addSwadhyay(new SwadhyayData(id,time_in_minutes));
+                        Log.d(TAG, "onClick: Inserted : "+inserted);
+                        List<SwadhyayData> swadhyayDataList = sDb.getAllSwadhyayData();
+                        for(SwadhyayData sd : swadhyayDataList){
+                            String log = "Id : "+ sd.getId() + ", Time : "+ sd.getTime();
+                            Log.d(TAG, "onClick: Data "+ log);
+                        }
+
 
                     }
                 });
