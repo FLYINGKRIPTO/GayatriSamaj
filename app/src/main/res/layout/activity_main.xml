@@ -89,6 +89,12 @@
         android:text="@string/stop_jap"
          />
     <Button
+        android:id="@+id/swadhyayButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Swadhyay Activity"
+        />
+    <Button
         android:id="@+id/nextActivity"
         android:text="Meditation Activity"
         android:layout_width="wrap_content"
@@ -102,4 +108,5 @@
         android:visibility="invisible"
 
         />
+
 </LinearLayout>

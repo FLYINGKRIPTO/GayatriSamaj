@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     String videoUrl = null;
     String item = null;
     Button meditationActivity;
+    Button swadhyayActivity;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String OPTION_PREFERENCE = "OptionPref";
     public static final String selected_item = "item_selected";
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         display_time_selected = findViewById(R.id.display_selected_time);
         options_spinner = findViewById(R.id.options);
         meditationActivity = findViewById(R.id.nextActivity);
+        swadhyayActivity = findViewById(R.id.swadhyayButton);
         userInput = new EditText(this);
         userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
         //Meditation activity intent
@@ -88,7 +90,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(in);
             }
         });
-
+        //swadhyay activity intent
+        swadhyayActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(MainActivity.this,Swadhyay.class);
+                startActivity(in);
+            }
+        });
         //Variables initialisation from video Activity
        // timerTextView = findViewById(R.id.Jtimer);
         videoView = findViewById(R.id.videoViewV);
