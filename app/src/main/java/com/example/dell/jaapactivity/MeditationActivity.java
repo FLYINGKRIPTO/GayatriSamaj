@@ -265,5 +265,6 @@ public class MeditationActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy: "+buttonCountOnDestroy);
         super.onDestroy();
     }
+    //TODO fix Song number 7 app closing bug
 
 }

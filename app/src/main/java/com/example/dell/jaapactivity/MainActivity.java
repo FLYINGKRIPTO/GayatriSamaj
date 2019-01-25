@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 optionEditor.apply();
              //   Toast.makeText(MainActivity.this,"You selected "+item,Toast.LENGTH_SHORT).show();
                 final String[] time = {"5","10","15","20","25","30"};
-
+                 //TODO :: fix app crash due to alert dialog box
                 //item click if statements
                 // if statement if user clicks option by Time
                 if(item.equalsIgnoreCase("by Time")){
