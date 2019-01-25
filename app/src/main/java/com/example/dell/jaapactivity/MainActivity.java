@@ -148,14 +148,16 @@ public class MainActivity extends Activity {
                 optionEditor.putString(selected_item,item);
                 optionEditor.apply();
              //   Toast.makeText(MainActivity.this,"You selected "+item,Toast.LENGTH_SHORT).show();
-                final String[] time = {"5","10","15","20","25","30"};
-                 //TODO :: fix app crash due to alert dialog box
+             //   final String[] time = {"5","10","15","20","25","30"};
+
                 //item click if statements
                 // if statement if user clicks option by Time
                 if(item.equalsIgnoreCase("by Time")){
                     videoUrl = null;
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                    // builder.setView(promptsView);
+
+                    //freeing the parent view that already had a parent
                     if(promptsView.getParent()!=null){
                         ((ViewGroup)promptsView.getParent()).removeView(promptsView);
                     }

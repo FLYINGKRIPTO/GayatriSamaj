@@ -39,6 +39,7 @@ public class MeditationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meditation);
+
      //   mediaPlayer = MediaPlayer.create(this,R.raw.day_one);
         playButton = findViewById(R.id.playButton);
         pauseButton = findViewById(R.id.pauseButton);
@@ -47,6 +48,9 @@ public class MeditationActivity extends AppCompatActivity {
         medSharedPreferences = getSharedPreferences(BUTTON_COUNT_PREFERENCE, Context.MODE_PRIVATE);
         medSharedPreferences = getSharedPreferences(BUTTON_COUNT_PREFERENCE, Context.MODE_PRIVATE);
         buttonCountOnDestroy = medSharedPreferences.getInt(PLAY_BUTTON_CLICKS,0);
+        if(buttonCountOnDestroy==7){
+            buttonCountOnDestroy=0;
+        }
         playButtonPressCount=buttonCountOnDestroy;
         Log.d(TAG, "onCreate: button Clicks : "+buttonCountOnDestroy);
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -255,6 +259,7 @@ public class MeditationActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "onStop: Method called");
+
     }
 
     @Override
