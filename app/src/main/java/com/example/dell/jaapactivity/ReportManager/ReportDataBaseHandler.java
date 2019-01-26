@@ -31,16 +31,16 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_WAITLIST_TABLE_USER_REPORT = "CREATE TABLE "+
-                TABLE_USER_REPORT + " ("
-                +KEY_ID +"INTEGER PRIMARY KEY AUTOINCREMENT, "
-                +KEY_MODE +"TEXT NOT NULL, "
-                +KEY_USER_TIME +"INTEGER, "
-                +KEY_ACTUAL_TIME +"INTEGER, "
-                +KEY_DATE +"TEXT NOT NULL, "
-                +KEY_TIME +"TEXT NOT NULL, "
-                +KEY_DAY +"TEXT NOT NULL, "
-                +KEY_TYPE +"TEXT, "
-                +KEY_AUDIO_NAME +"TEXT); ";
+                TABLE_USER_REPORT + "( "
+                +KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                +KEY_MODE +" TEXT NOT NULL, "
+                +KEY_USER_TIME +" INTEGER, "
+                +KEY_ACTUAL_TIME +" INTEGER, "
+                +KEY_DATE +" TEXT NOT NULL, "
+                +KEY_TIME +" TEXT NOT NULL, "
+                +KEY_DAY +" TEXT NOT NULL, "
+                +KEY_TYPE +" TEXT, "
+                +KEY_AUDIO_NAME +" TEXT); ";
 
         db.execSQL(SQL_CREATE_WAITLIST_TABLE_USER_REPORT);
 
@@ -82,10 +82,12 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
                 reportData.setUserTime(Integer.parseInt(cursor.getString(2)));
                 reportData.setActualTime(Integer.parseInt(cursor.getString(3)));
                 reportData.setDate(cursor.getString(4));
-                reportData.setDay(cursor.getString(5));
-                reportData.setTime(cursor.getString(6));
+                reportData.setTime(cursor.getString(5));
+                reportData.setDay(cursor.getString(6));
                 reportData.setType(cursor.getString(7));
                 reportData.setAudioName(cursor.getString(8));
+                reportDataList.add(reportData);
+
             }
             while (cursor.moveToNext());
 

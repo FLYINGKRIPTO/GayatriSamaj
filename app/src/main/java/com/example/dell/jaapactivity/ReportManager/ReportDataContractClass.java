@@ -7,8 +7,8 @@ public class ReportDataContractClass {
         public static final String TABLE_USER_REPORT = "userReport";
         public static final String KEY_ID = "id";
         public static final String KEY_MODE = "mode";
-        public static final String KEY_USER_TIME = "user time";
-        public static final String KEY_ACTUAL_TIME = "actual time";
+        public static final String KEY_USER_TIME = "user_time";
+        public static final String KEY_ACTUAL_TIME = "actual_time";
         public static final String KEY_DATE = "date";
         public static final String KEY_TIME = "time";
         public static final String KEY_DAY = "day";

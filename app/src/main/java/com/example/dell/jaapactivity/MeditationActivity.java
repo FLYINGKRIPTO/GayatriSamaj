@@ -12,7 +12,12 @@ import android.widget.TextView;
 
 import com.example.dell.jaapactivity.Meditation.MeditationData;
 import com.example.dell.jaapactivity.Meditation.MeditationDataBaseHandler;
+import com.example.dell.jaapactivity.ReportManager.ReportData;
+import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MeditationActivity extends AppCompatActivity {
@@ -33,7 +38,11 @@ public class MeditationActivity extends AppCompatActivity {
     SharedPreferences.Editor medEditor;
     public static final String BUTTON_COUNT_PREFERENCE = "CountPref" ;
     public static final String PLAY_BUTTON_CLICKS = "0";
+    //Mediatation database
     MeditationDataBaseHandler mDb= new MeditationDataBaseHandler(this);
+
+    //Report data base
+    ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +60,21 @@ public class MeditationActivity extends AppCompatActivity {
         if(buttonCountOnDestroy==7){
             buttonCountOnDestroy=0;
         }
+
         playButtonPressCount=buttonCountOnDestroy;
         Log.d(TAG, "onCreate: button Clicks : "+buttonCountOnDestroy);
+
+        Date currentTime = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        final String formattedDate = df.format(currentTime);
+
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        final String formattedTime = timeFormat.format(currentTime);
+
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
+        final String formattedDay = dayFormat.format(currentTime);
+
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,16 +96,38 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                     soundTrackName.setText("No 1 Atam Bodh Dhyaan");
+
+                    //meditation database
                   long inserted=  mDb.addMeditationData(new MeditationData("No 1 Atam Bodh Dhyaan",mediaPlayer.getDuration()));
                     Log.d(TAG, "onClick: inserted "+ inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {
-                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                        String log = "Id: " + mp.getId() + " ,Audio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
                                 mp.getDuration();
                         // Writing Contacts to log
                         Log.d("Name: ", log);
 
+
+
                     }
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Atam Bodh Dhyaan ",mediaPlayer.getDuration(),mediaPlayer.getDuration()));
+                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                    List<ReportData> reportDataList = rDb.getAllUserReportData();
+                    Log.d(TAG, "onClick: "+reportDataList);
+                    for (ReportData rp : reportDataList) {
+                        Log.d(TAG, "onClick: For loop");
+                        String reportLog = "Id: "+rp.getId() //0
+                                + ", Mode: "+ rp.getMode()   //1
+                                + ", User Time: "+ rp.getUserTime() //2
+                                + ", Actual Time: "+ rp.getActualTime() //3
+                                + ", Date : "+rp.getDate() //4
+                                + ", Time : "+rp.getTime()  //5
+                                + ", Day: "+rp.getDay()  //6
+                                + ", Type: "+rp.getType() //7
+                                + ", Audio Name : "+rp.getAudioName(); //8
+                        Log.d("Report: ",reportLog);
+                    }
+
                 }
 
                 else if(playButtonPressCount==2){
@@ -105,7 +149,27 @@ public class MeditationActivity extends AppCompatActivity {
                         // Writing Contacts to log
                         Log.d("Name: ", log);
 
+
                     }
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Panchkosh Dhyaan ",mediaPlayer.getDuration(),mediaPlayer.getDuration()));
+                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                    List<ReportData> reportDataList = rDb.getAllUserReportData();
+                    Log.d(TAG, "onClick: "+reportDataList);
+                    for (ReportData rp : reportDataList) {
+                        Log.d(TAG, "onClick: For loop");
+                        String reportLog = "Id: "+rp.getId() //0
+                                + ", Mode: "+ rp.getMode()   //1
+                                + ", User Time: "+ rp.getUserTime() //2
+                                + ", Actual Time: "+ rp.getActualTime() //3
+                                + ", Date : "+rp.getDate() //4
+                                + ", Time : "+rp.getTime()  //5
+                                + ", Day: "+rp.getDay()  //6
+                                + ", Type: "+rp.getType() //7
+                                + ", Audio Name : "+rp.getAudioName(); //8
+                        Log.d("Report: ",reportLog);
+                    }
+
+
 
                 }
                 else if(playButtonPressCount==3){
@@ -127,6 +191,24 @@ public class MeditationActivity extends AppCompatActivity {
                         Log.d("Name: ", log);
 
                     }
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Sharir Dhyaan ",mediaPlayer.getDuration(),mediaPlayer.getDuration()));
+                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                    List<ReportData> reportDataList = rDb.getAllUserReportData();
+                    Log.d(TAG, "onClick: "+reportDataList);
+                    for (ReportData rp : reportDataList) {
+                        Log.d(TAG, "onClick: For loop");
+                        String reportLog = "Id: "+rp.getId() //0
+                                + ", Mode: "+ rp.getMode()   //1
+                                + ", User Time: "+ rp.getUserTime() //2
+                                + ", Actual Time: "+ rp.getActualTime() //3
+                                + ", Date : "+rp.getDate() //4
+                                + ", Time : "+rp.getTime()  //5
+                                + ", Day: "+rp.getDay()  //6
+                                + ", Type: "+rp.getType() //7
+                                + ", Audio Name : "+rp.getAudioName(); //8
+                        Log.d("Report: ",reportLog);
+                    }
+
                 }
                 else if(playButtonPressCount==4){
 
@@ -148,6 +230,24 @@ public class MeditationActivity extends AppCompatActivity {
                         Log.d("Name: ", log);
 
                     }
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Amrit Varsha Dhyaan ",mediaPlayer.getDuration(),mediaPlayer.getDuration()));
+                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                    List<ReportData> reportDataList = rDb.getAllUserReportData();
+                    Log.d(TAG, "onClick: "+reportDataList);
+                    for (ReportData rp : reportDataList) {
+                        Log.d(TAG, "onClick: For loop");
+                        String reportLog = "Id: "+rp.getId() //0
+                                + ", Mode: "+ rp.getMode()   //1
+                                + ", User Time: "+ rp.getUserTime() //2
+                                + ", Actual Time: "+ rp.getActualTime() //3
+                                + ", Date : "+rp.getDate() //4
+                                + ", Time : "+rp.getTime()  //5
+                                + ", Day: "+rp.getDay()  //6
+                                + ", Type: "+rp.getType() //7
+                                + ", Audio Name : "+rp.getAudioName(); //8
+                        Log.d("Report: ",reportLog);
+                    }
+
                 }
                 else if(playButtonPressCount==5){
 
@@ -169,6 +269,24 @@ public class MeditationActivity extends AppCompatActivity {
                         Log.d("Name: ", log);
 
                     }
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Jyoti Avardhanam Dhyaan ",mediaPlayer.getDuration(),mediaPlayer.getDuration()));
+                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                    List<ReportData> reportDataList = rDb.getAllUserReportData();
+                    Log.d(TAG, "onClick: "+reportDataList);
+                    for (ReportData rp : reportDataList) {
+                        Log.d(TAG, "onClick: For loop");
+                        String reportLog = "Id: "+rp.getId() //0
+                                + ", Mode: "+ rp.getMode()   //1
+                                + ", User Time: "+ rp.getUserTime() //2
+                                + ", Actual Time: "+ rp.getActualTime() //3
+                                + ", Date : "+rp.getDate() //4
+                                + ", Time : "+rp.getTime()  //5
+                                + ", Day: "+rp.getDay()  //6
+                                + ", Type: "+rp.getType() //7
+                                + ", Audio Name : "+rp.getAudioName(); //8
+                        Log.d("Report: ",reportLog);
+                    }
+
                 }
                 else if(playButtonPressCount==6){
                     mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_six);
@@ -189,6 +307,24 @@ public class MeditationActivity extends AppCompatActivity {
                         Log.d("Name: ", log);
 
                     }
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Naad Yog Dhyaan ",mediaPlayer.getDuration(),mediaPlayer.getDuration()));
+                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                    List<ReportData> reportDataList = rDb.getAllUserReportData();
+                    Log.d(TAG, "onClick: "+reportDataList);
+                    for (ReportData rp : reportDataList) {
+                        Log.d(TAG, "onClick: For loop");
+                        String reportLog = "Id: "+rp.getId() //0
+                                + ", Mode: "+ rp.getMode()   //1
+                                + ", User Time: "+ rp.getUserTime() //2
+                                + ", Actual Time: "+ rp.getActualTime() //3
+                                + ", Date : "+rp.getDate() //4
+                                + ", Time : "+rp.getTime()  //5
+                                + ", Day: "+rp.getDay()  //6
+                                + ", Type: "+rp.getType() //7
+                                + ", Audio Name : "+rp.getAudioName(); //8
+                        Log.d("Report: ",reportLog);
+                    }
+
                 }
                 else if(playButtonPressCount==7){
 
@@ -211,6 +347,24 @@ public class MeditationActivity extends AppCompatActivity {
                         Log.d("Name: ", log);
 
                     }
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Tatv Bodh Dhyaan ",mediaPlayer.getDuration(),mediaPlayer.getDuration()));
+                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                    List<ReportData> reportDataList = rDb.getAllUserReportData();
+                    Log.d(TAG, "onClick: "+reportDataList);
+                    for (ReportData rp : reportDataList) {
+                        Log.d(TAG, "onClick: For loop");
+                        String reportLog = "Id: "+rp.getId() //0
+                                + ", Mode: "+ rp.getMode()   //1
+                                + ", User Time: "+ rp.getUserTime() //2
+                                + ", Actual Time: "+ rp.getActualTime() //3
+                                + ", Date : "+rp.getDate() //4
+                                + ", Time : "+rp.getTime()  //5
+                                + ", Day: "+rp.getDay()  //6
+                                + ", Type: "+rp.getType() //7
+                                + ", Audio Name : "+rp.getAudioName(); //8
+                        Log.d("Report: ",reportLog);
+                    }
+
                 }
 
             }

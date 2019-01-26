@@ -3,8 +3,8 @@ package com.example.dell.jaapactivity.ReportManager;
 public class ReportData {
     private int id;
     private String mode;
-    private int userTime;
-    private int actualTime;
+    private long userTime;
+    private long actualTime;
     private String date;
     private String time;
     private String day;
@@ -16,7 +16,7 @@ public class ReportData {
 
         //constructor that will be used for jap activity
     }
-    public ReportData(String mode,int userTime,int actualTime,String date, String time
+    public ReportData(String mode,Long userTime,Long actualTime,String date, String time
     ,String day,String type){
         this.mode = mode;
         this.userTime = userTime;
@@ -45,6 +45,7 @@ public class ReportData {
     public ReportData(String mode,String date,String time,String day,int userTime,int actualTime){
         this.mode = mode;
         this.date = date;
+        this.time = time;
         this.day = day;
         this.userTime = userTime;
         this.actualTime = actualTime;
@@ -65,7 +66,7 @@ public class ReportData {
         this.mode = mode;
     }
 
-    public int getUserTime() {
+    public long getUserTime() {
         return userTime;
     }
 
@@ -73,7 +74,7 @@ public class ReportData {
         this.userTime = userTime;
     }
 
-    public int getActualTime() {
+    public long getActualTime() {
         return actualTime;
     }
 

@@ -27,6 +27,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.dell.jaapactivity.ReportManager.ReportData;
+import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -70,8 +73,12 @@ public class MainActivity extends Activity {
     private int position = 0;
     public static  Long time_in_milli_to_store = 0l;
     EditText JapTime;
-    //Database
+    //Jap Database
     JapDatabaseHandler db = new JapDatabaseHandler(this);
+
+    //Report Manager Database
+    ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -91,10 +98,18 @@ public class MainActivity extends Activity {
 
         //Current date and time
         Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        String formattedDate = df.format(currentTime);
 
-        Log.d(TAG, "onCreate: current Time "+ currentTime +" current Date : "+ formattedDate);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        final String formattedDate = df.format(currentTime);
+
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        final String formattedTime = timeFormat.format(currentTime);
+
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
+        final String formattedDay = dayFormat.format(currentTime);
+
+        Log.d(TAG, "onCreate: current Time : "+ formattedTime +" current Date : "+ formattedDate
+        +" current day : "+ formattedDay);
 
         LayoutInflater li = LayoutInflater.from(this);
         final View promptsView = li.inflate(R.layout.prompts,null);
@@ -187,19 +202,40 @@ public class MainActivity extends Activity {
                             editor.putLong(Time_in_minutes, time_in_milli);
                             editor.apply();
 
-                            //adding data in the database
+                            //adding data in the Jap database
                          //   long inserted = db.addJapData(new JapData(0, primaryKey, time_in_minutes, item, "null"));
                             //displaying rows inserted
                             long inserted = db.addJapData(new JapData(time_in_minutes,item));
                             Log.d(TAG, "onClick: Row inserted " + inserted);
                             // Displaying all data in a list view
                             List<JapData> japDataList = db.getAllJapData();
+                            Log.d(TAG, "onClick: jap "+japDataList);
                             for (JapData jp : japDataList) {
                                 String log = "Id: " + jp.getId() + " ,Type : " + jp.getType() + " ,Time: " +
                                         jp.getTime() + ", Has Video :" + jp.isHasVideo() + ", Video Url :" + jp.getVideoURl();
                                 // Writing Contacts to log
                                 Log.d("Name: ", log);
 
+                            }
+                            //adding data in the Reports DataBase
+                            long reportInserted =  rDb.addUserReportData(new ReportData("Jap",time_in_minutes,time_in_minutes,formattedDate,formattedTime,formattedDay,item));
+                            Log.d(TAG, "onClick: User Report : " + reportInserted);
+
+                            //Displaying all data
+                            List<ReportData> reportDataList = rDb.getAllUserReportData();
+                            Log.d(TAG, "onClick: "+reportDataList);
+                            for (ReportData rp : reportDataList) {
+                                Log.d(TAG, "onClick: For loop");
+                                String reportLog = "Id: "+rp.getId() //0
+                                        + ", Mode: "+ rp.getMode()   //1
+                                        + ", User Time: "+ rp.getUserTime() //2
+                                        + ", Actual Time: "+ rp.getActualTime() //3
+                                        + ", Date : "+rp.getDate() //4
+                                        + ", Time : "+rp.getTime()  //5
+                                        + ", Day: "+rp.getDay()  //6
+                                        + ", Type: "+rp.getType() //7
+                                        + ", Audio Name: "+ rp.getAudioName();//8
+                                Log.d("Report: ",reportLog);
                             }
                         }
                     });
@@ -213,48 +249,14 @@ public class MainActivity extends Activity {
                     alertDialog.setView(promptsView);
                    alertDialog.show();
 
-
-                   // Dialog dialog = new Dialog(MainActivity.this);
-                  //  dialog.setContentView(promptsView);
-                  //  dialog.show();
-
-                  //  Toast.makeText(MainActivity.this,"by Time Clicked"+item,Toast.LENGTH_SHORT).show();
-                  /*  builder.setItems(time, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            primaryKey++;
-                            time_in_minutes = Long.parseLong(time[which]);
-                            display_time_selected.setVisibility(View.VISIBLE);
-                            display_time_selected.setText((time_in_minutes).toString()+" Minutes ");
-                            time_in_milli = time_in_minutes*60000;
-                            Log.d(TAG, "onClick: Time selected :" + time_in_milli + " milliseconds");
-                            editor = sharedPreferences.edit();
-                            editor.putLong(Time_in_minutes,time_in_milli);
-                            editor.apply();
-                            //adding data in the database
-                            long inserted =   db.addJapData(new JapData(0,primaryKey,time_in_minutes,item,"null"));
-                            //displaying rows inserted
-                            Log.d(TAG, "onClick: Row inserted "+ inserted);
-                            // Displaying all data in a list view
-                            List<JapData> japDataList = db.getAllJapData();
-                             for(JapData jp : japDataList){
-                                 String log = "Id: " + jp.getId() + " ,Type : " + jp.getType() + " ,Time: " +
-                                         jp.getTime() + ", Has Video :"+ jp.isHasVideo() +", Video Url :" + jp.getVideoURl();
-                                 // Writing Contacts to log
-                                 Log.d("Name: ", log);
-                             }
-
-                        }
-
-                    });*/
-
-
                 }
 
                 else if(item.equalsIgnoreCase("by Mala")){
 
+
                 }
                 else if(item.equalsIgnoreCase("with Pujya Gurudev")){
+
 
                 }
                 else if(item.equalsIgnoreCase("with Pujya Mataji")){
@@ -295,7 +297,7 @@ public class MainActivity extends Activity {
 
                }
 
-               else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")){
+               else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")||selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
                    display_time_selected.setVisibility(View.INVISIBLE);
                    timer_text.setVisibility(View.VISIBLE);
                    videoView.setVisibility(View.VISIBLE);
@@ -335,6 +337,26 @@ public class MainActivity extends Activity {
                                myCountdownTimer = new MyCountdownTimer(dr, 100);
                                myCountdownTimer.start();
 
+                            long inserted = rDb.addUserReportData(new ReportData("with pujya Gurudev",Long.parseLong(String.valueOf(dr)),Long.parseLong(String.valueOf(dr)),formattedDate,formattedTime,formattedDay,item));
+                               Log.d(TAG, "onClick: User Report : " + inserted);
+
+                               //Displaying all data
+                               List<ReportData> reportDataList = rDb.getAllUserReportData();
+                               Log.d(TAG, "onClick: "+reportDataList);
+                               for (ReportData rp : reportDataList) {
+                                   Log.d(TAG, "onClick: For loop");
+                                   String reportLog = "Id: "+rp.getId() //0
+                                           + ", Mode: "+ rp.getMode()   //1
+                                           + ", User Time: "+ rp.getUserTime() //2
+                                           + ", Actual Time: "+ rp.getActualTime() //3
+                                           + ", Date : "+rp.getDate() //4
+                                           + ", Time : "+rp.getTime()  //5
+                                           + ", Day: "+rp.getDay()  //6
+                                           + ", Type: "+rp.getType() //7
+                                   + ", Audio Name: "+ rp.getAudioName();//8
+                                   Log.d("Report: ",reportLog);
+                               }
+
                            }
                        }
                    });
@@ -372,13 +394,13 @@ public class MainActivity extends Activity {
 
 
                }
-               else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
+           /*    else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
                    display_time_selected.setVisibility(View.INVISIBLE);
                    timer_text.setVisibility(View.INVISIBLE);
                    videoView.setVisibility(View.VISIBLE);
                    //Intent intent = new Intent(MainActivity.this,VideoActivity.class);
                    //startActivity(intent);
-               }
+               }*/
 
             }
         });

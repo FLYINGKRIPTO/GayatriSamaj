@@ -14,9 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.dell.jaapactivity.ReportManager.ReportData;
+import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
 import com.example.dell.jaapactivity.Swadhaya.SwadhyayData;
 import com.example.dell.jaapactivity.Swadhaya.SwadhyayDatabaseHandler;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -48,6 +53,21 @@ public class Swadhyay extends AppCompatActivity {
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.prompts,null);
 
+        Date currentTime = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        final String formattedDate = df.format(currentTime);
+
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        final String formattedTime = timeFormat.format(currentTime);
+
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
+        final String formattedDay = dayFormat.format(currentTime);
+
+
+        //
+        final ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
+
         //Alert dialog builder
         AlertDialog.Builder alertDialogBuilder =  new AlertDialog.Builder(this);
         alertDialogBuilder.setView(promptsView);
@@ -78,6 +98,26 @@ public class Swadhyay extends AppCompatActivity {
                             String log = "Id : "+ sd.getId() + ", Time : "+ sd.getTime();
                             Log.d(TAG, "onClick: Data "+ log);
                         }
+                        
+                        long reportInserted = rDb.addUserReportData(new ReportData("Swadhyay",formattedDate,formattedTime,formattedDay,Integer.parseInt(String.valueOf(time_in_minutes)),Integer.parseInt(String.valueOf(time_in_minutes))));
+                        Log.d(TAG, "onClick: report inserted : "+ reportInserted);
+                        List<ReportData> reportDataList = rDb.getAllUserReportData();
+                        Log.d(TAG, "onClick: "+reportDataList);
+                        for (ReportData rp : reportDataList) {
+                            Log.d(TAG, "onClick: For loop");
+                            String reportLog = "Id: "+rp.getId() //0
+                                    + ", Mode: "+ rp.getMode()   //1
+                                    + ", User Time: "+ rp.getUserTime() //2
+                                    + ", Actual Time: "+ rp.getActualTime() //3
+                                    + ", Date : "+rp.getDate() //4
+                                    + ", Time : "+rp.getTime()  //5
+                                    + ", Day: "+rp.getDay()  //6
+                                    + ", Type: "+rp.getType() //7
+                                    + ", Audio Name : "+rp.getAudioName(); //8
+                            Log.d("Report: ",reportLog);
+                        }
+                        
+                        
 
 
                     }
