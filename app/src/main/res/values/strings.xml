@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JaapActivity</string>
+    <string name="app_name">GayatriSamaj</string>
     <string name="time_prompt">Select Time in Minutes</string>
     <string name="stop_jap">Stop Jap</string>
 
