@@ -5,17 +5,50 @@ public class ReportData {
     private String mode;
     private int userTime;
     private int actualTime;
-    private String Date;
+    private String date;
     private String time;
-    private String Day;
+    private String day;
     private String type;
     private String audioName;
 
 
     public ReportData(){
 
+        //constructor that will be used for jap activity
+    }
+    public ReportData(String mode,int userTime,int actualTime,String date, String time
+    ,String day,String type){
+        this.mode = mode;
+        this.userTime = userTime;
+        this.actualTime = actualTime;
+        this.date = date;
+        this.time = time;
+        this.day = day;
+        this.type = type;
+
+    }
+    //Constructor to be used for meditation activity
+    public ReportData(String mode,String date, String time,String day,
+                      String audioName,int userTime,int actualTime){
+
+        this.mode = mode;
+        this.date = date;
+        this.time = time;
+        this.day = day;
+        this.audioName = audioName;
+        this.userTime = userTime;
+        this.actualTime = actualTime;
+
     }
 
+    //Constructor to be used for swadhyay activity
+    public ReportData(String mode,String date,String time,String day,int userTime,int actualTime){
+        this.mode = mode;
+        this.date = date;
+        this.day = day;
+        this.userTime = userTime;
+        this.actualTime = actualTime;
+    }
     public int getId() {
         return id;
     }
@@ -49,11 +82,11 @@ public class ReportData {
     }
 
     public String getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(String date) {
-        Date = date;
+        this.date = date;
     }
 
     public String getTime() {
@@ -65,11 +98,11 @@ public class ReportData {
     }
 
     public String getDay() {
-        return Day;
+        return day;
     }
 
     public void setDay(String day) {
-        Day = day;
+        this.day = day;
     }
 
     public String getType() {
@@ -87,4 +120,6 @@ public class ReportData {
     public void setAudioName(String audioName) {
         this.audioName = audioName;
     }
+
+
 }
