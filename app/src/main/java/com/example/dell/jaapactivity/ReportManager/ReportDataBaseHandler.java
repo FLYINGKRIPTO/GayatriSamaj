@@ -56,13 +56,13 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_MODE,reportData.getMode());
-        values.put(KEY_USER_TIME,reportData.getMode());
-        values.put(KEY_ACTUAL_TIME,reportData.getMode());
-        values.put(KEY_DATE,reportData.getMode());
-        values.put(KEY_DAY,reportData.getMode());
+        values.put(KEY_USER_TIME,reportData.getUserTime());
+        values.put(KEY_ACTUAL_TIME,reportData.getActualTime());
+        values.put(KEY_DATE,reportData.getDate());
+        values.put(KEY_DAY,reportData.getDay());
         values.put(KEY_TIME,reportData.getTime());
-        values.put(KEY_TYPE,reportData.getMode());
-        values.put(KEY_AUDIO_NAME,reportData.getMode());
+        values.put(KEY_TYPE,reportData.getType());
+        values.put(KEY_AUDIO_NAME,reportData.getAudioName());
 
         return db.insert(TABLE_USER_REPORT,null,values);
     }
