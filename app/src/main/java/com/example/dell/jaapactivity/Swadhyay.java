@@ -71,7 +71,7 @@ public class Swadhyay extends AppCompatActivity {
                         editor = sharedPreferences.edit();
                         editor.putLong(ENTERED_TIME,time_in_milli);
                         editor.apply();
-                        long inserted = sDb.addSwadhyay(new SwadhyayData(id,time_in_minutes));
+                        long inserted = sDb.addSwadhyay(new SwadhyayData(time_in_minutes));
                         Log.d(TAG, "onClick: Inserted : "+inserted);
                         List<SwadhyayData> swadhyayDataList = sDb.getAllSwadhyayData();
                         for(SwadhyayData sd : swadhyayDataList){

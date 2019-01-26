@@ -26,7 +26,7 @@ public class MeditationDataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
        final String SQL_CREATE_WAITLIST_TABLE_MED = "CREATE TABLE " +
                TABLE_MEDITATION_DATA + " ("
-               + KEY_ID +" INTEGER , "
+               + KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
                + KEY_AUDIO_NAME +" TEXT NOT NULL, "
                + KEY_AUDIO_DURATION +" INTEGER); ";
 
@@ -43,7 +43,6 @@ public class MeditationDataBaseHandler extends SQLiteOpenHelper {
     public long addMeditationData(MeditationData meditationData){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values =new ContentValues();
-        values.put(KEY_ID,meditationData.getId());
         values.put(KEY_AUDIO_NAME,meditationData.getAudioName());
         values.put(KEY_AUDIO_DURATION,meditationData.getDuration());
 

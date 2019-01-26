@@ -25,7 +25,7 @@ public class SwadhyayDatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_WAITLIST_TABLE_SWADHYAY = "CREATE TABLE "+
                 TABLE_SWADHYAY_DATA + "( "
-                + KEY_ID + " INTEGER ,"
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_TIME + " INTEGER); ";
         db.execSQL(SQL_CREATE_WAITLIST_TABLE_SWADHYAY);
 
@@ -40,7 +40,6 @@ public class SwadhyayDatabaseHandler extends SQLiteOpenHelper {
     public long addSwadhyay(SwadhyayData swadhyayData){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_ID,swadhyayData.getId());
         values.put(KEY_TIME,swadhyayData.getTime());
         return db.insert(TABLE_SWADHYAY_DATA,null,values);
     }

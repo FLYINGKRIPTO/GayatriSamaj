@@ -33,9 +33,9 @@ public class MeditationData {
         this.duration = duration;
     }
 
-    public MeditationData(String audioName, int duration, int id){
+    public MeditationData(String audioName, int duration){
         this.audioName = audioName;
         this.duration = duration;
-        this.id = id;
+
     }
 }

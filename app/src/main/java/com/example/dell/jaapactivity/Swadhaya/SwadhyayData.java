@@ -7,8 +7,7 @@ public class SwadhyayData {
     public SwadhyayData(){
 
     }
-    public SwadhyayData(int id,Long time){
-        this.id = id;
+    public SwadhyayData(Long time){
         this.time = time;
     }
 
