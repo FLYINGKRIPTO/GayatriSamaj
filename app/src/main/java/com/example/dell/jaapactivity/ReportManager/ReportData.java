@@ -8,6 +8,8 @@ public class ReportData {
     private String Date;
     private String time;
     private String Day;
+    private String type;
+    private String audioName;
 
 
     public ReportData(){
@@ -68,5 +70,21 @@ public class ReportData {
 
     public void setDay(String day) {
         Day = day;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAudioName() {
+        return audioName;
+    }
+
+    public void setAudioName(String audioName) {
+        this.audioName = audioName;
     }
 }
