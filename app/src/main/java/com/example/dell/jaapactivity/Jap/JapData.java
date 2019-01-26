@@ -1,4 +1,4 @@
-package com.example.dell.jaapactivity;
+package com.example.dell.jaapactivity.Jap;
 
 public class JapData {
     private int id;

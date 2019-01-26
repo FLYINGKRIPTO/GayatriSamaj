@@ -18,7 +18,7 @@
         <activity android:name=".YagyaActivity" />
         <activity android:name=".Swadhyay" />
         <activity
-            android:name=".MainActivity"
+            android:name=".JapActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

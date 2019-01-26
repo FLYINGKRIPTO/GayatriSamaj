@@ -1,4 +1,4 @@
-package com.example.dell.jaapactivity;
+package com.example.dell.jaapactivity.Jap;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,12 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry;
-import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry.HAS_VIDEO;
-import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry.KEY_TIME;
-import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry.KEY_TYPE;
-import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry.TABLE_JAP_DATA;
-import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry.VIDEO_URL;
+import static com.example.dell.jaapactivity.Jap.JapContractClass.WaitListEntry;
+import static com.example.dell.jaapactivity.Jap.JapContractClass.WaitListEntry.HAS_VIDEO;
+import static com.example.dell.jaapactivity.Jap.JapContractClass.WaitListEntry.KEY_TIME;
+import static com.example.dell.jaapactivity.Jap.JapContractClass.WaitListEntry.KEY_TYPE;
+import static com.example.dell.jaapactivity.Jap.JapContractClass.WaitListEntry.TABLE_JAP_DATA;
+import static com.example.dell.jaapactivity.Jap.JapContractClass.WaitListEntry.VIDEO_URL;
 
 public class JapDatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;

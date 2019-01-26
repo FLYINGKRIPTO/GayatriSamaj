@@ -27,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.dell.jaapactivity.Jap.JapData;
+import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
 import com.example.dell.jaapactivity.ReportManager.ReportData;
 import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
 
@@ -36,7 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends Activity {
+public class JapActivity extends Activity {
     Spinner options_spinner;
     MyCountdownTimer myCountdownTimer;
     Context context;
@@ -56,11 +58,12 @@ public class MainActivity extends Activity {
     String item = null;
     Button meditationActivity;
     Button swadhyayActivity;
+    Button reportsActivity;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String OPTION_PREFERENCE = "OptionPref";
     public static final String selected_item = "item_selected";
     public static final String Time_in_minutes = "timeKey";
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "JapActivity";
     EditText userInput;
 
     // Instance Variables from video activity
@@ -83,7 +86,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_jap);
         time_textView_store = findViewById(R.id.time_text);
 
         timer_text = findViewById(R.id.timer_textView);
@@ -93,6 +96,7 @@ public class MainActivity extends Activity {
         options_spinner = findViewById(R.id.options);
         meditationActivity = findViewById(R.id.nextActivity);
         swadhyayActivity = findViewById(R.id.swadhyayButton);
+        reportsActivity = findViewById(R.id.reportsActivity);
         userInput = new EditText(this);
         userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
 
@@ -122,7 +126,7 @@ public class MainActivity extends Activity {
         meditationActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(MainActivity.this,MeditationActivity.class);
+                Intent in = new Intent(JapActivity.this,MeditationActivity.class);
                 startActivity(in);
             }
         });
@@ -130,8 +134,17 @@ public class MainActivity extends Activity {
         swadhyayActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(MainActivity.this,Swadhyay.class);
+                Intent in = new Intent(JapActivity.this,Swadhyay.class);
                 startActivity(in);
+            }
+        });
+
+        //reportsActivity intent
+        reportsActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(JapActivity.this,ReportActivity.class);
+                startActivity(i);
             }
         });
         //Variables initialisation from video Activity
@@ -148,7 +161,7 @@ public class MainActivity extends Activity {
         videoView.setVideoURI(Uri.parse("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
         videoView.requestFocus();
         videoView.canPause();
-        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog = new ProgressDialog(JapActivity.this);
 
          //Spinner items array
         final ArrayAdapter<CharSequence> optionsAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.japOptions,android.R.layout.simple_spinner_item);
@@ -172,14 +185,14 @@ public class MainActivity extends Activity {
                 optionEditor = optionSelectedPreference.edit();
                 optionEditor.putString(selected_item,item);
                 optionEditor.apply();
-             //   Toast.makeText(MainActivity.this,"You selected "+item,Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(JapActivity.this,"You selected "+item,Toast.LENGTH_SHORT).show();
              //   final String[] time = {"5","10","15","20","25","30"};
 
                 //item click if statements
                 // if statement if user clicks option by Time
                 if(item.equalsIgnoreCase("by Time")){
                     videoUrl = null;
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(JapActivity.this);
                    // builder.setView(promptsView);
 
                     //freeing the parent view that already had a parent
@@ -306,7 +319,7 @@ public class MainActivity extends Activity {
                    progressDialog.setMessage("Please Hold on");
                    progressDialog.setCancelable(false);
                    progressDialog.show();
-                  // Intent intent = new Intent(MainActivity.this,VideoActivity.class);
+                  // Intent intent = new Intent(JapActivity.this,VideoActivity.class);
                   // startActivity(intent);
                    videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                        @Override
@@ -398,7 +411,7 @@ public class MainActivity extends Activity {
                    display_time_selected.setVisibility(View.INVISIBLE);
                    timer_text.setVisibility(View.INVISIBLE);
                    videoView.setVisibility(View.VISIBLE);
-                   //Intent intent = new Intent(MainActivity.this,VideoActivity.class);
+                   //Intent intent = new Intent(JapActivity.this,VideoActivity.class);
                    //startActivity(intent);
                }*/
 
