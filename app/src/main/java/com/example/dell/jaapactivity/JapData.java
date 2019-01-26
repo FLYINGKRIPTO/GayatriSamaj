@@ -1,16 +1,21 @@
 package com.example.dell.jaapactivity;
 
 public class JapData {
-    int id;
-    String type;
-    Long time;
-    int hasVideo;
-    String videoURl;
+    private int id;
+    private String type;
+    private Long time;
+    private int hasVideo;
+    private String videoURl;
 
     public JapData(){
 
     }
 
+    public JapData(Long time,String type){
+        this.time = time;
+        this.type = type;
+
+    }
     public JapData(int hasVideo,int id,Long time,String type,String videoURl){
 
         this.hasVideo = hasVideo;

@@ -27,6 +27,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -85,6 +88,13 @@ public class MainActivity extends Activity {
         swadhyayActivity = findViewById(R.id.swadhyayButton);
         userInput = new EditText(this);
         userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        //Current date and time
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(currentTime);
+
+        Log.d(TAG, "onCreate: current Time "+ currentTime +" current Date : "+ formattedDate);
 
         LayoutInflater li = LayoutInflater.from(this);
         final View promptsView = li.inflate(R.layout.prompts,null);
@@ -178,8 +188,9 @@ public class MainActivity extends Activity {
                             editor.apply();
 
                             //adding data in the database
-                            long inserted = db.addJapData(new JapData(0, primaryKey, time_in_minutes, item, "null"));
+                         //   long inserted = db.addJapData(new JapData(0, primaryKey, time_in_minutes, item, "null"));
                             //displaying rows inserted
+                            long inserted = db.addJapData(new JapData(time_in_minutes,item));
                             Log.d(TAG, "onClick: Row inserted " + inserted);
                             // Displaying all data in a list view
                             List<JapData> japDataList = db.getAllJapData();

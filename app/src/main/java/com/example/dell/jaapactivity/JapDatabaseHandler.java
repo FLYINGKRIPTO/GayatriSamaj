@@ -11,7 +11,6 @@ import java.util.List;
 
 import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry;
 import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry.HAS_VIDEO;
-import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry.KEY_ID;
 import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry.KEY_TIME;
 import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry.KEY_TYPE;
 import static com.example.dell.jaapactivity.JapContractClass.WaitListEntry.TABLE_JAP_DATA;
@@ -33,7 +32,7 @@ public class JapDatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_WAITLIST_TABLE = "CREATE TABLE " +
                 WaitListEntry.TABLE_JAP_DATA + " ("
-                +WaitListEntry.KEY_ID +" INTEGER , "
+                +WaitListEntry.KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
                 +WaitListEntry.KEY_TYPE +" TEXT NOT NULL, "
                 +WaitListEntry.KEY_TIME +" INTEGER, "
                 +WaitListEntry.HAS_VIDEO +" INTEGER, "
@@ -52,7 +51,6 @@ public class JapDatabaseHandler extends SQLiteOpenHelper {
     public long addJapData(JapData japData){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_ID,japData.getId());
         values.put(KEY_TYPE,japData.getType());
         values.put(KEY_TIME,japData.getTime());
         values.put(HAS_VIDEO,japData.isHasVideo());

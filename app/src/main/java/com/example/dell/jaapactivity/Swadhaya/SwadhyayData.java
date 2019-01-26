@@ -1,8 +1,8 @@
 package com.example.dell.jaapactivity.Swadhaya;
 
 public class SwadhyayData {
-    int id;
-    Long time;
+    private int id;
+    private Long time;
 
     public SwadhyayData(){
 

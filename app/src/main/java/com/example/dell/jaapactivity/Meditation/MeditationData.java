@@ -1,9 +1,9 @@
 package com.example.dell.jaapactivity.Meditation;
 
 public class MeditationData {
-    int id;
-    String audioName;
-    int duration;
+    private int id;
+    private String audioName;
+    private int duration;
 
     public MeditationData(){
 
