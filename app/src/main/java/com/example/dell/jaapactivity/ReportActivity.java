@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
 import com.example.dell.jaapactivity.ReportManager.ReportData;
 import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class ReportActivity extends AppCompatActivity {
     private static final String TAG = "ReportActivity";
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
+    JapDatabaseHandler jDb = new JapDatabaseHandler(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +41,10 @@ public class ReportActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: total Meditations "+ rDb.totalMeditations());
         Log.d(TAG, "onCreate: total swadhyay "+ rDb.totalSwadhyay());
         Log.d(TAG, "onCreate: total yagya "+ rDb.totalYagya());
-
+        Log.d(TAG, "onCreate: total by time "+ jDb.totalbyTime());
+        Log.d(TAG, "onCreate: total by mala :"+ jDb.totalbyMala());
+        Log.d(TAG, "onCreate: total with Pujya Gurudev :"+ jDb.totalwithGurudev());
+        Log.d(TAG, "onCreate: total with Pujya Mataji :"+ jDb.totalwithMataji());
 
     }
 

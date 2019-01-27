@@ -324,7 +324,7 @@ public class JapActivity extends Activity {
 
                }
 
-               else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")||selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
+               else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")){
                    display_time_selected.setVisibility(View.INVISIBLE);
                    timer_text.setVisibility(View.VISIBLE);
                    videoView.setVisibility(View.VISIBLE);
@@ -333,6 +333,8 @@ public class JapActivity extends Activity {
                    progressDialog.setMessage("Please Hold on");
                    progressDialog.setCancelable(false);
                    progressDialog.show();
+                   long inserted = db.addJapData(new JapData(time_in_minutes,item));
+                   Log.d(TAG, "onClick: Row inserted " + inserted);
                   // Intent intent = new Intent(JapActivity.this,VideoActivity.class);
                   // startActivity(intent);
                    videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -364,26 +366,25 @@ public class JapActivity extends Activity {
                                myCountdownTimer = new MyCountdownTimer(dr, 100);
                                myCountdownTimer.start();
 
-                            long inserted = rDb.addUserReportData(new ReportData("Jap",Long.parseLong(String.valueOf(minutes)),Long.parseLong(String.valueOf(minutes)),formattedDate,formattedTime,formattedDay,item));
-                               Log.d(TAG, "onClick: User Report : " + inserted);
+                           }
+                           long inserted = rDb.addUserReportData(new ReportData("Jap",Long.parseLong(String.valueOf(minutes)),Long.parseLong(String.valueOf(minutes)),formattedDate,formattedTime,formattedDay,item));
+                           Log.d(TAG, "onClick: User Report : " + inserted);
 
-                               //Displaying all data
-                               List<ReportData> reportDataList = rDb.getAllUserReportData();
-                               Log.d(TAG, "onClick: "+reportDataList);
-                               for (ReportData rp : reportDataList) {
-                                   Log.d(TAG, "onClick: For loop");
-                                   String reportLog = "Id: "+rp.getId() //0
-                                           + ", Mode: "+ rp.getMode()   //1
-                                           + ", User Time: "+ rp.getUserTime() //2
-                                           + ", Actual Time: "+ rp.getActualTime() //3
-                                           + ", Date : "+rp.getDate() //4
-                                           + ", Time : "+rp.getTime()  //5
-                                           + ", Day: "+rp.getDay()  //6
-                                           + ", Type: "+rp.getType() //7
-                                   + ", Audio Name: "+ rp.getAudioName();//8
-                                   Log.d("Report: ",reportLog);
-                               }
-
+                           //Displaying all data
+                           List<ReportData> reportDataList = rDb.getAllUserReportData();
+                           Log.d(TAG, "onClick: "+reportDataList);
+                           for (ReportData rp : reportDataList) {
+                               Log.d(TAG, "onClick: For loop");
+                               String reportLog = "Id: "+rp.getId() //0
+                                       + ", Mode: "+ rp.getMode()   //1
+                                       + ", User Time: "+ rp.getUserTime() //2
+                                       + ", Actual Time: "+ rp.getActualTime() //3
+                                       + ", Date : "+rp.getDate() //4
+                                       + ", Time : "+rp.getTime()  //5
+                                       + ", Day: "+rp.getDay()  //6
+                                       + ", Type: "+rp.getType() //7
+                                       + ", Audio Name: "+ rp.getAudioName();//8
+                               Log.d("Report: ",reportLog);
                            }
                        }
                    });
@@ -421,13 +422,111 @@ public class JapActivity extends Activity {
 
 
                }
-           /*    else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
+
+              else if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
                    display_time_selected.setVisibility(View.INVISIBLE);
                    timer_text.setVisibility(View.INVISIBLE);
                    videoView.setVisibility(View.VISIBLE);
                    //Intent intent = new Intent(JapActivity.this,VideoActivity.class);
                    //startActivity(intent);
-               }*/
+                   long inserted = db.addJapData(new JapData(time_in_minutes,item));
+                   Log.d(TAG, "onClick: Row inserted " + inserted);
+
+                   progressDialog.setTitle("Loading Video");
+                   progressDialog.setMessage("Please Hold on");
+                   progressDialog.setCancelable(false);
+                   progressDialog.show();
+
+                   // Intent intent = new Intent(JapActivity.this,VideoActivity.class);
+                   // startActivity(intent);
+                   videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                       @Override
+                       public void onCompletion(MediaPlayer mp) {
+                           Toast.makeText(getApplicationContext(), "Video over", Toast.LENGTH_SHORT).show();
+
+                       }
+                   });
+
+                   videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                       @Override
+                       public void onPrepared(MediaPlayer mp) {
+                           progressDialog.dismiss();
+                           dr = mp.getDuration();
+                           int duration = mp.getDuration() / 1000;
+                           int hours = duration / 3600;
+                           int minutes = (duration / 60) - (hours * 60);
+                           int seconds = duration - (hours * 3600) - (minutes * 60);
+                           int videoWidth = videoView.getLayoutParams().width;
+                           int videoHeight = videoView.getLayoutParams().height;
+                           Log.d(TAG, "onPrepared: video Width "+videoWidth);
+                           Log.d(TAG, "onPrepared: video Height "+videoHeight);
+
+                           String formatted = String.format("%d:%02d:%02d", hours, minutes, seconds);
+                           Toast.makeText(getApplicationContext(), "duration is " + formatted, Toast.LENGTH_LONG).show();
+                           if (position == 0) {
+                               videoView.start();
+                               myCountdownTimer = new MyCountdownTimer(dr, 100);
+                               myCountdownTimer.start();
+
+                           }
+                           long inserted = rDb.addUserReportData(new ReportData("Jap",Long.parseLong(String.valueOf(minutes)),Long.parseLong(String.valueOf(minutes)),formattedDate,formattedTime,formattedDay,item));
+                           Log.d(TAG, "onClick: User Report : " + inserted);
+
+                           //Displaying all data
+                           List<ReportData> reportDataList = rDb.getAllUserReportData();
+                           Log.d(TAG, "onClick: "+reportDataList);
+                           for (ReportData rp : reportDataList) {
+                               Log.d(TAG, "onClick: For loop");
+                               String reportLog = "Id: "+rp.getId() //0
+                                       + ", Mode: "+ rp.getMode()   //1
+                                       + ", User Time: "+ rp.getUserTime() //2
+                                       + ", Actual Time: "+ rp.getActualTime() //3
+                                       + ", Date : "+rp.getDate() //4
+                                       + ", Time : "+rp.getTime()  //5
+                                       + ", Day: "+rp.getDay()  //6
+                                       + ", Type: "+rp.getType() //7
+                                       + ", Audio Name: "+ rp.getAudioName();//8
+                               Log.d("Report: ",reportLog);
+                           }
+                       }
+                   });
+
+                   videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                       @Override
+                       public boolean onError(MediaPlayer mp, int what, int extra) {
+                           Log.d(TAG, "onError: \"API123\", \"What \" + what + \" extra \" + extra");
+                           return false;
+                       }
+                   });
+                   videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+                       @Override
+                       public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                          /* switch (what) {
+                               case MediaPlayer.MEDIA_INFO_BUFFERING_START:
+                                   Log.d(TAG, "onInfo: "+timerTextView.getText());
+                                   Log.d(TAG, "onInfo: "+timeInMilliTextView.getText());
+                                   //time_in_milli_to_store = Long.parseLong((String) timeInMilliTextView.getText());
+                                  // myCountdownTimer.cancel();
+                                   //   case MediaPlayer.MEDIA_INFO_BUFFERING_END:
+                                   //       myCountdownTimer.start();
+                               case MediaPlayer.MEDIA_INFO_BUFFERING_END:
+                                  // myCountdownTimer.cancel();
+                                 //  myNewCountdownTimer = new MyCountdownTimer(time_in_milli_to_store,100);
+                                  // myNewCountdownTimer.onTick(time_in_milli_to_store);
+                                  // myNewCountdownTimer.start();
+
+                           }*/
+
+                           return false;
+                       }
+
+                   });
+
+               }
+               else if(selectedItemFromOptions.equalsIgnoreCase("by Mala")){
+                   long inserted = db.addJapData(new JapData(time_in_minutes,item));
+                   Log.d(TAG, "onClick: Row inserted " + inserted);
+               }
 
             }
         });
@@ -437,7 +536,7 @@ public class JapActivity extends Activity {
                 display_time_selected.setVisibility(View.INVISIBLE);
                 if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")||selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
                     videoView.stopPlayback();
-                    videoView.suspend();
+                    videoView.setVisibility(View.INVISIBLE);
                     actualTime = (float) dr - Long.parseLong(String.valueOf(time_textView_store.getText()));
                     Log.d(TAG, "onClick: "+actualTime);
                     timer_text.setText("00:00:00");

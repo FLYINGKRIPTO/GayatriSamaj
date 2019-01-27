@@ -125,6 +125,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
              total = c.getInt(c.getColumnIndex("Total"));
 
         }
+        c.close();
         return total;
 
     }
@@ -138,6 +139,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
             total = c.getInt(c.getColumnIndex("Total"));
 
         }
+       c.close();
         return total;
     }
 
@@ -148,7 +150,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
                 " WHERE " + KEY_MODE + "= 'Jap'";
         Cursor cursor = db.rawQuery(japQuery,null);
         totaljaps = cursor.getCount();
-
+        cursor.close();
         return  totaljaps;
 
     }
@@ -159,7 +161,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
                 " WHERE " + KEY_MODE + "= 'Meditation'";
         Cursor cursor = db.rawQuery(japQuery,null);
         totaljaps = cursor.getCount();
-
+        cursor.close();
         return  totaljaps;
 
     }
@@ -170,7 +172,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
                 " WHERE " + KEY_MODE + "= 'Swadhyay'";
         Cursor cursor = db.rawQuery(japQuery,null);
         totaljaps = cursor.getCount();
-
+        cursor.close();
         return  totaljaps;
 
     }
@@ -181,7 +183,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
                 " WHERE " + KEY_MODE + "= 'Yagya'";
         Cursor cursor = db.rawQuery(japQuery,null);
         totaljaps = cursor.getCount();
-
+        cursor.close();
         return  totaljaps;
 
     }

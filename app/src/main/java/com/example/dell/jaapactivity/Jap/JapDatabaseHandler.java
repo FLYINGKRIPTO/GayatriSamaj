@@ -98,4 +98,45 @@ public class JapDatabaseHandler extends SQLiteOpenHelper {
         //return count
        return cursor.getCount();
    }
+
+   public int totalbyTime(){
+        int totalByTime= 0;
+        String byTimeQuery = "SELECT "+ KEY_TYPE + " FROM "  + TABLE_JAP_DATA +
+                " WHERE "+ KEY_TYPE +"= 'by Time'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalByTime = cursor.getCount();
+        cursor.close();
+        return  totalByTime;
+   }
+    public int totalbyMala(){
+        int totalByMala= 0;
+        String byTimeQuery = "SELECT "+ KEY_TYPE + " FROM "  + TABLE_JAP_DATA +
+                " WHERE "+ KEY_TYPE +"= 'by Mala'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalByMala = cursor.getCount();
+        cursor.close();
+        return  totalByMala;
+    }
+    public int totalwithGurudev(){
+        int totalwithGurudev= 0;
+        String byTimeQuery = "SELECT "+ KEY_TYPE + " FROM "  + TABLE_JAP_DATA +
+                " WHERE "+ KEY_TYPE +"= 'with Pujya Gurudev'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalwithGurudev = cursor.getCount();
+        cursor.close();
+        return  totalwithGurudev;
+    }
+    public int totalwithMataji(){
+        int totalWithMataji= 0;
+        String byTimeQuery = "SELECT "+ KEY_TYPE + " FROM "  + TABLE_JAP_DATA +
+                " WHERE "+ KEY_TYPE +"= 'with Pujya Mataji'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalWithMataji = cursor.getCount();
+        cursor.close();
+        return  totalWithMataji;
+    }
 }
