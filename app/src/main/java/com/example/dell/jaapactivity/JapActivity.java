@@ -76,6 +76,7 @@ public class JapActivity extends Activity {
     private int position = 0;
     public static  Long time_in_milli_to_store = 0l;
     EditText JapTime;
+    long actualTime = 0L;
     //Jap Database
     JapDatabaseHandler db = new JapDatabaseHandler(this);
 
@@ -210,46 +211,13 @@ public class JapActivity extends Activity {
                             display_time_selected.setVisibility(View.VISIBLE);
                             display_time_selected.setText((time_in_minutes).toString() + " Minutes ");
                             time_in_milli = time_in_minutes * 60000;
+                            actualTime = time_in_milli;
                             Log.d(TAG, "onClick: Time selected :" + time_in_milli + " milliseconds");
                             editor = sharedPreferences.edit();
                             editor.putLong(Time_in_minutes, time_in_milli);
                             editor.apply();
 
-                            //adding data in the Jap database
-                         //   long inserted = db.addJapData(new JapData(0, primaryKey, time_in_minutes, item, "null"));
-                            //displaying rows inserted
-                            long inserted = db.addJapData(new JapData(time_in_minutes,item));
-                            Log.d(TAG, "onClick: Row inserted " + inserted);
-                            // Displaying all data in a list view
-                            List<JapData> japDataList = db.getAllJapData();
-                            Log.d(TAG, "onClick: jap "+japDataList);
-                            for (JapData jp : japDataList) {
-                                String log = "Id: " + jp.getId() + " ,Type : " + jp.getType() + " ,Time: " +
-                                        jp.getTime() + ", Has Video :" + jp.isHasVideo() + ", Video Url :" + jp.getVideoURl();
-                                // Writing Contacts to log
-                                Log.d("Name: ", log);
 
-                            }
-                            //adding data in the Reports DataBase
-                            long reportInserted =  rDb.addUserReportData(new ReportData("Jap",time_in_minutes,time_in_minutes,formattedDate,formattedTime,formattedDay,item));
-                            Log.d(TAG, "onClick: User Report : " + reportInserted);
-
-                            //Displaying all data
-                            List<ReportData> reportDataList = rDb.getAllUserReportData();
-                            Log.d(TAG, "onClick: "+reportDataList);
-                            for (ReportData rp : reportDataList) {
-                                Log.d(TAG, "onClick: For loop");
-                                String reportLog = "Id: "+rp.getId() //0
-                                        + ", Mode: "+ rp.getMode()   //1
-                                        + ", User Time: "+ rp.getUserTime() //2
-                                        + ", Actual Time: "+ rp.getActualTime() //3
-                                        + ", Date : "+rp.getDate() //4
-                                        + ", Time : "+rp.getTime()  //5
-                                        + ", Day: "+rp.getDay()  //6
-                                        + ", Type: "+rp.getType() //7
-                                        + ", Audio Name: "+ rp.getAudioName();//8
-                                Log.d("Report: ",reportLog);
-                            }
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -307,6 +275,41 @@ public class JapActivity extends Activity {
                    Long timer_time = sharedPreferences.getLong(Time_in_minutes,10);
                    myCountdownTimer = new MyCountdownTimer(timer_time,100);
                    myCountdownTimer.start();
+                   //adding data in the Jap database
+                   //   long inserted = db.addJapData(new JapData(0, primaryKey, time_in_minutes, item, "null"));
+                   //displaying rows inserted
+                   long inserted = db.addJapData(new JapData(time_in_minutes,item));
+                   Log.d(TAG, "onClick: Row inserted " + inserted);
+                   // Displaying all data in a list view
+                   List<JapData> japDataList = db.getAllJapData();
+                   Log.d(TAG, "onClick: jap "+japDataList);
+                   for (JapData jp : japDataList) {
+                       String log = "Id: " + jp.getId() + " ,Type : " + jp.getType() + " ,Time: " +
+                               jp.getTime() + ", Has Video :" + jp.isHasVideo() + ", Video Url :" + jp.getVideoURl();
+                       // Writing Contacts to log
+                       Log.d("Name: ", log);
+
+                   }
+                   //adding data in the Reports DataBase
+                   long reportInserted =  rDb.addUserReportData(new ReportData("Jap",time_in_minutes,time_in_minutes,formattedDate,formattedTime,formattedDay,item));
+                   Log.d(TAG, "onClick: User Report : " + reportInserted);
+
+                   //Displaying all data
+                   List<ReportData> reportDataList = rDb.getAllUserReportData();
+                   Log.d(TAG, "onClick: "+reportDataList);
+                   for (ReportData rp : reportDataList) {
+                       Log.d(TAG, "onClick: For loop");
+                       String reportLog = "Id: "+rp.getId() //0
+                               + ", Mode: "+ rp.getMode()   //1
+                               + ", User Time: "+ rp.getUserTime() //2
+                               + ", Actual Time: "+ rp.getActualTime() //3
+                               + ", Date : "+rp.getDate() //4
+                               + ", Time : "+rp.getTime()  //5
+                               + ", Day: "+rp.getDay()  //6
+                               + ", Type: "+rp.getType() //7
+                               + ", Audio Name: "+ rp.getAudioName();//8
+                       Log.d("Report: ",reportLog);
+                   }
 
                }
 
@@ -350,7 +353,7 @@ public class JapActivity extends Activity {
                                myCountdownTimer = new MyCountdownTimer(dr, 100);
                                myCountdownTimer.start();
 
-                            long inserted = rDb.addUserReportData(new ReportData("with pujya Gurudev",Long.parseLong(String.valueOf(dr)),Long.parseLong(String.valueOf(dr)),formattedDate,formattedTime,formattedDay,item));
+                            long inserted = rDb.addUserReportData(new ReportData("Jap",Long.parseLong(String.valueOf(minutes)),Long.parseLong(String.valueOf(minutes)),formattedDate,formattedTime,formattedDay,item));
                                Log.d(TAG, "onClick: User Report : " + inserted);
 
                                //Displaying all data
@@ -421,7 +424,12 @@ public class JapActivity extends Activity {
             @Override
             public void onClick(View v) {
                 display_time_selected.setVisibility(View.INVISIBLE);
-                videoView.stopPlayback();
+                if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")||selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
+                    videoView.stopPlayback();
+                    videoView.suspend();
+                }
+                actualTime = time_in_milli - Long.parseLong(String.valueOf(time_textView_store.getText()));
+                Log.d(TAG, "onClick: "+actualTime);
                 timer_text.setText("00:00:00");
                 myCountdownTimer.cancel();
 
@@ -443,6 +451,7 @@ public class JapActivity extends Activity {
 
         @Override
         public void onTick(long millisUntilFinished) {
+            time_textView_store.setText( String.valueOf(millisUntilFinished));
             String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
