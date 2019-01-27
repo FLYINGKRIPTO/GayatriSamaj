@@ -30,7 +30,10 @@ public class ReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report);
 
         PieChart pieChart = findViewById(R.id.pieChart);
+        PieChart japDataChart = findViewById(R.id.japDataPieChart);
+        PieChart meditaionDataPieChart =  findViewById(R.id.meditationDataPieChart);
 
+        //Total modes Pie Chart
         ArrayList totalModes = new ArrayList();
         totalModes.add(new PieEntry((float)rDb.totalJaps(),"Japs"));
         totalModes.add(new PieEntry((float)rDb.totalMeditations(),"Meditations"));
@@ -39,15 +42,41 @@ public class ReportActivity extends AppCompatActivity {
 
         PieDataSet dataSet = new PieDataSet(totalModes,"Different Modes");
 
-
-
         PieData data = new PieData(dataSet);
         pieChart.setData(data);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieChart.animateXY(3000, 3000);
 
+        //Jap data PieChart
+        ArrayList japDataList = new ArrayList();
+        japDataList.add(new PieEntry((float)jDb.totalbyTime(),"by Time"));
+        japDataList.add(new PieEntry((float)jDb.totalbyMala(),"by Mala"));
+        japDataList.add(new PieEntry((float)jDb.totalwithGurudev(),"with Pujya Gurudev"));
+        japDataList.add(new PieEntry((float)jDb.totalwithMataji(),"with Pujya Mataji"));
+
+        PieDataSet japDataSet = new PieDataSet(japDataList,"Different Jap Modes");
+
+        PieData Japdata = new PieData(japDataSet);
+        japDataChart.setData(Japdata);
+        japDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        japDataChart.animateXY(3000, 3000);
 
 
+        //Meditation Data PieChart
+        ArrayList meditationDataList = new ArrayList();
+        meditationDataList.add(new PieEntry(mDb.totalSong1(),"Atam Bodh Dhyan"));
+        meditationDataList.add(new PieEntry(mDb.totalSong2(),"Panchkosh Dhyaan"));
+        meditationDataList.add(new PieEntry(mDb.totalSong3(),"Sharir Dhyaan"));
+        meditationDataList.add(new PieEntry(mDb.totalSong4(),"Amrit Varsha Dhyaan"));
+        meditationDataList.add(new PieEntry(mDb.totalSong5(),"Jyoti Avdhrnam Dhyaan"));
+        meditationDataList.add(new PieEntry(mDb.totalSong6(),"Naad yog Dhyaan"));
+        meditationDataList.add(new PieEntry(mDb.totalSong7(),"Tatv Bodh Dhyaan"));
+
+        PieDataSet meditationDataSet = new PieDataSet(meditationDataList,"Meditation Tracks");
+        PieData meditatationData = new PieData(meditationDataSet);
+        meditaionDataPieChart.setData(meditatationData);
+        meditationDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        meditaionDataPieChart.animateXY(3000, 3000);
 
         List<ReportData> reportDataList = rDb.getAllUserReportData();
         Log.d(TAG, "onClick: "+reportDataList);
