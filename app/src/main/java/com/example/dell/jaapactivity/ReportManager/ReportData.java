@@ -4,7 +4,7 @@ public class ReportData {
     private int id;
     private String mode;
     private long userTime;
-    private long actualTime;
+    private float actualTime;
     private String date;
     private String time;
     private String day;
@@ -42,7 +42,7 @@ public class ReportData {
     }
 
     //Constructor to be used for swadhyay activity
-    public ReportData(String mode,String date,String time,String day,int userTime,int actualTime){
+    public ReportData(String mode,String date,String time,String day,int userTime,float actualTime){
         this.mode = mode;
         this.date = date;
         this.time = time;
@@ -74,11 +74,11 @@ public class ReportData {
         this.userTime = userTime;
     }
 
-    public long getActualTime() {
+    public float getActualTime() {
         return actualTime;
     }
 
-    public void setActualTime(int actualTime) {
+    public void setActualTime(float actualTime) {
         this.actualTime = actualTime;
     }
 

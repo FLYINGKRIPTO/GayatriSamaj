@@ -80,7 +80,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
                 reportData.setId(Integer.parseInt(cursor.getString(0)));
                 reportData.setMode(cursor.getString(1));
                 reportData.setUserTime(Integer.parseInt(cursor.getString(2)));
-                reportData.setActualTime(Integer.parseInt(cursor.getString(3)));
+                reportData.setActualTime(Float.parseFloat(cursor.getString(3)));
                 reportData.setDate(cursor.getString(4));
                 reportData.setTime(cursor.getString(5));
                 reportData.setDay(cursor.getString(6));
@@ -106,6 +106,16 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         }
         return lastId;
     }
+
+    public boolean updateData(String id,float actualTime){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cn = new ContentValues();
+        cn.put(KEY_ACTUAL_TIME,actualTime);
+        db.update(TABLE_USER_REPORT,cn," id = ?",new String[] { id });
+       return true;
+    }
+
 
 
 }

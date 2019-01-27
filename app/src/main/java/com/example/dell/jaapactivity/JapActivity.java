@@ -76,7 +76,7 @@ public class JapActivity extends Activity {
     private int position = 0;
     public static  Long time_in_milli_to_store = 0l;
     EditText JapTime;
-    long actualTime = 0L;
+    float actualTime = 0f;
     //Jap Database
     JapDatabaseHandler db = new JapDatabaseHandler(this);
 
@@ -428,7 +428,7 @@ public class JapActivity extends Activity {
                     videoView.stopPlayback();
                     videoView.suspend();
                 }
-                actualTime = time_in_milli - Long.parseLong(String.valueOf(time_textView_store.getText()));
+                actualTime = (float) time_in_milli - Long.parseLong(String.valueOf(time_textView_store.getText()));
                 Log.d(TAG, "onClick: "+actualTime);
                 timer_text.setText("00:00:00");
                 myCountdownTimer.cancel();
@@ -436,6 +436,25 @@ public class JapActivity extends Activity {
                 //TODO : update actual time in the database
                  rDb.getLastId();
                 Log.d(TAG, "onClick: last Id "+ rDb.getLastId());
+
+                //update actual time
+                rDb.updateData(String.valueOf(rDb.getLastId()),actualTime/60000);
+                List<ReportData> reportDataList = rDb.getAllUserReportData();
+                Log.d(TAG, "onClick: "+reportDataList);
+                for (ReportData rp : reportDataList) {
+                    Log.d(TAG, "onClick: For loop");
+                    String reportLog = "Id: "+rp.getId() //0
+                            + ", Mode: "+ rp.getMode()   //1
+                            + ", User Time: "+ rp.getUserTime() //2
+                            + ", Actual Time: "+ rp.getActualTime() //3
+                            + ", Date : "+rp.getDate() //4
+                            + ", Time : "+rp.getTime()  //5
+                            + ", Day: "+rp.getDay()  //6
+                            + ", Type: "+rp.getType() //7
+                            + ", Audio Name: "+ rp.getAudioName();//8
+                    Log.d("Report: ",reportLog);
+                }
+
             }
         });
     }
