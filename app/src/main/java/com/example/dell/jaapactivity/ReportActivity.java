@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
+import com.example.dell.jaapactivity.Meditation.MeditationDataBaseHandler;
 import com.example.dell.jaapactivity.ReportManager.ReportData;
 import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
 
@@ -14,6 +15,7 @@ public class ReportActivity extends AppCompatActivity {
     private static final String TAG = "ReportActivity";
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
     JapDatabaseHandler jDb = new JapDatabaseHandler(this);
+    MeditationDataBaseHandler mDb = new MeditationDataBaseHandler(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,16 +37,47 @@ public class ReportActivity extends AppCompatActivity {
             Log.d("Report Activity :",reportLog);
         }
 
+
+        //Total User Time [DONE]
+        //Total Actual Time [DONE]
         Log.d(TAG, "onCreate: sum user time :" + rDb.sumUserTime());
         Log.d(TAG, "onCreate: sum actual time: " + rDb.sumActualTime());
+
+        //Total Meditations [DONE]
+        //Total Japs [DONE]
+        //Total Swadhyay [DONE]
+        //Total Yagya [DONE]
         Log.d(TAG, "onCreate: total japs : "+ rDb.totalJaps());
         Log.d(TAG, "onCreate: total Meditations "+ rDb.totalMeditations());
         Log.d(TAG, "onCreate: total swadhyay "+ rDb.totalSwadhyay());
         Log.d(TAG, "onCreate: total yagya "+ rDb.totalYagya());
+
+      //  Total by time [DONE]
+      //  Total by mala [DONE]
+      //  Total with Pujya Gurudev [DONE]
+      //  Total with Mataji [DONE]
+
         Log.d(TAG, "onCreate: total by time "+ jDb.totalbyTime());
         Log.d(TAG, "onCreate: total by mala :"+ jDb.totalbyMala());
         Log.d(TAG, "onCreate: total with Pujya Gurudev :"+ jDb.totalwithGurudev());
         Log.d(TAG, "onCreate: total with Pujya Mataji :"+ jDb.totalwithMataji());
+
+
+        //Total times - song 1
+        //Total times - song 2
+        //Total times - song 3
+        //Total times - song 4
+        //Total times - song 5
+        //Total times - song 6
+        //Total times - song 7
+
+        Log.d(TAG, "onCreate: total song 1 "+ mDb.totalSong1());
+        Log.d(TAG, "onCreate: total song 2 "+ mDb.totalSong2());
+        Log.d(TAG, "onCreate: total song 3 "+ mDb.totalSong3());
+        Log.d(TAG, "onCreate: total song 4 "+ mDb.totalSong4());
+        Log.d(TAG, "onCreate: total song 5 "+ mDb.totalSong5());
+        Log.d(TAG, "onCreate: total song 6 "+ mDb.totalSong6());
+        Log.d(TAG, "onCreate: total song 7 "+ mDb.totalSong7());
 
     }
 

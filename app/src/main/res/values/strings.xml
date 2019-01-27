@@ -2,6 +2,13 @@
     <string name="app_name">GayatriSamaj</string>
     <string name="time_prompt">Select Time in Minutes</string>
     <string name="stop_jap">Stop Jap</string>
+    <string name="song_one">No 1 Atam Bodh Dhyaan</string>
+    <string name="song_two">No 2 Panchkosh Dhyaan</string>
+    <string name="song_three">No 3 Sharir Dhyaan</string>
+    <string name="song_four">No 4 Amrit Varsha Dhyaan</string>
+    <string name="song_five">No 5 Jyoti Avdhrnam Dhyaan</string>
+    <string name="song_six">No 6 Naad yog Dhyaan</string>
+    <string name="song_seven">No 7 Tatv Bodh Dhyaan</string>
 
     <string-array name="timelist">
         <item>5</item>

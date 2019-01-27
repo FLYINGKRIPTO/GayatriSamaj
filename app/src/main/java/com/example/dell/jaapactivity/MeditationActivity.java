@@ -95,7 +95,7 @@ public class MeditationActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                    soundTrackName.setText("No 1 Atam Bodh Dhyaan");
+                    soundTrackName.setText(R.string.song_one);
 
                     //meditation database
                   long inserted=  mDb.addMeditationData(new MeditationData("No 1 Atam Bodh Dhyaan",mediaPlayer.getDuration()));
@@ -136,7 +136,7 @@ public class MeditationActivity extends AppCompatActivity {
                     if(pauseIsPressed){
                         mediaPlayer.seekTo(pausePosition+100);
                     }
-                    soundTrackName.setText("No 2 Panchkosh Dhyaan");
+                    soundTrackName.setText(R.string.song_two);
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
@@ -177,7 +177,7 @@ public class MeditationActivity extends AppCompatActivity {
                     if(pauseIsPressed){
                         mediaPlayer.seekTo(pausePosition=100);
                     }
-                    soundTrackName.setText("No 3 Sharir Dhyaan");
+                    soundTrackName.setText(R.string.song_three);
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
@@ -216,7 +216,7 @@ public class MeditationActivity extends AppCompatActivity {
                     if(pauseIsPressed){
                         mediaPlayer.seekTo(pausePosition+100);
                     }
-                    soundTrackName.setText("No 4 Amrit Varsha Dhyaan");
+                    soundTrackName.setText(R.string.song_four);
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
@@ -255,11 +255,11 @@ public class MeditationActivity extends AppCompatActivity {
                     if(pauseIsPressed){
                         mediaPlayer.seekTo(pausePosition+100);
                     }
-                    soundTrackName.setText("No 5 Jyoti Avdhrnam Dhyaan");
+                    soundTrackName.setText(R.string.song_five);
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                    long inserted = mDb.addMeditationData(new MeditationData("No 5  jyoti Avardham Dhyaan",mediaPlayer.getDuration()));
+                    long inserted = mDb.addMeditationData(new MeditationData("No 5 Jyoti Avdhrnam Dhyaan",mediaPlayer.getDuration()));
                     Log.d(TAG, "onClick: inserted" + inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {
@@ -294,7 +294,7 @@ public class MeditationActivity extends AppCompatActivity {
                         mediaPlayer.seekTo(pausePosition+100);
                     }
                     mediaPlayer.setLooping(true);
-                    soundTrackName.setText("No 6 Naad yog Dhyaan ");
+                    soundTrackName.setText(R.string.song_six);
                     mediaPlayer.start();
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                 long inserted =     mDb.addMeditationData(new MeditationData("No 6 Naad yog Dhyaan",mediaPlayer.getDuration()));
@@ -333,11 +333,11 @@ public class MeditationActivity extends AppCompatActivity {
                         mediaPlayer.seekTo(pausePosition+100);
                     }
                     mediaPlayer.setLooping(true);
-                    soundTrackName.setText("No 7 Tatv Bodh Dhyaan");
+                    soundTrackName.setText(R.string.song_seven);
                     playButtonPressCount=0;
                     mediaPlayer.start();
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                    long inserted = mDb.addMeditationData(new MeditationData("No 7 Tatva Bodh Dhyaan",mediaPlayer.getDuration()));
+                    long inserted = mDb.addMeditationData(new MeditationData("No 7 Tatv Bodh Dhyaan",mediaPlayer.getDuration()));
                     Log.d(TAG, "onClick: inserted : "+ inserted);
                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
                     for (MeditationData mp : meditationDataList) {

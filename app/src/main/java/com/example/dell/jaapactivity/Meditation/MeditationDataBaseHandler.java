@@ -69,5 +69,77 @@ public class MeditationDataBaseHandler extends SQLiteOpenHelper {
         //return
         return meditationDataList;
     }
+    public int totalSong1(){
+        int totalByTime= 0;
+        String byTimeQuery = "SELECT "+ KEY_AUDIO_NAME + " FROM "  + TABLE_MEDITATION_DATA +
+                " WHERE "+ KEY_AUDIO_NAME +"= 'No 1 Atam Bodh Dhyaan'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalByTime = cursor.getCount();
+        cursor.close();
+        return  totalByTime;
+    }
+    public int totalSong2(){
+        int totalByTime= 0;
+        String byTimeQuery = "SELECT "+ KEY_AUDIO_NAME + " FROM "  + TABLE_MEDITATION_DATA +
+                " WHERE "+ KEY_AUDIO_NAME +"= 'No 2 Panchkosh Dhyaan'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalByTime = cursor.getCount();
+        cursor.close();
+        return  totalByTime;
+    }
+    public int totalSong3(){
+        int totalByTime= 0;
+        String byTimeQuery = "SELECT "+ KEY_AUDIO_NAME + " FROM "  + TABLE_MEDITATION_DATA +
+                " WHERE "+ KEY_AUDIO_NAME +"= 'No 3 Sharir Dhyaan'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalByTime = cursor.getCount();
+        cursor.close();
+        return  totalByTime;
+    }
+    public int totalSong4(){
+        int totalByTime= 0;
+        String byTimeQuery = "SELECT "+ KEY_AUDIO_NAME + " FROM "  + TABLE_MEDITATION_DATA +
+                " WHERE "+ KEY_AUDIO_NAME +"= 'No 4 Amrit Varsha Dhyaan'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalByTime = cursor.getCount();
+        cursor.close();
+        return  totalByTime;
+    }
+    public int totalSong5(){
+        int totalByTime= 0;
+        String byTimeQuery = "SELECT "+ KEY_AUDIO_NAME + " FROM "  + TABLE_MEDITATION_DATA +
+                " WHERE "+ KEY_AUDIO_NAME +"= 'No 5 Jyoti Avdhrnam Dhyaan'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalByTime = cursor.getCount();
+        cursor.close();
+        return  totalByTime;
+    }
+    public int totalSong6(){
+        int totalByTime= 0;
+        String byTimeQuery = "SELECT "+ KEY_AUDIO_NAME + " FROM "  + TABLE_MEDITATION_DATA +
+                " WHERE "+ KEY_AUDIO_NAME +"= 'No 6 Naad yog Dhyaan'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalByTime = cursor.getCount();
+        cursor.close();
+        return  totalByTime;
+    }
+    public int totalSong7(){
+        int totalByTime= 0;
+        String byTimeQuery = "SELECT "+ KEY_AUDIO_NAME + " FROM "  + TABLE_MEDITATION_DATA +
+                " WHERE "+ KEY_AUDIO_NAME +"= 'No 7 Tatv Bodh Dhyaan'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(byTimeQuery,null);
+        totalByTime = cursor.getCount();
+        cursor.close();
+        return  totalByTime;
+    }
+
+
 
 }
