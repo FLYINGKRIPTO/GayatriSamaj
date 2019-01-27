@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".ReportActivity">
 
@@ -12,5 +13,14 @@
     android:layout_width="match_parent"
     android:layout_height="30dp"
     />
+   
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="450dp">
+
+    </com.github.mikephil.charting.charts.PieChart>
 
 </LinearLayout>

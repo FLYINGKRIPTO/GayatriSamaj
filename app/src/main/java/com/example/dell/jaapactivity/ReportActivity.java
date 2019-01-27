@@ -8,7 +8,13 @@ import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
 import com.example.dell.jaapactivity.Meditation.MeditationDataBaseHandler;
 import com.example.dell.jaapactivity.ReportManager.ReportData;
 import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
@@ -16,10 +22,32 @@ public class ReportActivity extends AppCompatActivity {
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
     JapDatabaseHandler jDb = new JapDatabaseHandler(this);
     MeditationDataBaseHandler mDb = new MeditationDataBaseHandler(this);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+        PieChart pieChart = findViewById(R.id.pieChart);
+
+        ArrayList totalModes = new ArrayList();
+        totalModes.add(new PieEntry((float)rDb.totalJaps(),"Japs"));
+        totalModes.add(new PieEntry((float)rDb.totalMeditations(),"Meditations"));
+        totalModes.add(new PieEntry((float)rDb.totalSwadhyay(),"Swadhyay"));
+        totalModes.add(new PieEntry((float)rDb.totalYagya(),"Yagya"));
+
+        PieDataSet dataSet = new PieDataSet(totalModes,"Different Modes");
+
+
+
+        PieData data = new PieData(dataSet);
+        pieChart.setData(data);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieChart.animateXY(3000, 3000);
+
+
+
 
         List<ReportData> reportDataList = rDb.getAllUserReportData();
         Log.d(TAG, "onClick: "+reportDataList);
@@ -36,6 +64,7 @@ public class ReportActivity extends AppCompatActivity {
                     + ", Audio Name: "+ rp.getAudioName();//8
             Log.d("Report Activity :",reportLog);
         }
+
 
 
         //Total User Time [DONE]
