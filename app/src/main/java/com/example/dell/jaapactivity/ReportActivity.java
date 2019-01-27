@@ -1,5 +1,6 @@
 package com.example.dell.jaapactivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,7 +9,11 @@ import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
 import com.example.dell.jaapactivity.Meditation.MeditationDataBaseHandler;
 import com.example.dell.jaapactivity.ReportManager.ReportData;
 import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -32,6 +37,8 @@ public class ReportActivity extends AppCompatActivity {
         PieChart pieChart = findViewById(R.id.pieChart);
         PieChart japDataChart = findViewById(R.id.japDataPieChart);
         PieChart meditaionDataPieChart =  findViewById(R.id.meditationDataPieChart);
+        PieChart timeComparisionChart = findViewById(R.id.timeCompare);
+        BarChart dayWiseTimeChart  = findViewById(R.id.dayWiseBarChart);
 
         //Total modes Pie Chart
         ArrayList totalModes = new ArrayList();
@@ -44,7 +51,10 @@ public class ReportActivity extends AppCompatActivity {
 
         PieData data = new PieData(dataSet);
         pieChart.setData(data);
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieChart.setCenterText("Modes");
+        dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        pieChart.setEntryLabelColor(Color.BLACK);
+        dataSet.setSliceSpace(1f);
         pieChart.animateXY(3000, 3000);
 
         //Jap data PieChart
@@ -58,8 +68,11 @@ public class ReportActivity extends AppCompatActivity {
 
         PieData Japdata = new PieData(japDataSet);
         japDataChart.setData(Japdata);
+        japDataChart.setCenterText("Jap Modes");
         japDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        japDataChart.animateXY(3000, 3000);
+        japDataChart.setEntryLabelColor(Color.CYAN);
+        japDataSet.setSliceSpace(1f);
+        japDataChart.animateXY(2000, 2000);
 
 
         //Meditation Data PieChart
@@ -75,8 +88,46 @@ public class ReportActivity extends AppCompatActivity {
         PieDataSet meditationDataSet = new PieDataSet(meditationDataList,"Meditation Tracks");
         PieData meditatationData = new PieData(meditationDataSet);
         meditaionDataPieChart.setData(meditatationData);
+        meditaionDataPieChart.setCenterText("Meditation Audios");
         meditationDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        meditaionDataPieChart.animateXY(3000, 3000);
+        meditationDataSet.setSliceSpace(1f);
+        meditaionDataPieChart.animateXY(2000, 2000);
+
+        //Time Comparision pie chart
+
+        ArrayList timeCompareDataList = new ArrayList();
+        timeCompareDataList.add(new PieEntry(rDb.sumUserTime(),"Entered Time"));
+        timeCompareDataList.add(new PieEntry(rDb.sumActualTime(), "Followed Time"));
+
+        PieDataSet timeCompareDataSet = new PieDataSet(timeCompareDataList,"Time Comparision");
+        PieData timeCompareData = new PieData(timeCompareDataSet);
+        timeComparisionChart.setData(timeCompareData);
+        timeComparisionChart.setCenterText("Entered Time V/S Executed Time");
+        timeCompareDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        timeCompareDataSet.setSliceSpace(1f);
+        timeComparisionChart.animateXY(2000,2000);
+
+
+        //Day Wise Bar Chart
+
+        ArrayList dayWiseTime = new ArrayList();
+        dayWiseTime.add(new BarEntry(1,11,"Monday"));
+        dayWiseTime.add(new BarEntry(2,33,"Tuesday"));
+        dayWiseTime.add(new BarEntry(3,4,"Wednesday"));
+        dayWiseTime.add(new BarEntry(4,6,"Thursday"));
+        dayWiseTime.add(new BarEntry(5,17,"Friday"));
+        dayWiseTime.add(new BarEntry(6,33,"Saturday"));
+        dayWiseTime.add(new BarEntry(7,rDb.totalSunTime(),"Sunday"));
+
+        BarDataSet dayWiseTimeBar = new BarDataSet(dayWiseTime,"Day Wise Comparision");
+        BarData barData = new BarData(dayWiseTimeBar);
+        dayWiseTimeChart.setData(barData);
+        dayWiseTimeBar.setLabel("Days");
+
+        dayWiseTimeBar.setColors(ColorTemplate.MATERIAL_COLORS);
+        dayWiseTimeChart.animateXY(3000,2000);
+
+
 
         List<ReportData> reportDataList = rDb.getAllUserReportData();
         Log.d(TAG, "onClick: "+reportDataList);
@@ -136,6 +187,16 @@ public class ReportActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: total song 5 "+ mDb.totalSong5());
         Log.d(TAG, "onCreate: total song 6 "+ mDb.totalSong6());
         Log.d(TAG, "onCreate: total song 7 "+ mDb.totalSong7());
+
+        //Total sunday time
+        Log.d(TAG, "onCreate: total sunday time "+ rDb.totalSunTime());
+        Log.d(TAG, "onCreate: total monday time "+ rDb.totalMonTime());
+        Log.d(TAG, "onCreate: total Tuesday time "+ rDb.totalTueTime());
+        Log.d(TAG, "onCreate: total Wednesday time "+ rDb.totalWedTime());
+        Log.d(TAG, "onCreate: total Thursday time "+ rDb.totalThurTime());
+        Log.d(TAG, "onCreate: total Friday time "+ rDb.totalFriTime());
+        Log.d(TAG, "onCreate: total Saturday time "+ rDb.totalSatTime());
+
 
     }
 

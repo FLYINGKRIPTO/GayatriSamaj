@@ -188,6 +188,124 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public int totalSunTime() {
+        int totalTime = 0;
+        SQLiteDatabase db = getWritableDatabase();
+        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
+                +KEY_DAY +"= 'Sun'";
+        Cursor cursor = db.rawQuery(sumQuery,null);
+
+        if(cursor.moveToFirst()){
+            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
+
+        }
+        cursor.close();
+        return totalTime;
+
+
+
+    }
+    public int totalMonTime() {
+        int totalTime = 0;
+        SQLiteDatabase db = getWritableDatabase();
+        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
+                +KEY_DAY +"= 'Mon'";
+        Cursor cursor = db.rawQuery(sumQuery,null);
+
+        if(cursor.moveToFirst()){
+            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
+
+        }
+        cursor.close();
+        return totalTime;
+
+
+
+    }
+    public int totalTueTime() {
+        int totalTime = 0;
+        SQLiteDatabase db = getWritableDatabase();
+        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
+                +KEY_DAY +"= 'Tue'";
+        Cursor cursor = db.rawQuery(sumQuery,null);
+
+        if(cursor.moveToFirst()){
+            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
+
+        }
+        cursor.close();
+        return totalTime;
+
+
+
+    }
+    public int totalWedTime() {
+        int totalTime = 0;
+        SQLiteDatabase db = getWritableDatabase();
+        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
+                +KEY_DAY +"= 'Wed'";
+        Cursor cursor = db.rawQuery(sumQuery,null);
+
+        if(cursor.moveToFirst()){
+            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
+
+        }
+        cursor.close();
+        return totalTime;
+
+
+
+    }
+    public int totalThurTime() {
+        int totalTime = 0;
+        SQLiteDatabase db = getWritableDatabase();
+        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
+                +KEY_DAY +"= 'Thu'";
+        Cursor cursor = db.rawQuery(sumQuery,null);
+
+        if(cursor.moveToFirst()){
+            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
+
+        }
+        cursor.close();
+        return totalTime;
+
+
+
+    }
+    public int totalFriTime() {
+        int totalTime = 0;
+        SQLiteDatabase db = getWritableDatabase();
+        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
+                +KEY_DAY +"= 'Fri'";
+        Cursor cursor = db.rawQuery(sumQuery,null);
+
+        if(cursor.moveToFirst()){
+            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
+
+        }
+        cursor.close();
+        return totalTime;
+
+
+
+    }
+    public int totalSatTime() {
+        int totalTime = 0;
+        SQLiteDatabase db = getWritableDatabase();
+        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
+                +KEY_DAY +"= 'Sat'";
+        Cursor cursor = db.rawQuery(sumQuery,null);
+
+        if(cursor.moveToFirst()){
+            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
+
+        }
+        cursor.close();
+        return totalTime;
+
+    }
+
 
 
 }
