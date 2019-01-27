@@ -95,5 +95,17 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         return reportDataList;
     }
 
+    public int getLastId(){
+        String query = "SELECT "+KEY_ID +" from "+TABLE_USER_REPORT+ " order by "+KEY_ID+" DESC limit 1";
+        SQLiteDatabase db = getWritableDatabase();
+        int lastId=1;
+        Cursor c = db.rawQuery(query,null);
+        if(c!=null && c.moveToFirst()){
+           lastId = c.getInt(0);
+
+        }
+        return lastId;
+    }
+
 
 }

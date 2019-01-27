@@ -433,6 +433,9 @@ public class JapActivity extends Activity {
                 timer_text.setText("00:00:00");
                 myCountdownTimer.cancel();
 
+                //TODO : update actual time in the database
+                 rDb.getLastId();
+                Log.d(TAG, "onClick: last Id "+ rDb.getLastId());
             }
         });
     }
