@@ -32,6 +32,11 @@ public class ReportActivity extends AppCompatActivity {
                     + ", Audio Name: "+ rp.getAudioName();//8
             Log.d("Report Activity :",reportLog);
         }
+
+        Log.d(TAG, "onCreate: sum user time :" + rDb.sumUserTime());
+        Log.d(TAG, "onCreate: sum actual time: " + rDb.sumActualTime());
+
+
     }
 
 

@@ -116,6 +116,31 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
        return true;
     }
 
+    public float sumUserTime(){
+         float total = 0f;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sumQuery = " SELECT SUM(" + KEY_USER_TIME +") as Total FROM "+ TABLE_USER_REPORT;
+        Cursor c = db.rawQuery(sumQuery,null);
+        if(c.moveToFirst()){
+             total = c.getInt(c.getColumnIndex("Total"));
+
+        }
+        return total;
+
+    }
+
+    public float sumActualTime(){
+        float total = 0f;
+        SQLiteDatabase db = getWritableDatabase();
+        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as Total FROM "+ TABLE_USER_REPORT;
+        Cursor c = db.rawQuery(sumQuery,null);
+        if(c.moveToFirst()){
+            total = c.getInt(c.getColumnIndex("Total"));
+
+        }
+        return total;
+    }
+
 
 
 }

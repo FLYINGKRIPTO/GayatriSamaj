@@ -427,13 +427,22 @@ public class JapActivity extends Activity {
                 if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")||selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
                     videoView.stopPlayback();
                     videoView.suspend();
-                }
-                actualTime = (float) time_in_milli - Long.parseLong(String.valueOf(time_textView_store.getText()));
-                Log.d(TAG, "onClick: "+actualTime);
-                timer_text.setText("00:00:00");
-                myCountdownTimer.cancel();
+                    actualTime = (float) dr - Long.parseLong(String.valueOf(time_textView_store.getText()));
+                    Log.d(TAG, "onClick: "+actualTime);
+                    timer_text.setText("00:00:00");
+                    myCountdownTimer.cancel();
 
-                //TODO : update actual time in the database
+                }
+
+                else if (selectedItemFromOptions.equalsIgnoreCase("by Time")){
+                    actualTime = (float) time_in_milli - Long.parseLong(String.valueOf(time_textView_store.getText()));
+                    Log.d(TAG, "onClick: "+actualTime);
+                    timer_text.setText("00:00:00");
+                    myCountdownTimer.cancel();
+                }
+
+
+
                  rDb.getLastId();
                 Log.d(TAG, "onClick: last Id "+ rDb.getLastId());
 
