@@ -141,6 +141,51 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         return total;
     }
 
+    public int totalJaps() {
+        int totaljaps = 0;
+        SQLiteDatabase db= getWritableDatabase();
+        String japQuery = " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
+                " WHERE " + KEY_MODE + "= 'Jap'";
+        Cursor cursor = db.rawQuery(japQuery,null);
+        totaljaps = cursor.getCount();
+
+        return  totaljaps;
+
+    }
+    public int totalMeditations() {
+        int totaljaps = 0;
+        SQLiteDatabase db= getWritableDatabase();
+        String japQuery = " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
+                " WHERE " + KEY_MODE + "= 'Meditation'";
+        Cursor cursor = db.rawQuery(japQuery,null);
+        totaljaps = cursor.getCount();
+
+        return  totaljaps;
+
+    }
+    public int totalSwadhyay() {
+        int totaljaps = 0;
+        SQLiteDatabase db= getWritableDatabase();
+        String japQuery = " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
+                " WHERE " + KEY_MODE + "= 'Swadhyay'";
+        Cursor cursor = db.rawQuery(japQuery,null);
+        totaljaps = cursor.getCount();
+
+        return  totaljaps;
+
+    }
+    public int totalYagya() {
+        int totaljaps = 0;
+        SQLiteDatabase db= getWritableDatabase();
+        String japQuery = " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
+                " WHERE " + KEY_MODE + "= 'Yagya'";
+        Cursor cursor = db.rawQuery(japQuery,null);
+        totaljaps = cursor.getCount();
+
+        return  totaljaps;
+
+    }
+
 
 
 }

@@ -3,7 +3,7 @@ package com.example.dell.jaapactivity.ReportManager;
 public class ReportData {
     private int id;
     private String mode;
-    private long userTime;
+    private float userTime;
     private float actualTime;
     private String date;
     private String time;
@@ -29,7 +29,7 @@ public class ReportData {
     }
     //Constructor to be used for meditation activity
     public ReportData(String mode,String date, String time,String day,
-                      String audioName,int userTime,int actualTime){
+                      String audioName,float userTime,float actualTime){
 
         this.mode = mode;
         this.date = date;
@@ -66,7 +66,7 @@ public class ReportData {
         this.mode = mode;
     }
 
-    public long getUserTime() {
+    public float getUserTime() {
         return userTime;
     }
 

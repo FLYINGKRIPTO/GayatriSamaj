@@ -92,15 +92,20 @@
         android:textColor="#ffffff"
         android:text="@string/stop_jap"
          />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
     <Button
         android:id="@+id/swadhyayButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Swadhyay Activity"
+        android:text="Swadhyay"
         />
     <Button
         android:id="@+id/nextActivity"
-        android:text="Meditation Activity"
+        android:text="Meditation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
@@ -111,6 +116,13 @@
         android:text = "Reports"
 
         />
+        <Button
+            android:id="@+id/yagyaActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yagya"
+            />
+    </LinearLayout>
 
 
 </LinearLayout>

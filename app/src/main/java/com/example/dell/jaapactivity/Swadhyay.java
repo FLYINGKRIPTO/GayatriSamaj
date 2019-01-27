@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 public class Swadhyay extends AppCompatActivity {
      EditText swadhyayTime;
      TextView swadhyayTextView;
+     TextView swadhyayaTv;
      SharedPreferences sharedPreferences;
      SharedPreferences.Editor editor;
      TextView timerTextView;
@@ -36,6 +37,7 @@ public class Swadhyay extends AppCompatActivity {
      Long time_in_minutes = 0l;
      Long time_in_milli = 0l;
      int id=0;
+    float actualTime = 0f;
      MyCountdownTimer myCountdownTimer;
      public static final String SWADHYAYPREFERENCES = "TimePref";
      public static final String ENTERED_TIME = "time_entered";
@@ -50,6 +52,7 @@ public class Swadhyay extends AppCompatActivity {
         timerTextView = findViewById(R.id.swadhyayTimer);
         startSwadhyay = findViewById(R.id.startSwadhyay);
         stopSwadhyay = findViewById(R.id.stopSwadhyay);
+        swadhyayaTv = findViewById(R.id.swadhyayTimermilli);
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.prompts,null);
 
@@ -91,31 +94,7 @@ public class Swadhyay extends AppCompatActivity {
                         editor = sharedPreferences.edit();
                         editor.putLong(ENTERED_TIME,time_in_milli);
                         editor.apply();
-                        long inserted = sDb.addSwadhyay(new SwadhyayData(time_in_minutes));
-                        Log.d(TAG, "onClick: Inserted : "+inserted);
-                        List<SwadhyayData> swadhyayDataList = sDb.getAllSwadhyayData();
-                        for(SwadhyayData sd : swadhyayDataList){
-                            String log = "Id : "+ sd.getId() + ", Time : "+ sd.getTime();
-                            Log.d(TAG, "onClick: Data "+ log);
-                        }
-                        
-                        long reportInserted = rDb.addUserReportData(new ReportData("Swadhyay",formattedDate,formattedTime,formattedDay,Integer.parseInt(String.valueOf(time_in_minutes)),Integer.parseInt(String.valueOf(time_in_minutes))));
-                        Log.d(TAG, "onClick: report inserted : "+ reportInserted);
-                        List<ReportData> reportDataList = rDb.getAllUserReportData();
-                        Log.d(TAG, "onClick: "+reportDataList);
-                        for (ReportData rp : reportDataList) {
-                            Log.d(TAG, "onClick: For loop");
-                            String reportLog = "Id: "+rp.getId() //0
-                                    + ", Mode: "+ rp.getMode()   //1
-                                    + ", User Time: "+ rp.getUserTime() //2
-                                    + ", Actual Time: "+ rp.getActualTime() //3
-                                    + ", Date : "+rp.getDate() //4
-                                    + ", Time : "+rp.getTime()  //5
-                                    + ", Day: "+rp.getDay()  //6
-                                    + ", Type: "+rp.getType() //7
-                                    + ", Audio Name : "+rp.getAudioName(); //8
-                            Log.d("Report: ",reportLog);
-                        }
+
                         
                         
 
@@ -143,15 +122,63 @@ public class Swadhyay extends AppCompatActivity {
                  Log.d(TAG, "onClick: time slected "+ timer_time);
                     myCountdownTimer = new MyCountdownTimer(timer_time,100);
                     myCountdownTimer.start();
+
+                 long inserted = sDb.addSwadhyay(new SwadhyayData(time_in_minutes));
+                 Log.d(TAG, "onClick: Inserted : "+inserted);
+                 List<SwadhyayData> swadhyayDataList = sDb.getAllSwadhyayData();
+                 for(SwadhyayData sd : swadhyayDataList){
+                     String log = "Id : "+ sd.getId() + ", Time : "+ sd.getTime();
+                     Log.d(TAG, "onClick: Data "+ log);
+                 }
+
+                 long reportInserted = rDb.addUserReportData(new ReportData("Swadhyay",formattedDate,formattedTime,formattedDay,Integer.parseInt(String.valueOf(time_in_minutes)),Integer.parseInt(String.valueOf(time_in_minutes))));
+                 Log.d(TAG, "onClick: report inserted : "+ reportInserted);
+                 List<ReportData> reportDataList = rDb.getAllUserReportData();
+                 Log.d(TAG, "onClick: "+reportDataList);
+                 for (ReportData rp : reportDataList) {
+                     Log.d(TAG, "onClick: For loop");
+                     String reportLog = "Id: "+rp.getId() //0
+                             + ", Mode: "+ rp.getMode()   //1
+                             + ", User Time: "+ rp.getUserTime() //2
+                             + ", Actual Time: "+ rp.getActualTime() //3
+                             + ", Date : "+rp.getDate() //4
+                             + ", Time : "+rp.getTime()  //5
+                             + ", Day: "+rp.getDay()  //6
+                             + ", Type: "+rp.getType() //7
+                             + ", Audio Name : "+rp.getAudioName(); //8
+                     Log.d("Report: ",reportLog);
+                 }
              }
          });
 
          stopSwadhyay.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 actualTime = time_in_milli - Long.parseLong(String.valueOf(swadhyayaTv.getText()));
                  startSwadhyay.setEnabled(true);
                  timerTextView.setText("00:00:00");
                  myCountdownTimer.cancel();
+
+                 rDb.getLastId();
+                 Log.d(TAG, "onClick: last Id "+ rDb.getLastId());
+
+                 //update actual time
+                 rDb.updateData(String.valueOf(rDb.getLastId()),actualTime/60000);
+                 List<ReportData> reportDataList = rDb.getAllUserReportData();
+                 Log.d(TAG, "onClick: "+reportDataList);
+                 for (ReportData rp : reportDataList) {
+                     Log.d(TAG, "onClick: For loop");
+                     String reportLog = "Id: "+rp.getId() //0
+                             + ", Mode: "+ rp.getMode()   //1
+                             + ", User Time: "+ rp.getUserTime() //2
+                             + ", Actual Time: "+ rp.getActualTime() //3
+                             + ", Date : "+rp.getDate() //4
+                             + ", Time : "+rp.getTime()  //5
+                             + ", Day: "+rp.getDay()  //6
+                             + ", Type: "+rp.getType() //7
+                             + ", Audio Name: "+ rp.getAudioName();//8
+                     Log.d("Report: ",reportLog);
+                 }
              }
          });
 
@@ -174,7 +201,8 @@ public class Swadhyay extends AppCompatActivity {
             String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
-           timerTextView.setText(hms);
+            swadhyayaTv.setText(String.valueOf(millisUntilFinished));
+            timerTextView.setText(hms);
         }
         @Override
         public void onFinish() {

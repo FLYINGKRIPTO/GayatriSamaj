@@ -35,6 +35,10 @@ public class ReportActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: sum user time :" + rDb.sumUserTime());
         Log.d(TAG, "onCreate: sum actual time: " + rDb.sumActualTime());
+        Log.d(TAG, "onCreate: total japs : "+ rDb.totalJaps());
+        Log.d(TAG, "onCreate: total Meditations "+ rDb.totalMeditations());
+        Log.d(TAG, "onCreate: total swadhyay "+ rDb.totalSwadhyay());
+        Log.d(TAG, "onCreate: total yagya "+ rDb.totalYagya());
 
 
     }

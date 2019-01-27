@@ -59,6 +59,7 @@ public class JapActivity extends Activity {
     Button meditationActivity;
     Button swadhyayActivity;
     Button reportsActivity;
+    Button yagyaActivity;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String OPTION_PREFERENCE = "OptionPref";
     public static final String selected_item = "item_selected";
@@ -98,6 +99,7 @@ public class JapActivity extends Activity {
         meditationActivity = findViewById(R.id.nextActivity);
         swadhyayActivity = findViewById(R.id.swadhyayButton);
         reportsActivity = findViewById(R.id.reportsActivity);
+        yagyaActivity = findViewById(R.id.yagyaActivity);
         userInput = new EditText(this);
         userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
 
@@ -145,6 +147,15 @@ public class JapActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(JapActivity.this,ReportActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //yagyaActivity intent
+        yagyaActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(JapActivity.this,YagyaActivity.class);
                 startActivity(i);
             }
         });
