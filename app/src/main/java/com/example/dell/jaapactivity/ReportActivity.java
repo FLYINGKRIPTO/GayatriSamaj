@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class ReportActivity extends AppCompatActivity {
         japDataChart.setData(Japdata);
         japDataChart.setCenterText("Jap Modes");
         japDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        japDataChart.setEntryLabelColor(Color.CYAN);
+        japDataChart.setEntryLabelColor(Color.WHITE);
         japDataSet.setSliceSpace(1f);
         japDataChart.animateXY(2000, 2000);
 
@@ -102,7 +103,7 @@ public class ReportActivity extends AppCompatActivity {
         PieDataSet timeCompareDataSet = new PieDataSet(timeCompareDataList,"Time Comparision");
         PieData timeCompareData = new PieData(timeCompareDataSet);
         timeComparisionChart.setData(timeCompareData);
-        timeComparisionChart.setCenterText("Entered Time V/S Executed Time");
+        timeComparisionChart.setCenterText("Entered Time V/S Followed Time");
         timeCompareDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         timeCompareDataSet.setSliceSpace(1f);
         timeComparisionChart.animateXY(2000,2000);
@@ -111,22 +112,27 @@ public class ReportActivity extends AppCompatActivity {
         //Day Wise Bar Chart
 
         ArrayList dayWiseTime = new ArrayList();
-        dayWiseTime.add(new BarEntry(1,11,"Monday"));
-        dayWiseTime.add(new BarEntry(2,33,"Tuesday"));
-        dayWiseTime.add(new BarEntry(3,4,"Wednesday"));
-        dayWiseTime.add(new BarEntry(4,6,"Thursday"));
-        dayWiseTime.add(new BarEntry(5,17,"Friday"));
-        dayWiseTime.add(new BarEntry(6,33,"Saturday"));
-        dayWiseTime.add(new BarEntry(7,rDb.totalSunTime(),"Sunday"));
+        dayWiseTime.add(new BarEntry(1,11));
+        dayWiseTime.add(new BarEntry(2,33));
+        dayWiseTime.add(new BarEntry(3,4));
+        dayWiseTime.add(new BarEntry(4,6));
+        dayWiseTime.add(new BarEntry(5,17));
+        dayWiseTime.add(new BarEntry(6,33));
+        dayWiseTime.add(new BarEntry(7,rDb.totalSunTime()));
 
         BarDataSet dayWiseTimeBar = new BarDataSet(dayWiseTime,"Day Wise Comparision");
         BarData barData = new BarData(dayWiseTimeBar);
         dayWiseTimeChart.setData(barData);
         dayWiseTimeBar.setLabel("Days");
+        String [] labels = {"","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+        dayWiseTimeBar.setStackLabels(labels);
+        dayWiseTimeChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
 
-        dayWiseTimeBar.setColors(ColorTemplate.MATERIAL_COLORS);
-        dayWiseTimeChart.animateXY(3000,2000);
+        dayWiseTimeBar.setColors(ColorTemplate.COLORFUL_COLORS);
+        dayWiseTimeChart.animateXY(6000,6000);
 
+
+        //Today's Dashboard
 
 
         List<ReportData> reportDataList = rDb.getAllUserReportData();

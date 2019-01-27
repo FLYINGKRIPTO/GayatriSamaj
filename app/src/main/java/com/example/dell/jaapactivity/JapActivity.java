@@ -102,7 +102,7 @@ public class JapActivity extends Activity {
         yagyaActivity = findViewById(R.id.yagyaActivity);
         userInput = new EditText(this);
         userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-
+        startJap.setEnabled(true);
         //Current date and time
         Date currentTime = Calendar.getInstance().getTime();
 
@@ -276,6 +276,7 @@ public class JapActivity extends Activity {
         startJap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startJap.setEnabled(false);
                 optionSelectedPreference = getSharedPreferences(OPTION_PREFERENCE,Context.MODE_PRIVATE);
                 selectedItemFromOptions = optionSelectedPreference.getString(selected_item,"Choose Options");
                 Log.d(TAG, "onClick: Selected Item "+ selectedItemFromOptions);
@@ -534,6 +535,7 @@ public class JapActivity extends Activity {
             @Override
             public void onClick(View v) {
                 display_time_selected.setVisibility(View.INVISIBLE);
+                startJap.setEnabled(true);
                 if(selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")||selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")){
                     videoView.stopPlayback();
                     videoView.setVisibility(View.INVISIBLE);
