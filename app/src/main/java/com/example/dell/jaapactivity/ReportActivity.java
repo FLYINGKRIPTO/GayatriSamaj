@@ -22,6 +22,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
@@ -141,9 +142,24 @@ public class ReportActivity extends AppCompatActivity {
 
 
         Calendar calender = Calendar.getInstance();
+        Calendar calender2 = Calendar.getInstance();
         Log.d(TAG, "onCreate: Current Week : "+ calender.get(Calendar.WEEK_OF_YEAR));
         Log.d(TAG, "onCreate: Current Month : "+ calender.get(Calendar.MONTH)+1);
-     
+        Log.d(TAG, "onCreate: day of the month "+ calender.get(Calendar.DAY_OF_MONTH) );
+
+        Date today = new Date();
+        calender.setTime(today);
+        Log.d(TAG, "onCreate: Today's Date "+ calender.get(Calendar.DATE));
+        Log.d(TAG, "onCreate: Today's Month "+ calender.get(Calendar.MONTH));
+        calender.add(Calendar.DAY_OF_MONTH, -30);
+        Log.d(TAG, "onCreate: Date one Month before "+calender.get(Calendar.DATE));
+        Log.d(TAG, "onCreate: Month one month before "+ calender.get(Calendar.MONTH));
+        Date today1 = new Date();
+        calender2.setTime(today1);
+        Log.d(TAG, "onCreate: Today's Date "+ calender2.get(Calendar.DATE));
+        calender2.add(Calendar.DAY_OF_WEEK,-7);
+        Log.d(TAG, "onCreate: Date Starting week  "+ calender2.get(Calendar.DATE));
+
 
         //Day Wise
         Log.d(TAG, "onCreate: total monday time "+ rDb.totalDaysTime(0));
