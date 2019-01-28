@@ -120,13 +120,13 @@ public class ReportActivity extends AppCompatActivity {
         //Day Wise Bar Chart
 
         ArrayList<BarEntry> dayWiseTime = new ArrayList<BarEntry>();
-        dayWiseTime.add(new BarEntry(1,rDb.totalMonTime()));
-        dayWiseTime.add(new BarEntry(2,rDb.totalTueTime()));
-        dayWiseTime.add(new BarEntry(3, rDb.totalWedTime()));
-        dayWiseTime.add(new BarEntry(4, rDb.totalThurTime()));
-        dayWiseTime.add(new BarEntry(5,rDb.totalFriTime()));
-        dayWiseTime.add(new BarEntry(6,rDb.totalSatTime()));
-        dayWiseTime.add(new BarEntry(7,rDb.totalSunTime()));
+        dayWiseTime.add(new BarEntry(1,rDb.totalDaysTime(0)));
+        dayWiseTime.add(new BarEntry(2,rDb.totalDaysTime(1)));
+        dayWiseTime.add(new BarEntry(3, rDb.totalDaysTime(2)));
+        dayWiseTime.add(new BarEntry(4, rDb.totalDaysTime(3)));
+        dayWiseTime.add(new BarEntry(5,rDb.totalDaysTime(4)));
+        dayWiseTime.add(new BarEntry(6,rDb.totalDaysTime(5)));
+        dayWiseTime.add(new BarEntry(7,rDb.totalDaysTime(6)));
 
         BarDataSet dayWiseTimeBar = new BarDataSet(dayWiseTime,"Day Wise Comparision");
         BarData barData = new BarData(dayWiseTimeBar);
@@ -145,21 +145,28 @@ public class ReportActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Current Month : "+ calender.get(Calendar.MONTH)+1);
      
 
+        //Day Wise
+        Log.d(TAG, "onCreate: total monday time "+ rDb.totalDaysTime(0));
+        Log.d(TAG, "onCreate: total tuesday time "+ rDb.totalDaysTime(1));
+        Log.d(TAG, "onCreate: total wednesday time "+ rDb.totalDaysTime(2));
+        Log.d(TAG, "onCreate: total thursday time "+ rDb.totalDaysTime(3));
+        Log.d(TAG, "onCreate: total Friday time "+ rDb.totalDaysTime(4));
+        Log.d(TAG, "onCreate: total Saturday time "+ rDb.totalDaysTime(5));
+        Log.d(TAG, "onCreate: total Sunday time"+ rDb.totalDaysTime(6));
         //Monthly Representation
 
-            Log.d(TAG, "onCreate: total January time "+ rDb.totalJanTime());
+            Log.d(TAG, "onCreate: total this months time "+ rDb.totalMonthTime(calender.get(Calendar.MONTH)));
 
-            Log.d(TAG, "onCreate: total January Meditations "+ rDb.totalJanMeditations());
-            Log.d(TAG, "onCreate: total January Japs "+ rDb.totalJanJaps());
-            Log.d(TAG, "onCreate: total January Swadhyay " + rDb.totalJanSwadhyay());
-            Log.d(TAG, "onCreate: total January Yagya "+ rDb.totalJanYagya());
+            Log.d(TAG, "onCreate: total this months Japs "+ rDb.totalMonthModes(0,calender.get(Calendar.MONTH)));
+            Log.d(TAG, "onCreate: total this months Meditations "+ rDb.totalMonthModes(1,calender.get(Calendar.MONTH)));
+            Log.d(TAG, "onCreate: total this months Swadhyay " + rDb.totalMonthModes(2,calender.get(Calendar.MONTH)));
+            Log.d(TAG, "onCreate: total this months Yagya "+ rDb.totalMonthModes(3,calender.get(Calendar.MONTH)));
 
-            Log.d(TAG, "onCreate: total January Jap time "+ rDb.totalJapTimeInJan());
-            Log.d(TAG, "onCreate: total January Meditation time "+ rDb.totalMedTimeInJan());
-            Log.d(TAG, "onCreate: total January Swadhyay time "+ rDb.totalSwaTimeInJan());
-            Log.d(TAG, "onCreate: total January yagya time "+ rDb.totalYagTimeInJan());
 
-            Log.d(TAG, "onCreate: experiment "+ rDb.totalExperiment(calender.get(Calendar.MONTH)));
+            Log.d(TAG, "onCreate: Generalised total time of Japs in this month "+ rDb.totalTimeMonthModes(0,calender.get(Calendar.MONTH)));
+        Log.d(TAG, "onCreate: Generalised total time of Meditations in this month "+ rDb.totalTimeMonthModes(1,calender.get(Calendar.MONTH)));
+        Log.d(TAG, "onCreate: Generalised total time of Swadhyay in this month "+ rDb.totalTimeMonthModes(2,calender.get(Calendar.MONTH)));
+        Log.d(TAG, "onCreate: Generalised total time of Yagya in January in this month"+ rDb.totalTimeMonthModes(3,calender.get(Calendar.MONTH)));
 
 
 
@@ -225,13 +232,7 @@ public class ReportActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: total song 7 "+ mDb.totalSong7());
 
 
-        Log.d(TAG, "onCreate: total sunday time "+ rDb.totalSunTime());
-        Log.d(TAG, "onCreate: total monday time "+ rDb.totalMonTime());
-        Log.d(TAG, "onCreate: total Tuesday time "+ rDb.totalTueTime());
-        Log.d(TAG, "onCreate: total Wednesday time "+ rDb.totalWedTime());
-        Log.d(TAG, "onCreate: total Thursday time "+ rDb.totalThurTime());
-        Log.d(TAG, "onCreate: total Friday time "+ rDb.totalFriTime());
-        Log.d(TAG, "onCreate: total Saturday time "+ rDb.totalSatTime());
+
 
 
 

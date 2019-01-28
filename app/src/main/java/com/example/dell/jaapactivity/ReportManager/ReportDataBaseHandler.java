@@ -188,134 +188,60 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int totalSunTime() {
+    //Displays total time spent  on different week days
+
+    public int totalDaysTime(int d){
+
+        String[] days  = new String[7];
+        days[0] = "Mon";
+        days[1] = "Tue";
+        days[2] = "Wed";
+        days[3] = "Thu";
+        days[4] = "Fri";
+        days[5] = "Sat";
+        days[6] = "Sun";
+
         int totalTime = 0;
         SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
-                +KEY_DAY +"= 'Sun'";
+        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalDaysTime FROM "+ TABLE_USER_REPORT + " WHERE "
+                +KEY_DAY +"= '"+days[d]+"'";
         Cursor cursor = db.rawQuery(sumQuery,null);
 
         if(cursor.moveToFirst()){
-            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
+            totalTime = cursor.getInt(cursor.getColumnIndex("TotalDaysTime"));
 
         }
         cursor.close();
         return totalTime;
 
 
-
-    }
-    public int totalMonTime() {
-        int totalTime = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
-                +KEY_DAY +"= 'Mon'";
-        Cursor cursor = db.rawQuery(sumQuery,null);
-
-        if(cursor.moveToFirst()){
-            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
-
-        }
-        cursor.close();
-        return totalTime;
-
-
-
-    }
-    public int totalTueTime() {
-        int totalTime = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
-                +KEY_DAY +"= 'Tue'";
-        Cursor cursor = db.rawQuery(sumQuery,null);
-
-        if(cursor.moveToFirst()){
-            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
-
-        }
-        cursor.close();
-        return totalTime;
-
-
-
-    }
-    public int totalWedTime() {
-        int totalTime = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
-                +KEY_DAY +"= 'Wed'";
-        Cursor cursor = db.rawQuery(sumQuery,null);
-
-        if(cursor.moveToFirst()){
-            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
-
-        }
-        cursor.close();
-        return totalTime;
-
-
-
-    }
-    public int totalThurTime() {
-        int totalTime = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
-                +KEY_DAY +"= 'Thu'";
-        Cursor cursor = db.rawQuery(sumQuery,null);
-
-        if(cursor.moveToFirst()){
-            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
-
-        }
-        cursor.close();
-        return totalTime;
-
-
-
-    }
-    public int totalFriTime() {
-        int totalTime = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
-                +KEY_DAY +"= 'Fri'";
-        Cursor cursor = db.rawQuery(sumQuery,null);
-
-        if(cursor.moveToFirst()){
-            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
-
-        }
-        cursor.close();
-        return totalTime;
-
-
-
-    }
-    public int totalSatTime() {
-        int totalTime = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSun FROM "+ TABLE_USER_REPORT + " WHERE "
-                +KEY_DAY +"= 'Sat'";
-        Cursor cursor = db.rawQuery(sumQuery,null);
-
-        if(cursor.moveToFirst()){
-            totalTime = cursor.getInt(cursor.getColumnIndex("TotalSun"));
-
-        }
-        cursor.close();
-        return totalTime;
-
     }
 
-    public int totalJanTime() {
+   //calculates total time spent in current month
+    public int totalMonthTime(int m) {
         int totalTime = 0;
+        String[] months = new String[12];
+        months[0]= "Jan";
+        months[1] = "Feb";
+        months[2]= "Mar";
+        months[3] = "Apr";
+        months[4]= "May";
+        months[5] = "Jun";
+        months[6]= "July";
+        months[7] = "Aug";
+        months[8]= "Sep";
+        months[9] = "Oct";
+        months[10] = "Nov";
+        months[11] = "Dec";
+
         SQLiteDatabase db = getWritableDatabase();
-        String janQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalJan FROM "+ TABLE_USER_REPORT + " WHERE "
-                +KEY_DATE +"= 'Jan'";
+        String janQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalMon FROM "+ TABLE_USER_REPORT + " WHERE "
+                +KEY_DATE + "= '"+months[m]+"'";
         Cursor cursor = db.rawQuery(janQuery,null);
 
 
         if(cursor.moveToFirst()){
-            totalTime = cursor.getInt(cursor.getColumnIndex("TotalJan"));
+            totalTime = cursor.getInt(cursor.getColumnIndex("TotalMon"));
 
         }
         cursor.close();
@@ -323,121 +249,10 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int totalJanMeditations(){
-        int totalMeditations;
-        SQLiteDatabase db = getWritableDatabase();
-        String medQuery =  " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
-                " WHERE " + KEY_MODE + "= 'Meditation' AND "+ KEY_DATE +"= 'Jan'";
 
-        Cursor cursor = db.rawQuery(medQuery,null);
-        totalMeditations = cursor.getCount();
-        cursor.close();
-        return  totalMeditations;
+   //calculates total Times mode done ( not time )
+    public int totalMonthModes(int t,int m){
 
-    }
-    public int totalJanJaps(){
-        int totalMeditations = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String medQuery =  " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
-                " WHERE " + KEY_MODE + "= 'Jap' AND "+ KEY_DATE +"= 'Jan'";
-
-        Cursor cursor = db.rawQuery(medQuery,null);
-        totalMeditations = cursor.getCount();
-        cursor.close();
-        return  totalMeditations;
-
-    }
-    public int totalJanSwadhyay(){
-        int totalMeditations = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String medQuery =  " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
-                " WHERE " + KEY_MODE + "= 'Swadhyay' AND "+ KEY_DATE +"= 'Jan'";
-
-        Cursor cursor = db.rawQuery(medQuery,null);
-        totalMeditations = cursor.getCount();
-        cursor.close();
-        return  totalMeditations;
-
-    }
-    public int totalJanYagya(){
-        int totalMeditations = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String medQuery =  " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
-                " WHERE " + KEY_MODE + "= 'Yagya' AND "+ KEY_DATE +"= 'Jan'";
-
-        Cursor cursor = db.rawQuery(medQuery,null);
-        totalMeditations = cursor.getCount();
-        cursor.close();
-        return  totalMeditations;
-
-    }
-
-    public int totalJapTimeInJan(){
-
-        int totalJapTimeInJan = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalJapJan FROM "
-                + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= 'Jap' AND " + KEY_DATE +"= 'Jan'";
-        Cursor cr = db.rawQuery(sumQuery,null);
-
-        if(cr.moveToFirst()){
-            totalJapTimeInJan = cr.getInt(cr.getColumnIndex("TotalJapJan"));
-
-        }
-        cr.close();
-        return totalJapTimeInJan;
-
-    }
-    public int totalMedTimeInJan(){
-
-        int totalJapTimeInJan = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalMedJan FROM "
-                + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= 'Meditation' AND " + KEY_DATE +"= 'Jan'";
-        Cursor cr = db.rawQuery(sumQuery,null);
-
-        if(cr.moveToFirst()){
-            totalJapTimeInJan = cr.getInt(cr.getColumnIndex("TotalMedJan"));
-
-        }
-        cr.close();
-        return totalJapTimeInJan;
-
-    }
-    public int totalSwaTimeInJan(){
-
-        int totalJapTimeInJan = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSwaJan FROM "
-                + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= 'Swadhyay' AND " + KEY_DATE +"= 'Jan'";
-        Cursor cr = db.rawQuery(sumQuery,null);
-
-        if(cr.moveToFirst()){
-            totalJapTimeInJan = cr.getInt(cr.getColumnIndex("TotalSwaJan"));
-
-        }
-        cr.close();
-        return totalJapTimeInJan;
-
-    }
-    public int totalYagTimeInJan(){
-
-        int totalJapTimeInJan = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalYagJan FROM "
-                + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= 'Yagya' AND " + KEY_DATE +"= 'Jan'";
-        Cursor cr = db.rawQuery(sumQuery,null);
-
-        if(cr.moveToFirst()){
-            totalJapTimeInJan = cr.getInt(cr.getColumnIndex("TotalYagJan"));
-
-        }
-        cr.close();
-        return totalJapTimeInJan;
-
-    }
-
-    public int totalExperiment(int m){
 
         int titito = 0;
         String[] months = new String[12];
@@ -454,10 +269,51 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         months[10] = "Nov";
         months[11] = "Dec";
 
+        String[] modes  = new String[4];
+        modes[0]= "Jap";
+        modes[1] = "Meditation";
+        modes[2] = "Swadhyay";
+        modes[3] = "yagya";
+        SQLiteDatabase db = getWritableDatabase();
+        String query = " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
+                " WHERE " + KEY_MODE + " = '"+modes[t]+"' AND " + KEY_DATE +" ='"+months[m]+"'";
+
+        Cursor cursor = db.rawQuery(query,null);
+        titito = cursor.getCount();
+        cursor.close();
+        return  titito;
+
+    }
+
+
+    public int totalTimeMonthModes(int t,int m){
+
+        int titito = 0;
+        String[] months = new String[12];
+        months[0]= "Jan";
+        months[1] = "Feb";
+        months[2]= "Mar";
+        months[3] = "Apr";
+        months[4]= "May";
+        months[5] = "Jun";
+        months[6]= "July";
+        months[7] = "Aug";
+        months[8]= "Sep";
+        months[9] = "Oct";
+        months[10] = "Nov";
+        months[11] = "Dec";
+
+        String[] modes  = new String[4];
+        modes[0]= "Jap";
+        modes[1] = "Meditation";
+        modes[2] = "Swadhyay";
+        modes[3] = "yagya";
+
+
 
             SQLiteDatabase db = getWritableDatabase();
             String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalExpJan FROM "
-                    + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= 'Jap' AND " + KEY_DATE +" ='"+months[m]+"'";
+                    + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= '"+modes[t]+"' AND " + KEY_DATE +" ='"+months[m]+"'";
             Cursor cr = db.rawQuery(sumQuery,null);
             if(cr.moveToFirst()){
                 titito = cr.getInt(cr.getColumnIndex("TotalExpJan"));
@@ -467,155 +323,6 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
 
         return titito;
-    }
-
-
-
-    public int totalFebTime() {
-        int totalTime = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String janQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalFeb FROM "+ TABLE_USER_REPORT + " WHERE "
-                +KEY_DATE +"= 'Feb'";
-        Cursor cursor = db.rawQuery(janQuery,null);
-
-
-        if(cursor.moveToFirst()){
-            totalTime = cursor.getInt(cursor.getColumnIndex("TotalFeb"));
-
-        }
-        cursor.close();
-        return totalTime;
-
-    }
-
-    public int totalFebMeditations(){
-        int totalMeditations = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String medQuery =  " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
-                " WHERE " + KEY_MODE + "= 'Meditation' AND "+ KEY_DATE +"= 'Feb'";
-
-        Cursor cursor = db.rawQuery(medQuery,null);
-        totalMeditations = cursor.getCount();
-        cursor.close();
-        return  totalMeditations;
-
-    }
-    public int totalFebJaps(){
-        int totalMeditations = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String medQuery =  " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
-                " WHERE " + KEY_MODE + "= 'Jap' AND "+ KEY_DATE +"= 'Feb'";
-
-        Cursor cursor = db.rawQuery(medQuery,null);
-        totalMeditations = cursor.getCount();
-        cursor.close();
-        return  totalMeditations;
-
-    }
-    public int totalFebSwadhyay(){
-        int totalMeditations = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String medQuery =  " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
-                " WHERE " + KEY_MODE + "= 'Swadhyay' AND "+ KEY_DATE +"= 'Feb'";
-
-        Cursor cursor = db.rawQuery(medQuery,null);
-        totalMeditations = cursor.getCount();
-        cursor.close();
-        return  totalMeditations;
-
-    }
-    public int totalFebYagya(){
-        int totalMeditations = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String medQuery =  " SELECT "+ KEY_MODE + " FROM " + TABLE_USER_REPORT +
-                " WHERE " + KEY_MODE + "= 'Yagya' AND "+ KEY_DATE +"= 'Feb'";
-
-        Cursor cursor = db.rawQuery(medQuery,null);
-        totalMeditations = cursor.getCount();
-        cursor.close();
-        return  totalMeditations;
-
-    }
-
-    public int totalJapTimeInFeb(){
-
-        int totalJapTimeInJan = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalJapFeb FROM "
-                + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= 'Jap' AND " + KEY_DATE +"= 'Feb'";
-        Cursor cr = db.rawQuery(sumQuery,null);
-
-        if(cr.moveToFirst()){
-            totalJapTimeInJan = cr.getInt(cr.getColumnIndex("TotalJapJan"));
-
-        }
-        cr.close();
-        return totalJapTimeInJan;
-
-    }
-    public int totalMedTimeInFeb(){
-
-        int totalJapTimeInJan = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalMedFeb FROM "
-                + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= 'Meditation' AND " + KEY_DATE +"= 'Feb'";
-        Cursor cr = db.rawQuery(sumQuery,null);
-
-        if(cr.moveToFirst()){
-            totalJapTimeInJan = cr.getInt(cr.getColumnIndex("TotalMedJan"));
-
-        }
-        cr.close();
-        return totalJapTimeInJan;
-
-    }
-    public int totalSwaTimeInFeb(){
-
-        int totalJapTimeInJan = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalSwaFeb FROM "
-                + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= 'Swadhyay' AND " + KEY_DATE +"= 'Feb'";
-        Cursor cr = db.rawQuery(sumQuery,null);
-
-        if(cr.moveToFirst()){
-            totalJapTimeInJan = cr.getInt(cr.getColumnIndex("TotalSwaJan"));
-
-        }
-        cr.close();
-        return totalJapTimeInJan;
-
-    }
-    public int totalYagTimeInFeb(){
-
-        int totalJapTimeInJan = 0;
-        SQLiteDatabase db = getWritableDatabase();
-        String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalYagFeb FROM "
-                + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= 'Yagya' AND " + KEY_DATE +"= 'Feb'";
-        Cursor cr = db.rawQuery(sumQuery,null);
-
-        if(cr.moveToFirst()){
-            totalJapTimeInJan = cr.getInt(cr.getColumnIndex("TotalYagFeb"));
-
-        }
-        cr.close();
-        return totalJapTimeInJan;
-
-    }
-
-    public int getCurrentWeek() {
-        int totalWeekTime = 0;
-        SQLiteDatabase db = getWritableDatabase();
-      /*  String query = " SELECT strftime('%W',"+KEY_ID+") as Week_of_Year, SUM("+KEY_ACTUAL_TIME+") as tot"+
-                " FROM "+ TABLE_USER_REPORT +
-                " GROUP BY week_of_year order by "+ KEY_ID +" desc";*/
-      String query = " SELECT strftime('%w') as Week ";
-        Cursor cr = db.rawQuery(query,null);
-        if(cr.moveToFirst()){
-            totalWeekTime = cr.getInt(cr.getColumnIndex("Week"));
-
-        }
-        cr.close();
-        return  totalWeekTime;
     }
 
 
