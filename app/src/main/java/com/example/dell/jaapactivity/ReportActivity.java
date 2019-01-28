@@ -168,7 +168,21 @@ public class ReportActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Generalised total time of Swadhyay in this month "+ rDb.totalTimeMonthModes(2,calender.get(Calendar.MONTH)));
         Log.d(TAG, "onCreate: Generalised total time of Yagya in January in this month"+ rDb.totalTimeMonthModes(3,calender.get(Calendar.MONTH)));
 
+        //This month's time spent on different modes representation
+        ArrayList<PieEntry> monthDataList = new ArrayList<PieEntry>();
+        monthDataList.add(new PieEntry(rDb.totalTimeMonthModes(0,calender.get(Calendar.MONTH)),"Jap"));
+        monthDataList.add(new PieEntry(rDb.totalTimeMonthModes(1,calender.get(Calendar.MONTH)), "Meditation"));
+        monthDataList.add(new PieEntry(rDb.totalTimeMonthModes(2,calender.get(Calendar.MONTH)),"Swadhyay"));
+        monthDataList.add(new PieEntry(rDb.totalTimeMonthModes(3,calender.get(Calendar.MONTH)),"Yagya"));
 
+        PieDataSet monthDataSet = new PieDataSet(monthDataList,"Month's View");
+        PieData monthData = new PieData(monthDataSet);
+        monthlyTimeChart.setData(monthData);
+        monthlyTimeChart.setCenterText("This months Review");
+        monthDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        monthDataSet.setSliceSpace(1f);
+        monthlyTimeChart.setEntryLabelColor(Color.BLACK);
+        monthlyTimeChart.animateXY(2000,2000);
 
 
 
@@ -233,11 +247,6 @@ public class ReportActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-         //TODO :: Monthly data representation
          //TODO :: Weekly Data Representation
          //TODO :: Daily Data Representation
 
