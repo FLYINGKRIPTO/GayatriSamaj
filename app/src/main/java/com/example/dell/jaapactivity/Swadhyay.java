@@ -58,7 +58,7 @@ public class Swadhyay extends AppCompatActivity {
 
         Date currentTime = Calendar.getInstance().getTime();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("MMM");
         final String formattedDate = df.format(currentTime);
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");

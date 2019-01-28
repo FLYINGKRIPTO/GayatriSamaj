@@ -106,7 +106,7 @@ public class JapActivity extends Activity {
         //Current date and time
         Date currentTime = Calendar.getInstance().getTime();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("MMM");
         final String formattedDate = df.format(currentTime);
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
@@ -114,6 +114,12 @@ public class JapActivity extends Activity {
 
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
         final String formattedDay = dayFormat.format(currentTime);
+
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
+        final String formattedMonth = monthFormat.format(currentTime);
+
+
+        Log.d(TAG, "onCreate: month "+ formattedMonth);
 
         Log.d(TAG, "onCreate: current Time : "+ formattedTime +" current Date : "+ formattedDate
         +" current day : "+ formattedDay);
