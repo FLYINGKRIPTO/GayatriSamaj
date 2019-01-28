@@ -53,5 +53,20 @@
     </com.github.mikephil.charting.charts.BarChart>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" This Month's Report"
+        android:layout_gravity="center_horizontal"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        />
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/monthlyReport"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+    </com.github.mikephil.charting.charts.PieChart>
+
 </LinearLayout>
 </ScrollView>

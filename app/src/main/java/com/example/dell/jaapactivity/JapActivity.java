@@ -114,15 +114,9 @@ public class JapActivity extends Activity {
 
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
         final String formattedDay = dayFormat.format(currentTime);
+        Calendar calender = Calendar.getInstance();
+        Log.d(TAG, "onCreate: Current Week :"+ calender.get(Calendar.WEEK_OF_YEAR));
 
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
-        final String formattedMonth = monthFormat.format(currentTime);
-
-
-        Log.d(TAG, "onCreate: month "+ formattedMonth);
-
-        Log.d(TAG, "onCreate: current Time : "+ formattedTime +" current Date : "+ formattedDate
-        +" current day : "+ formattedDay);
 
         LayoutInflater li = LayoutInflater.from(this);
         final View promptsView = li.inflate(R.layout.prompts,null);

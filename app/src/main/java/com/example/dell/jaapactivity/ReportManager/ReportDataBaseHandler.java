@@ -437,6 +437,38 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public int totalExperiment(int m){
+
+        int titito = 0;
+        String[] months = new String[12];
+        months[0]= "Jan";
+        months[1] = "Feb";
+        months[2]= "Mar";
+        months[3] = "Apr";
+        months[4]= "May";
+        months[5] = "Jun";
+        months[6]= "July";
+        months[7] = "Aug";
+        months[8]= "Sep";
+        months[9] = "Oct";
+        months[10] = "Nov";
+        months[11] = "Dec";
+
+
+            SQLiteDatabase db = getWritableDatabase();
+            String sumQuery = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalExpJan FROM "
+                    + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= 'Jap' AND " + KEY_DATE +" ='"+months[m]+"'";
+            Cursor cr = db.rawQuery(sumQuery,null);
+            if(cr.moveToFirst()){
+                titito = cr.getInt(cr.getColumnIndex("TotalExpJan"));
+
+            }
+            cr.close();
+
+
+        return titito;
+    }
+
 
 
     public int totalFebTime() {
@@ -568,6 +600,22 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         cr.close();
         return totalJapTimeInJan;
 
+    }
+
+    public int getCurrentWeek() {
+        int totalWeekTime = 0;
+        SQLiteDatabase db = getWritableDatabase();
+      /*  String query = " SELECT strftime('%W',"+KEY_ID+") as Week_of_Year, SUM("+KEY_ACTUAL_TIME+") as tot"+
+                " FROM "+ TABLE_USER_REPORT +
+                " GROUP BY week_of_year order by "+ KEY_ID +" desc";*/
+      String query = " SELECT strftime('%w') as Week ";
+        Cursor cr = db.rawQuery(query,null);
+        if(cr.moveToFirst()){
+            totalWeekTime = cr.getInt(cr.getColumnIndex("Week"));
+
+        }
+        cr.close();
+        return  totalWeekTime;
     }
 
 

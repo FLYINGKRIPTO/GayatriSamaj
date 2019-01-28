@@ -21,6 +21,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class ReportActivity extends AppCompatActivity {
         PieChart meditaionDataPieChart =  findViewById(R.id.meditationDataPieChart);
         PieChart timeComparisionChart = findViewById(R.id.timeCompare);
         BarChart dayWiseTimeChart  = findViewById(R.id.dayWiseBarChart);
+        PieChart monthlyTimeChart = findViewById(R.id.monthlyReport);
 
 
         //Total modes Pie Chart
@@ -138,7 +140,29 @@ public class ReportActivity extends AppCompatActivity {
         dayWiseTimeBar.setBarBorderColor(Color.BLACK);
 
 
-        //Today's Dashboard
+        Calendar calender = Calendar.getInstance();
+        Log.d(TAG, "onCreate: Current Week : "+ calender.get(Calendar.WEEK_OF_YEAR));
+        Log.d(TAG, "onCreate: Current Month : "+ calender.get(Calendar.MONTH)+1);
+     
+
+        //Monthly Representation
+
+            Log.d(TAG, "onCreate: total January time "+ rDb.totalJanTime());
+
+            Log.d(TAG, "onCreate: total January Meditations "+ rDb.totalJanMeditations());
+            Log.d(TAG, "onCreate: total January Japs "+ rDb.totalJanJaps());
+            Log.d(TAG, "onCreate: total January Swadhyay " + rDb.totalJanSwadhyay());
+            Log.d(TAG, "onCreate: total January Yagya "+ rDb.totalJanYagya());
+
+            Log.d(TAG, "onCreate: total January Jap time "+ rDb.totalJapTimeInJan());
+            Log.d(TAG, "onCreate: total January Meditation time "+ rDb.totalMedTimeInJan());
+            Log.d(TAG, "onCreate: total January Swadhyay time "+ rDb.totalSwaTimeInJan());
+            Log.d(TAG, "onCreate: total January yagya time "+ rDb.totalYagTimeInJan());
+
+            Log.d(TAG, "onCreate: experiment "+ rDb.totalExperiment(calender.get(Calendar.MONTH)));
+
+
+
 
 
         List<ReportData> reportDataList = rDb.getAllUserReportData();
@@ -209,23 +233,13 @@ public class ReportActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: total Friday time "+ rDb.totalFriTime());
         Log.d(TAG, "onCreate: total Saturday time "+ rDb.totalSatTime());
 
-        Log.d(TAG, "onCreate: total January time "+ rDb.totalJanTime());
-
-        Log.d(TAG, "onCreate: total January Meditations "+ rDb.totalJanMeditations());
-        Log.d(TAG, "onCreate: total January Japs "+ rDb.totalJanJaps());
-        Log.d(TAG, "onCreate: total January Swadhyay " + rDb.totalJanSwadhyay());
-        Log.d(TAG, "onCreate: total January Yagya "+ rDb.totalJanYagya());
-
-        Log.d(TAG, "onCreate: total January Jap time "+ rDb.totalJapTimeInJan());
-        Log.d(TAG, "onCreate: total January Meditation time"+ rDb.totalMedTimeInJan());
-        Log.d(TAG, "onCreate: total January Swadhyay time "+ rDb.totalSwaTimeInJan());
-        Log.d(TAG, "onCreate: total January yagya time "+ rDb.totalYagTimeInJan());
 
 
 
          //TODO :: Monthly data representation
          //TODO :: Weekly Data Representation
          //TODO :: Daily Data Representation
+
 
 
 
