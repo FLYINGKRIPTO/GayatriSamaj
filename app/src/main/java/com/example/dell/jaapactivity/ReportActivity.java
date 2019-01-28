@@ -42,7 +42,7 @@ public class ReportActivity extends AppCompatActivity {
         BarChart dayWiseTimeChart  = findViewById(R.id.dayWiseBarChart);
 
         //Total modes Pie Chart
-        ArrayList totalModes = new ArrayList();
+        ArrayList<PieEntry> totalModes = new ArrayList<>();
         totalModes.add(new PieEntry((float)rDb.totalJaps(),"Japs"));
         totalModes.add(new PieEntry((float)rDb.totalMeditations(),"Meditations"));
         totalModes.add(new PieEntry((float)rDb.totalSwadhyay(),"Swadhyay"));
@@ -59,7 +59,7 @@ public class ReportActivity extends AppCompatActivity {
         pieChart.animateXY(3000, 3000);
 
         //Jap data PieChart
-        ArrayList japDataList = new ArrayList();
+        ArrayList<PieEntry> japDataList = new ArrayList<>();
         japDataList.add(new PieEntry((float)jDb.totalbyTime(),"by Time"));
         japDataList.add(new PieEntry((float)jDb.totalbyMala(),"by Mala"));
         japDataList.add(new PieEntry((float)jDb.totalwithGurudev(),"with Pujya Gurudev"));
@@ -77,7 +77,7 @@ public class ReportActivity extends AppCompatActivity {
 
 
         //Meditation Data PieChart
-        ArrayList meditationDataList = new ArrayList();
+        ArrayList<PieEntry> meditationDataList = new ArrayList<PieEntry>();
         meditationDataList.add(new PieEntry(mDb.totalSong1(),"Atam Bodh Dhyan"));
         meditationDataList.add(new PieEntry(mDb.totalSong2(),"Panchkosh Dhyaan"));
         meditationDataList.add(new PieEntry(mDb.totalSong3(),"Sharir Dhyaan"));
@@ -96,7 +96,7 @@ public class ReportActivity extends AppCompatActivity {
 
         //Time Comparision pie chart
 
-        ArrayList timeCompareDataList = new ArrayList();
+        ArrayList<PieEntry> timeCompareDataList = new ArrayList<PieEntry>();
         timeCompareDataList.add(new PieEntry(rDb.sumUserTime(),"Entered Time"));
         timeCompareDataList.add(new PieEntry(rDb.sumActualTime(), "Followed Time"));
 
@@ -111,9 +111,9 @@ public class ReportActivity extends AppCompatActivity {
 
         //Day Wise Bar Chart
 
-        ArrayList dayWiseTime = new ArrayList();
-        dayWiseTime.add(new BarEntry(1,11));
-        dayWiseTime.add(new BarEntry(2,33));
+        ArrayList<BarEntry> dayWiseTime = new ArrayList<BarEntry>();
+        dayWiseTime.add(new BarEntry(1,rDb.totalMonTime()));
+        dayWiseTime.add(new BarEntry(2,rDb.totalTueTime()));
         dayWiseTime.add(new BarEntry(3,4));
         dayWiseTime.add(new BarEntry(4,6));
         dayWiseTime.add(new BarEntry(5,17));
@@ -128,7 +128,7 @@ public class ReportActivity extends AppCompatActivity {
         dayWiseTimeBar.setStackLabels(labels);
         dayWiseTimeChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
 
-        dayWiseTimeBar.setColors(ColorTemplate.COLORFUL_COLORS);
+        dayWiseTimeBar.setColors(ColorTemplate.JOYFUL_COLORS);
         dayWiseTimeChart.animateXY(6000,6000);
 
 

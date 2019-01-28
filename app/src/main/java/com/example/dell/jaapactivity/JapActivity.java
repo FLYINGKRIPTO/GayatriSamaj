@@ -281,6 +281,7 @@ public class JapActivity extends Activity {
                 selectedItemFromOptions = optionSelectedPreference.getString(selected_item,"Choose Options");
                 Log.d(TAG, "onClick: Selected Item "+ selectedItemFromOptions);
 
+
                if(selectedItemFromOptions.equalsIgnoreCase("by Time")){
                    timer_text.setVisibility(View.VISIBLE);
                    sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
