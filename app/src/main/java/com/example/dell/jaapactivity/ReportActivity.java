@@ -30,6 +30,10 @@ public class ReportActivity extends AppCompatActivity {
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
     JapDatabaseHandler jDb = new JapDatabaseHandler(this);
     MeditationDataBaseHandler mDb = new MeditationDataBaseHandler(this);
+    int past_thirty_jap_time = 0;
+    int past_thirty_med_time = 0;
+    int past_thirty_swa_time = 0;
+    int past_thirty_yag_time = 0;
 
 
     @Override
@@ -43,6 +47,9 @@ public class ReportActivity extends AppCompatActivity {
         PieChart timeComparisionChart = findViewById(R.id.timeCompare);
         BarChart dayWiseTimeChart  = findViewById(R.id.dayWiseBarChart);
         PieChart monthlyTimeChart = findViewById(R.id.monthlyReport);
+
+        //Pie chart for past 30 days data
+        PieChart pastThirtyDays = findViewById(R.id.pastThirtyDays);
 
         //Date is month
         //Time is date
@@ -189,23 +196,44 @@ public class ReportActivity extends AppCompatActivity {
 
       if(calender.get(Calendar.MONTH)!=calender2.get(Calendar.MONTH))
       {
-          int total_jap_time = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0)+
+           past_thirty_jap_time= rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0)+
                   rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),0);
-          int total_med_time  = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),1)+
+          past_thirty_med_time  = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),1)+
                   rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),1);
-          int total_swa_time  = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),2)+
+          past_thirty_swa_time= rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),2)+
                   rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),2);
-          int total_yag_time  = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),3)+
+          past_thirty_yag_time  = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),3)+
                   rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),3);
 
-          Log.d(TAG, "onCreate: sum total  past one month jap time "+total_jap_time);
-          Log.d(TAG, "onCreate: sum total  one month meditaiton time "+ total_med_time);
-          Log.d(TAG, "onCreate: sum total past one month swadhyay time "+ total_swa_time);
-          Log.d(TAG, "onCreate: sum total past one month yagya time "+ total_yag_time);
-
-
+          Log.d(TAG, "onCreate: sum total  past one month jap time "+past_thirty_jap_time);
+          Log.d(TAG, "onCreate: sum total  one month meditaiton time "+ past_thirty_med_time);
+          Log.d(TAG, "onCreate: sum total past one month swadhyay time "+ past_thirty_swa_time);
+          Log.d(TAG, "onCreate: sum total past one month yagya time "+ past_thirty_yag_time);
       }
+
+      else {
+          past_thirty_jap_time  =rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0);
+          past_thirty_med_time = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),1);
+          past_thirty_swa_time = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),2);
+          past_thirty_yag_time = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),3);
+      }
+
         //   Log.d(TAG, "onCreate: previous month Jap data "+ rDb.oneMonthData(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0));
+      //Past 30 days
+        ArrayList<PieEntry> pastThirtyDataList = new ArrayList<PieEntry>();
+        pastThirtyDataList.add(new PieEntry(past_thirty_jap_time,"JAP"));
+        pastThirtyDataList.add(new PieEntry(past_thirty_med_time,"MEDITATION"));
+        pastThirtyDataList.add(new PieEntry(past_thirty_swa_time,"SWADHYAY"));
+        pastThirtyDataList.add(new PieEntry(past_thirty_yag_time,"YAGYA"));
+
+        PieDataSet pastThirtyDataSet = new PieDataSet(pastThirtyDataList,"PAST THIRTY DAYS ");
+        PieData pastThirtyData = new PieData(pastThirtyDataSet);
+        pastThirtyDays.setData(pastThirtyData);
+        pastThirtyDays.setCenterText("PAST THIRTY DAYS");
+        pastThirtyDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        pastThirtyDays.setEntryLabelColor(Color.BLACK);
+        pastThirtyDataSet.setSliceSpace(1f);
+        pastThirtyDays.animateXY(2000, 2000);
 
 
 
@@ -250,7 +278,7 @@ public class ReportActivity extends AppCompatActivity {
         PieData monthData = new PieData(monthDataSet);
         monthlyTimeChart.setData(monthData);
         monthlyTimeChart.setCenterText("This months Review");
-        monthDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        monthDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         monthDataSet.setSliceSpace(1f);
         monthlyTimeChart.setEntryLabelColor(Color.BLACK);
         monthlyTimeChart.animateXY(2000,2000);
