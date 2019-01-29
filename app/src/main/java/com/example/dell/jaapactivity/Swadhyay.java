@@ -67,6 +67,9 @@ public class Swadhyay extends AppCompatActivity {
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
         final String formattedDay = dayFormat.format(currentTime);
 
+        Calendar calender = Calendar.getInstance();
+        final int year  = calender.get(Calendar.YEAR);
+
 
         //
         final ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
@@ -131,7 +134,7 @@ public class Swadhyay extends AppCompatActivity {
                      Log.d(TAG, "onClick: Data "+ log);
                  }
 
-                 long reportInserted = rDb.addUserReportData(new ReportData("Swadhyay",formattedDate,formattedTime,formattedDay,Integer.parseInt(String.valueOf(time_in_minutes)),Integer.parseInt(String.valueOf(time_in_minutes))));
+                 long reportInserted = rDb.addUserReportData(new ReportData("Swadhyay",formattedDate,formattedTime,formattedDay,Integer.parseInt(String.valueOf(time_in_minutes)),Integer.parseInt(String.valueOf(time_in_minutes)),String.valueOf(year)));
                  Log.d(TAG, "onClick: report inserted : "+ reportInserted);
                  List<ReportData> reportDataList = rDb.getAllUserReportData();
                  Log.d(TAG, "onClick: "+reportDataList);

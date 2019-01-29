@@ -44,8 +44,22 @@ public class ReportActivity extends AppCompatActivity {
         BarChart dayWiseTimeChart  = findViewById(R.id.dayWiseBarChart);
         PieChart monthlyTimeChart = findViewById(R.id.monthlyReport);
 
+        //Date is month
+        //Time is date
+        //and day is day
+      /*   rDb.addUserReportData(new ReportData("Jap","Jan","21","Tue",4,2.6f,"Atam Bodh Dhayan","with Pujya Gurudev"));
+        rDb.addUserReportData(new ReportData("Jap","Jan","21","Tue",4,2.6f,"Atam Bodh Dhayan","with Pujya Gurudev"));
+        rDb.addUserReportData(new ReportData("Meditation","Dec","21","Sun",6,3.6f,"Panchkosh Dhyaan","with Pujya Mataji"));
+        rDb.addUserReportData(new ReportData("Swadhyay","Jan","23","Wed",4,2.6f,"Atam Bodh Dhayan","by Time"));
+        rDb.addUserReportData(new ReportData("Meditation","Jan","21","Tue",4,2.6f,"Naad yog Dhyaan","by Mala"));
+        rDb.addUserReportData(new ReportData("Swadhyay","Dec","21","Tue",2,1.6f,"Amrit Varsha Dhyaan","with Pujya Gurudev"));
+        rDb.addUserReportData(new ReportData("Jap","Jan","16","Wed",4,2.6f,"Jyoti Avdhrnam Dhyaan","with Pujya Gurudev"));
+        rDb.addUserReportData(new ReportData("Jap","Jan","17","Sat",4,2.6f,"Sharir Dhyaan","with Pujya Gurudev"));
+        rDb.addUserReportData(new ReportData("Yagya","Dec","24","Tue",4,2.6f,"Atam Bodh Dhayan","by Time"));
+        rDb.addUserReportData(new ReportData("Jap","Jan","26","Tue",4,2.6f,"Atam Bodh Dhayan","by Mala"));
 
-        //Total modes Pie Chart
+        */
+      //Total modes Pie Chart
         ArrayList<PieEntry> totalModes = new ArrayList<>();
         totalModes.add(new PieEntry((float)rDb.totalJaps(),"Japs"));
         totalModes.add(new PieEntry((float)rDb.totalMeditations(),"Meditations"));
@@ -166,13 +180,31 @@ public class ReportActivity extends AppCompatActivity {
 
         // Integer c = (calender.get(Calendar.DATE));
       //  Log.d(TAG, "onCreate: Today's Date in Integer "+c);
+
+        // data if month changes
         Log.d(TAG, "onCreate: this is from second Method for past dates jap "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),0));
         Log.d(TAG, "onCreate: this is from second Method for past dates Med "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),1));
         Log.d(TAG, "onCreate: this is from second Method for past dates Swa "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),2));
         Log.d(TAG, "onCreate: this is from second Method for past dates Yag "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),3));
 
+      if(calender.get(Calendar.MONTH)!=calender2.get(Calendar.MONTH))
+      {
+          int total_jap_time = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0)+
+                  rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),0);
+          int total_med_time  = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),1)+
+                  rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),1);
+          int total_swa_time  = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),2)+
+                  rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),2);
+          int total_yag_time  = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),3)+
+                  rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),3);
+
+          Log.d(TAG, "onCreate: real past one month jap time "+total_jap_time);
+          Log.d(TAG, "onCreate: real past one month meditaiton time "+ total_med_time);
+          Log.d(TAG, "onCreate: real past one month swadhyay time "+ total_swa_time);
+          Log.d(TAG, "onCreate: real past one month yagya time "+ total_yag_time);
 
 
+      }
         //   Log.d(TAG, "onCreate: previous month Jap data "+ rDb.oneMonthData(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0));
 
 
@@ -237,7 +269,8 @@ public class ReportActivity extends AppCompatActivity {
                     + ", Time : "+rp.getTime()  //5
                     + ", Day: "+rp.getDay()  //6
                     + ", Type: "+rp.getType() //7
-                    + ", Audio Name: "+ rp.getAudioName();//8
+                    + ", Audio Name: "+ rp.getAudioName()//8
+                    + ", Year : "+ rp.getYear();
             Log.d("Report Activity :",reportLog);
         }
 

@@ -75,6 +75,9 @@ public class MeditationActivity extends AppCompatActivity {
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
         final String formattedDay = dayFormat.format(currentTime);
 
+        Calendar calender = Calendar.getInstance();
+        final int year  = calender.get(Calendar.YEAR);
+
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +113,7 @@ public class MeditationActivity extends AppCompatActivity {
 
 
                     }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Atam Bodh Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000));
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Atam Bodh Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000,String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -151,7 +154,8 @@ public class MeditationActivity extends AppCompatActivity {
 
 
                     }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Panchkosh Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000));
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,
+                            formattedTime,formattedDay,"Panchkosh Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000,String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -191,7 +195,9 @@ public class MeditationActivity extends AppCompatActivity {
                         Log.d("Name: ", log);
 
                     }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Sharir Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000));
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,
+                            formattedDay,"Sharir Dhyaan ",
+                            mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000,String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -230,7 +236,11 @@ public class MeditationActivity extends AppCompatActivity {
                         Log.d("Name: ", log);
 
                     }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Amrit Varsha Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000));
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,
+                            formattedTime,formattedDay,
+                            "Amrit Varsha Dhyaan ",
+                            mediaPlayer.getDuration()/60000,
+                            mediaPlayer.getDuration()/60000,String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -269,7 +279,11 @@ public class MeditationActivity extends AppCompatActivity {
                         Log.d("Name: ", log);
 
                     }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Jyoti Avardhanam Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000));
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",
+                            formattedDate,formattedTime,formattedDay,
+                            "Jyoti Avardhanam Dhyaan ",
+                            mediaPlayer.getDuration()/60000,
+                            mediaPlayer.getDuration()/60000,String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -307,7 +321,9 @@ public class MeditationActivity extends AppCompatActivity {
                         Log.d("Name: ", log);
 
                     }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Naad Yog Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000));
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,
+                            "Naad Yog Dhyaan ",mediaPlayer.getDuration()/60000,
+                            mediaPlayer.getDuration()/60000,String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -347,7 +363,10 @@ public class MeditationActivity extends AppCompatActivity {
                         Log.d("Name: ", log);
 
                     }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Tatv Bodh Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000));
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",
+                            formattedDate,formattedTime,formattedDay,
+                            "Tatv Bodh Dhyaan ",mediaPlayer.getDuration()/60000,
+                            mediaPlayer.getDuration()/60000,String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);

@@ -14,6 +14,7 @@ public class ReportDataContractClass {
         public static final String KEY_DAY = "day";
         public static final String KEY_TYPE = "type";
         public static final String KEY_AUDIO_NAME = "audioName";
+        public static final String KEY_YEAR = "year";
 
     }
 

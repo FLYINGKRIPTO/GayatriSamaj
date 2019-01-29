@@ -18,6 +18,7 @@ import static com.example.dell.jaapactivity.ReportManager.ReportDataContractClas
 import static com.example.dell.jaapactivity.ReportManager.ReportDataContractClass.WaitListEntryReport.KEY_TIME;
 import static com.example.dell.jaapactivity.ReportManager.ReportDataContractClass.WaitListEntryReport.KEY_TYPE;
 import static com.example.dell.jaapactivity.ReportManager.ReportDataContractClass.WaitListEntryReport.KEY_USER_TIME;
+import static com.example.dell.jaapactivity.ReportManager.ReportDataContractClass.WaitListEntryReport.KEY_YEAR;
 import static com.example.dell.jaapactivity.ReportManager.ReportDataContractClass.WaitListEntryReport.TABLE_USER_REPORT;
 
 public class ReportDataBaseHandler extends SQLiteOpenHelper {
@@ -42,7 +43,8 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
                 +KEY_TIME +" TEXT NOT NULL, "
                 +KEY_DAY +" TEXT NOT NULL, "
                 +KEY_TYPE +" TEXT, "
-                +KEY_AUDIO_NAME +" TEXT); ";
+                +KEY_AUDIO_NAME +" TEXT, "
+                +KEY_YEAR +" TEXT); ";
 
         db.execSQL(SQL_CREATE_WAITLIST_TABLE_USER_REPORT);
 
@@ -52,6 +54,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_USER_REPORT);
         onCreate(db);
+
 
     }
     public long addUserReportData(ReportData reportData){
@@ -65,6 +68,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         values.put(KEY_TIME,reportData.getTime());
         values.put(KEY_TYPE,reportData.getType());
         values.put(KEY_AUDIO_NAME,reportData.getAudioName());
+        values.put(KEY_YEAR,reportData.getYear());
 
         return db.insert(TABLE_USER_REPORT,null,values);
     }
@@ -88,6 +92,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
                 reportData.setDay(cursor.getString(6));
                 reportData.setType(cursor.getString(7));
                 reportData.setAudioName(cursor.getString(8));
+                reportData.setYear(cursor.getString(9));
                 reportDataList.add(reportData);
 
             }

@@ -10,6 +10,7 @@ public class ReportData {
     private String day;
     private String type;
     private String audioName;
+    private String year;
 
 
     public ReportData(){
@@ -17,7 +18,7 @@ public class ReportData {
         //constructor that will be used for jap activity
     }
     public ReportData(String mode,Long userTime,Long actualTime,String date, String time
-    ,String day,String type){
+    ,String day,String type,String year){
         this.mode = mode;
         this.userTime = userTime;
         this.actualTime = actualTime;
@@ -25,11 +26,12 @@ public class ReportData {
         this.time = time;
         this.day = day;
         this.type = type;
+        this.year = year;
 
     }
     //Constructor to be used for meditation activity
     public ReportData(String mode,String date, String time,String day,
-                      String audioName,float userTime,float actualTime){
+                      String audioName,float userTime,float actualTime, String year){
 
         this.mode = mode;
         this.date = date;
@@ -38,17 +40,32 @@ public class ReportData {
         this.audioName = audioName;
         this.userTime = userTime;
         this.actualTime = actualTime;
+        this.year = year;
 
     }
 
     //Constructor to be used for swadhyay activity
-    public ReportData(String mode,String date,String time,String day,int userTime,float actualTime){
+    public ReportData(String mode,String date,String time,String day,int userTime,float actualTime, String year){
         this.mode = mode;
         this.date = date;
         this.time = time;
         this.day = day;
         this.userTime = userTime;
         this.actualTime = actualTime;
+        this.year = year;
+    }
+
+    //Constructor to be used for Report Activity
+    public ReportData(String mode,String date,String time,String day,int userTime,float actualTime ,String audioName,String type, String year){
+        this.mode = mode;
+        this.date = date;
+        this.time = time;
+        this.day = day;
+        this.userTime = userTime;
+        this.actualTime = actualTime;
+        this.audioName = audioName;
+        this.type = type;
+        this.year = year;
     }
     public int getId() {
         return id;
@@ -120,6 +137,17 @@ public class ReportData {
 
     public void setAudioName(String audioName) {
         this.audioName = audioName;
+    }
+    public void setUserTime(float userTime) {
+        this.userTime = userTime;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
 

@@ -115,6 +115,7 @@ public class JapActivity extends Activity {
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
         final String formattedDay = dayFormat.format(currentTime);
         Calendar calender = Calendar.getInstance();
+        final int year  = calender.get(Calendar.YEAR);
         Log.d(TAG, "onCreate: Current Week :"+ calender.get(Calendar.WEEK_OF_YEAR));
 
 
@@ -304,7 +305,7 @@ public class JapActivity extends Activity {
 
                    }
                    //adding data in the Reports DataBase
-                   long reportInserted =  rDb.addUserReportData(new ReportData("Jap",time_in_minutes,time_in_minutes,formattedDate,formattedTime,formattedDay,item));
+                   long reportInserted =  rDb.addUserReportData(new ReportData("Jap",time_in_minutes,time_in_minutes,formattedDate,formattedTime,formattedDay,item,String.valueOf(year)));
                    Log.d(TAG, "onClick: User Report : " + reportInserted);
 
                    //Displaying all data
@@ -369,7 +370,7 @@ public class JapActivity extends Activity {
                                myCountdownTimer.start();
 
                            }
-                           long inserted = rDb.addUserReportData(new ReportData("Jap",Long.parseLong(String.valueOf(minutes)),Long.parseLong(String.valueOf(minutes)),formattedDate,formattedTime,formattedDay,item));
+                           long inserted = rDb.addUserReportData(new ReportData("Jap",Long.parseLong(String.valueOf(minutes)),Long.parseLong(String.valueOf(minutes)),formattedDate,formattedTime,formattedDay,item,String.valueOf(year)));
                            Log.d(TAG, "onClick: User Report : " + inserted);
 
                            //Displaying all data
@@ -471,7 +472,7 @@ public class JapActivity extends Activity {
                                myCountdownTimer.start();
 
                            }
-                           long inserted = rDb.addUserReportData(new ReportData("Jap",Long.parseLong(String.valueOf(minutes)),Long.parseLong(String.valueOf(minutes)),formattedDate,formattedTime,formattedDay,item));
+                           long inserted = rDb.addUserReportData(new ReportData("Jap",Long.parseLong(String.valueOf(minutes)),Long.parseLong(String.valueOf(minutes)),formattedDate,formattedTime,formattedDay,item, String.valueOf(year)));
                            Log.d(TAG, "onClick: User Report : " + inserted);
 
                            //Displaying all data
