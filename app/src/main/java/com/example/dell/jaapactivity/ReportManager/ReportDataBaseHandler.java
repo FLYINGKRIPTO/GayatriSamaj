@@ -485,6 +485,87 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
     }
 
 
+    public int timeBetweenRange(int startDate,int endDate,int startMonth, int endMonth,int mode){
+
+        int totalTimeInGivenRange = 0;
+        String[] months = new String[12];
+        months[0]= "Jan";
+        months[1] = "Feb";
+        months[2]= "Mar";
+        months[3] = "Apr";
+        months[4]= "May";
+        months[5] = "Jun";
+        months[6]= "July";
+        months[7] = "Aug";
+        months[8]= "Sep";
+        months[9] = "Oct";
+        months[10] = "Nov";
+        months[11] = "Dec";
+
+        Integer[] days = new Integer[32];
+        days[0]=1;
+        days[1]=2;
+        days[2]=3;
+        days[3]=4;
+        days[4]=5;
+        days[5]=6;
+        days[6]=7;
+        days[7]=8;
+        days[8]=9;
+        days[9]=10;
+        days[10]=11;
+        days[11]=12;
+        days[12]=13;
+        days[13]=14;
+        days[14]=15;
+        days[15]=16;
+        days[16]=17;
+        days[17]=18;
+        days[18]=19;
+        days[19]=20;
+        days[20]=21;
+        days[21]=22;
+        days[22]=23;
+        days[23]=24;
+        days[24]=25;
+        days[25]=26;
+        days[26]=27;
+        days[27]=28;
+        days[28]=29;
+        days[29]=30;
+        days[30]=31;
+        days[31]=31;
+
+        String[] modes  = new String[4];
+        modes[0]= "Jap";
+        modes[1] = "Meditation";
+        modes[2] = "Swadhyay";
+        modes[3] = "yagya";
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        if(startMonth==endMonth){
+
+            for(int i = startDate;i<=endDate;i++) {
+
+                String query = " SELECT SUM(" + KEY_ACTUAL_TIME + ") as TotalTimeInGivenRange FROM "
+                        + TABLE_USER_REPORT + " WHERE " + KEY_MODE + "= '" + modes[mode] + "' AND " + KEY_DATE + " ='" + months[startMonth] + "' AND "
+                        + KEY_TIME + "= '" + days[i] + "'";
+                Cursor cr = db.rawQuery(query,null);
+                if(cr.moveToFirst()){
+                    totalTimeInGivenRange = cr.getInt(cr.getColumnIndex("TotalTimeInGivenRange"))+ totalTimeInGivenRange;
+
+                }
+                cr.close();
+            }
+        }
+
+
+        return totalTimeInGivenRange;
+
+
+
+    }
 
 
 

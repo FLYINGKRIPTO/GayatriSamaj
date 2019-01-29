@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
 import com.example.dell.jaapactivity.Meditation.MeditationDataBaseHandler;
@@ -235,8 +237,6 @@ public class ReportActivity extends AppCompatActivity {
         pastThirtyDataSet.setSliceSpace(1f);
         pastThirtyDays.animateXY(2000, 2000);
 
-
-
       /*  Date today1 = new Date();
         calender2.setTime(today1);
         Log.d(TAG, "onCreate: Today's Date "+ calender2.get(Calendar.DATE));
@@ -356,7 +356,20 @@ public class ReportActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        switch (item.getItemId())
+        {
+            case R.id.datePicker:
 
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
