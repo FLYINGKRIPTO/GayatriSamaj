@@ -151,15 +151,38 @@ public class ReportActivity extends AppCompatActivity {
         calender.setTime(today);
         Log.d(TAG, "onCreate: Today's Date "+ calender.get(Calendar.DATE));
         Log.d(TAG, "onCreate: Today's Month "+ calender.get(Calendar.MONTH));
-        calender.add(Calendar.DAY_OF_MONTH, -30);
-        Log.d(TAG, "onCreate: Date one Month before "+calender.get(Calendar.DATE));
-        Log.d(TAG, "onCreate: Month one month before "+ calender.get(Calendar.MONTH));
-        Date today1 = new Date();
+        Log.d(TAG, "onCreate: Today's year "+ calender.get(Calendar.YEAR));
+
+        calender2.add(Calendar.DAY_OF_MONTH, -30);
+
+        Log.d(TAG, "onCreate: Date one Month before "+calender2.get(Calendar.DATE));
+        Log.d(TAG, "onCreate: Month one month before "+ calender2.get(Calendar.MONTH));
+        Log.d(TAG, "onCreate: Year one month before "+ calender2.get(Calendar.YEAR));
+
+        Log.d(TAG, "onCreate: past one month Jap data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0));
+        Log.d(TAG, "onCreate: past one month Meditation data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),1));
+        Log.d(TAG, "onCreate: past one month Swadhyay data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),2));
+        Log.d(TAG, "onCreate: past one month Yagya data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),3));
+
+        // Integer c = (calender.get(Calendar.DATE));
+      //  Log.d(TAG, "onCreate: Today's Date in Integer "+c);
+        Log.d(TAG, "onCreate: this is from second Method for past dates jap "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),0));
+        Log.d(TAG, "onCreate: this is from second Method for past dates Med "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),1));
+        Log.d(TAG, "onCreate: this is from second Method for past dates Swa "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),2));
+        Log.d(TAG, "onCreate: this is from second Method for past dates Yag "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),3));
+
+
+
+        //   Log.d(TAG, "onCreate: previous month Jap data "+ rDb.oneMonthData(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0));
+
+
+
+      /*  Date today1 = new Date();
         calender2.setTime(today1);
         Log.d(TAG, "onCreate: Today's Date "+ calender2.get(Calendar.DATE));
         calender2.add(Calendar.DAY_OF_WEEK,-7);
         Log.d(TAG, "onCreate: Date Starting week  "+ calender2.get(Calendar.DATE));
-
+        */
 
         //Day Wise
         Log.d(TAG, "onCreate: total monday time "+ rDb.totalDaysTime(0));

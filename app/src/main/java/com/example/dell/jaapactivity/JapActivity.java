@@ -109,7 +109,7 @@ public class JapActivity extends Activity {
         SimpleDateFormat df = new SimpleDateFormat("MMM");
         final String formattedDate = df.format(currentTime);
 
-        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("dd");
         final String formattedTime = timeFormat.format(currentTime);
 
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEE");
