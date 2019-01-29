@@ -45,7 +45,8 @@ public class ReportData {
     }
 
     //Constructor to be used for swadhyay activity
-    public ReportData(String mode,String date,String time,String day,int userTime,float actualTime, String year){
+    public ReportData(String mode,String date,String time,String day
+            ,int userTime,float actualTime, String year){
         this.mode = mode;
         this.date = date;
         this.time = time;
@@ -56,7 +57,8 @@ public class ReportData {
     }
 
     //Constructor to be used for Report Activity
-    public ReportData(String mode,String date,String time,String day,int userTime,float actualTime ,String audioName,String type, String year){
+    public ReportData(String mode,String date,String time,String day,int userTime,
+                      float actualTime ,String audioName,String type, String year){
         this.mode = mode;
         this.date = date;
         this.time = time;
