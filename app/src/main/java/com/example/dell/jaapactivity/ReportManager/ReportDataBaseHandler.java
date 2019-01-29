@@ -423,7 +423,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         months[10] = "Nov";
         months[11] = "Dec";
 
-        Integer[] days = new Integer[31];
+        Integer[] days = new Integer[32];
         days[0]=1;
         days[1]=2;
         days[2]=3;
@@ -455,6 +455,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         days[28]=29;
         days[29]=30;
         days[30]=31;
+        days[31]=31;
 
         String[] modes  = new String[4];
         modes[0]= "Jap";
@@ -465,7 +466,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
 
-        for(int i= date;i<30;i++){
+        for(int i= date;i<32;i++){
             String query = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalPastOneMonthDataB FROM "
                     + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= '"+modes[mode]+"' AND " + KEY_DATE +" ='"+months[month]+"' AND "
                     + KEY_TIME+ "= '"+days[i]+"'";
