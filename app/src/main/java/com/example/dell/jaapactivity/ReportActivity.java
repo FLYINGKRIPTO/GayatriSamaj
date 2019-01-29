@@ -1,11 +1,17 @@
 package com.example.dell.jaapactivity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
 import com.example.dell.jaapactivity.Meditation.MeditationDataBaseHandler;
@@ -27,7 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ReportActivity extends AppCompatActivity {
+public class ReportActivity extends AppCompatActivity  {
     private static final String TAG = "ReportActivity";
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
     JapDatabaseHandler jDb = new JapDatabaseHandler(this);
@@ -36,12 +42,21 @@ public class ReportActivity extends AppCompatActivity {
     int past_thirty_med_time = 0;
     int past_thirty_swa_time = 0;
     int past_thirty_yag_time = 0;
-
+    Button startDate;
+    Button endDate;
+    Integer selectedStartDate;
+    Integer selectedStartMonth;
+    Integer selectedStartYear;
+    Integer selectedEndDate;
+    Integer selectedEndMonth;
+    Integer selectedEndYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+
 
         PieChart pieChart = findViewById(R.id.pieChart);
         PieChart japDataChart = findViewById(R.id.japDataPieChart);
@@ -346,7 +361,12 @@ public class ReportActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: total song 7 "+ mDb.totalSong7());
 
 
-
+        Log.d(TAG, "onCreate: selected starting date from date picker "+ selectedStartDate);
+        Log.d(TAG, "onCreate: selected starting month from date picker "+ selectedStartMonth);
+        Log.d(TAG, "onCreate: selected starting year from date pciker "+ selectedStartYear);
+        Log.d(TAG, "onCreate: selected ending date from date picker "+ selectedEndDate);
+        Log.d(TAG, "onCreate: selected ending month from date picker" + selectedEndMonth);
+        Log.d(TAG, "onCreate: selected ending year from date picker "+ selectedEndYear);
          //TODO :: Weekly Data Representation
          //TODO :: Daily Data Representation
 
@@ -368,8 +388,62 @@ public class ReportActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.datePicker:
+                showDialogBox(ReportActivity.this,"Choose Date Range","Date Range");
+
 
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void showDatePicker(){
+        DialogFragment newFragment = new MyDatePicketFragment();
+        newFragment.show(getSupportFragmentManager()," date picker ");
+    }
+
+    public void  showDialogBox(Activity activity, String title, final CharSequence message) {
+        LayoutInflater li = LayoutInflater.from(this);
+        View datePickView = li.inflate(R.layout.datedialog, null);
+        startDate =  datePickView.findViewById(R.id.setStartDate);
+        endDate  = datePickView.findViewById(R.id.setEndDate);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ReportActivity.this);
+        builder.setView(datePickView);
+
+
+       startDate.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               showDatePicker();
+               MyDatePicketFragment myD = new MyDatePicketFragment();
+               selectedStartDate = myD.selected_date;
+               selectedStartMonth = myD.selected_month;
+               selectedStartYear = myD.selected_year;
+
+
+
+
+           }
+       });
+       endDate.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               showDatePicker();
+               MyDatePicketFragment myD = new MyDatePicketFragment();
+               selectedEndDate = myD.selected_date;
+               selectedEndMonth = myD.selected_month;
+               selectedEndYear = myD.selected_year;
+
+
+           }
+       });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
+    }
+
+
+
+
+
+
 }

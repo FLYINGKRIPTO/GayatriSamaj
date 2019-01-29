@@ -31,6 +31,8 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
 
     }
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_WAITLIST_TABLE_USER_REPORT = "CREATE TABLE "+
