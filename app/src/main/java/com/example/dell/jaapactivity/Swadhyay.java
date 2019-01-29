@@ -77,43 +77,43 @@ public class Swadhyay extends AppCompatActivity {
         //adding dummy data to the database
 
         rDb.addUserReportData(new ReportData("Swadhyay","Dec","22",
-                "Sun",4,2.4f,"2018"));
+                "Sun",4L,2l,"2018"));
         rDb.addUserReportData(new ReportData("Swadhyay","Dec","24",
-                "Tue",3,2.4f,"2018"));
+                "Tue",3L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Swadhyay","Dec","27",
-                "Fri",6,2.4f,"2018"));
+                "Fri",6L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Swadhyay","Dec","29",
-                "Sun",1,2.4f,"2018"));
+                "Sun",1L,1L,"2018"));
         rDb.addUserReportData(new ReportData("Swadhyay","Dec","30",
-                "Sun",7,2.4f,"2018"));
+                "Sun",7L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Swadhyay","Dec","30",
-                "Sun",8,2.4f,"2018"));
+                "Sun",8L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Swadhyay","Dec","30",
-                "Sun",3,2.4f,"2018"));
+                "Sun",3L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Swadhyay","Dec","31",
-                "Mon",6,2.4f,"2018"));
+                "Mon",6L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Swadhyay","Dec","31",
-                "Mon",6,2.4f,"2018"));
+                "Mon",6L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Swadhyay","Dec","31",
-                "Mon",3,2.4f,"2018"));
+                "Mon",3L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Swadhyay","Jan","1",
-                "Tue",7,2.4f,"2019"));
+                "Tue",7L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Swadhyay","Jan","2",
-                "Wed",4,2.4f,"2019"));
+                "Wed",4L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Swadhyay","Jan","3",
-                "Thu",4,2.4f,"2019"));
+                "Thu",4L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Swadhyay","Jan","4",
-                "Fri",4,2.4f,"2019"));
+                "Fri",4L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Swadhyay","Jan","6",
-                "Sun",4,2.4f,"2019"));
+                "Sun",4L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Swadhyay","Jan","8",
-                "Tue",4,2.4f,"2019"));
+                "Tue",4L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Swadhyay","Jan","9",
-                "Wed",4,2.4f,"2019"));
+                "Wed",4L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Swadhyay","Jan","11",
-                "Fri",4,2.4f,"2019"));
+                "Fri",4L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Swadhyay","Jan","12",
-                "Sat",4,2.4f,"2019"));
+                "Sat",4L,2L,"2019"));
 
 
 
@@ -178,7 +178,8 @@ public class Swadhyay extends AppCompatActivity {
                  }
 
 
-                 long reportInserted = rDb.addUserReportData(new ReportData("Swadhyay",formattedDate,formattedTime,formattedDay,Integer.parseInt(String.valueOf(time_in_minutes)),Integer.parseInt(String.valueOf(time_in_minutes)),String.valueOf(year)));
+                 long reportInserted = rDb.addUserReportData(new ReportData("Swadhyay",formattedDate,formattedTime,formattedDay,
+                         Long.parseLong(String.valueOf(time_in_minutes)),Long.parseLong(String.valueOf(time_in_minutes)),String.valueOf(year)));
                  Log.d(TAG, "onClick: report inserted : "+ reportInserted);
                  List<ReportData> reportDataList = rDb.getAllUserReportData();
                  Log.d(TAG, "onClick: "+reportDataList);

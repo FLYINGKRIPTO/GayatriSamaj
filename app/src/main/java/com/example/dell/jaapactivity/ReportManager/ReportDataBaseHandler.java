@@ -389,13 +389,13 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         for(int i = date;i>0;i--){
-            String query = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalPastOneMonthData FROM "
+            String query = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalPastOneMonthDataF FROM "
                     + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= '"+modes[mode]+"' AND " + KEY_DATE +" ='"+months[month]+"' AND "
                     + KEY_TIME+ "= '"+days[i]+"'";
 
             Cursor cr = db.rawQuery(query,null);
             if(cr.moveToFirst()){
-                totalTimePastOneMonth = cr.getInt(cr.getColumnIndex("TotalPastOneMonthData"))+ totalTimePastOneMonth;
+                totalTimePastOneMonth = cr.getInt(cr.getColumnIndex("TotalPastOneMonthDataF"))+ totalTimePastOneMonth;
 
             }
             cr.close();
@@ -466,13 +466,13 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
 
         for(int i= date;i<30;i++){
-            String query = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalPastOneMonthData FROM "
+            String query = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalPastOneMonthDataB FROM "
                     + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= '"+modes[mode]+"' AND " + KEY_DATE +" ='"+months[month]+"' AND "
                     + KEY_TIME+ "= '"+days[i]+"'";
 
             Cursor cr = db.rawQuery(query,null);
             if(cr.moveToFirst()){
-                totalTimePastOneMonth = cr.getInt(cr.getColumnIndex("TotalPastOneMonthData"))+ totalTimePastOneMonth;
+                totalTimePastOneMonth = cr.getInt(cr.getColumnIndex("TotalPastOneMonthDataB"))+ totalTimePastOneMonth;
 
             }
             cr.close();

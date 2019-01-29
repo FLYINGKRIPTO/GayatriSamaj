@@ -31,7 +31,7 @@ public class ReportData {
     }
     //Constructor to be used for meditation activity
     public ReportData(String mode,String date, String time,String day,
-                      String audioName,float userTime,float actualTime, String year){
+                      String audioName,Long userTime,Long actualTime, String year){
 
         this.mode = mode;
         this.date = date;
@@ -46,7 +46,7 @@ public class ReportData {
 
     //Constructor to be used for swadhyay activity
     public ReportData(String mode,String date,String time,String day
-            ,int userTime,float actualTime, String year){
+            ,Long userTime,Long actualTime, String year){
         this.mode = mode;
         this.date = date;
         this.time = time;

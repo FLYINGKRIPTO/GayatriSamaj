@@ -173,19 +173,19 @@ public class ReportActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Month one month before "+ calender2.get(Calendar.MONTH));
         Log.d(TAG, "onCreate: Year one month before "+ calender2.get(Calendar.YEAR));
 
-        Log.d(TAG, "onCreate: past one month Jap data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0));
-        Log.d(TAG, "onCreate: past one month Meditation data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),1));
-        Log.d(TAG, "onCreate: past one month Swadhyay data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),2));
-        Log.d(TAG, "onCreate: past one month Yagya data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),3));
+        Log.d(TAG, "onCreate:first method past one month Jap data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0));
+        Log.d(TAG, "onCreate:first method past one month Meditation data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),1));
+        Log.d(TAG, "onCreate:first method past one month Swadhyay data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),2));
+        Log.d(TAG, "onCreate:first metod past one month Yagya data : "+ rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),3));
 
         // Integer c = (calender.get(Calendar.DATE));
       //  Log.d(TAG, "onCreate: Today's Date in Integer "+c);
 
         // data if month changes
-        Log.d(TAG, "onCreate: this is from second Method for past dates jap "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),0));
-        Log.d(TAG, "onCreate: this is from second Method for past dates Med "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),1));
-        Log.d(TAG, "onCreate: this is from second Method for past dates Swa "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),2));
-        Log.d(TAG, "onCreate: this is from second Method for past dates Yag "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),3));
+        Log.d(TAG, "onCreate: second Method for past dates jap "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),0));
+        Log.d(TAG, "onCreate: second Method for past dates Med "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),1));
+        Log.d(TAG, "onCreate: second Method for past dates Swa "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),2));
+        Log.d(TAG, "onCreate: second Method for past dates Yag "+ rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),3));
 
       if(calender.get(Calendar.MONTH)!=calender2.get(Calendar.MONTH))
       {
@@ -198,10 +198,10 @@ public class ReportActivity extends AppCompatActivity {
           int total_yag_time  = rDb.pastOneMonthDataF(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),3)+
                   rDb.pastOneMonthDataB(calender2.get(Calendar.DATE),calender2.get(Calendar.MONTH),3);
 
-          Log.d(TAG, "onCreate: real past one month jap time "+total_jap_time);
-          Log.d(TAG, "onCreate: real past one month meditaiton time "+ total_med_time);
-          Log.d(TAG, "onCreate: real past one month swadhyay time "+ total_swa_time);
-          Log.d(TAG, "onCreate: real past one month yagya time "+ total_yag_time);
+          Log.d(TAG, "onCreate: sum total  past one month jap time "+total_jap_time);
+          Log.d(TAG, "onCreate: sum total  one month meditaiton time "+ total_med_time);
+          Log.d(TAG, "onCreate: sum total past one month swadhyay time "+ total_swa_time);
+          Log.d(TAG, "onCreate: sum total past one month yagya time "+ total_yag_time);
 
 
       }

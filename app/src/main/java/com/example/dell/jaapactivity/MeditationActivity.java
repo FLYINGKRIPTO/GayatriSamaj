@@ -81,47 +81,47 @@ public class MeditationActivity extends AppCompatActivity {
         //adding dummy data
 
         rDb.addUserReportData(new ReportData("Meditation","Dec","13","Thu","Atam Bodh Dhyaan"
-        ,3f,2.4f,"2018"));
+        ,3L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","16","Sun","Tatv Bodh Dhyaan"
-                ,3f,2.4f,"2018"));
+                ,3L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","18","Tue","Atam Bodh Dhyaan"
-                ,3f,2.4f,"2018"));
+                ,3L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","20","Thu","Jyoti Avdhrnam Dhyaan"
-                ,3f,2.4f,"2018"));
+                ,3L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","22","Sat","Naad yog Dhyaan"
-                ,5f,4.4f,"2018"));
+                ,5L,3L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","24","Mon","Jyoti Avdhrnam Dhyaan"
-                ,3f,2.4f,"2018"));
+                ,3L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","29","Sat","Naad yog Dhyaan"
-                ,3f,2.4f,"2018"));
+                ,5L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","30","Sun","Atam Bodh Dhyaan"
-                ,2f,1.4f,"2018"));
+                ,3L,1L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","30","Sun","Panchkosh Dhyaan"
-                ,3f,2.4f,"2018"));
+                ,4L,1L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","30","Sun","Atam Bodh Dhyaan"
-                ,3f,2.4f,"2018"));
+                ,6L,1L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","31","Mon","Tatv Bodh Dhyaan"
-                ,3f,2.4f,"2018"));
+                ,3L,1L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","31","Mon","Panchkosh Dhyaan"
-                ,3f,2.4f,"2018"));
+                ,7L,1L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Dec","31","Mon","Jyoti Avdhrnam Dhyaan"
-                ,3f,2.4f,"2018"));
+                ,5L,2L,"2018"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","1","Tue","Atam Bodh Dhyaan"
-                ,3f,2.4f,"2019"));
+                ,3L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","2","Wed","Tatv Bodh Dhyaan"
-                ,3f,2.4f,"2019"));
+                ,3L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","3","Thu","Panchkosh Dhyaan"
-                ,3f,2.4f,"2019"));
+                ,3L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","4","Fri","Jyoti Avdhrnam Dhyaan"
-                ,3f,2.4f,"2019"));
+                ,3L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","8","Tue","Atam Bodh Dhyaan"
-                ,3f,2.4f,"2019"));
+                ,3L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","11","Fri","Tatv Bodh Dhyaan"
-                ,3f,2.4f,"2019"));
+                ,3L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","13","Sun","Panchkosh Dhyaan"
-                ,3f,2.4f,"2019"));
+                ,3L,1L,"2019"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","14","Mon","Jyoti Avdhrnam Dhyaan"
-                ,3f,2.4f,"2019"));
+                ,3L,2L,"2019"));
 
 
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +159,11 @@ public class MeditationActivity extends AppCompatActivity {
 
 
                     }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,"Atam Bodh Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000,String.valueOf(year)));
+                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,
+                            "Atam Bodh Dhyaan "
+                            ,Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000))
+                            ,Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000))
+                            ,String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -201,7 +205,7 @@ public class MeditationActivity extends AppCompatActivity {
 
                     }
                     long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,
-                            formattedTime,formattedDay,"Panchkosh Dhyaan ",mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000,String.valueOf(year)));
+                            formattedTime,formattedDay,"Panchkosh Dhyaan ",Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),String.valueOf(year)));
 
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
@@ -244,7 +248,9 @@ public class MeditationActivity extends AppCompatActivity {
                     }
                     long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,
                             formattedDay,"Sharir Dhyaan ",
-                            mediaPlayer.getDuration()/60000,mediaPlayer.getDuration()/60000,String.valueOf(year)));
+                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                            String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -286,8 +292,9 @@ public class MeditationActivity extends AppCompatActivity {
                     long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,
                             formattedTime,formattedDay,
                             "Amrit Varsha Dhyaan ",
-                            mediaPlayer.getDuration()/60000,
-                            mediaPlayer.getDuration()/60000,String.valueOf(year)));
+                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000))
+                            ,String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -329,8 +336,9 @@ public class MeditationActivity extends AppCompatActivity {
                     long reportinserted = rDb.addUserReportData(new ReportData("Meditation",
                             formattedDate,formattedTime,formattedDay,
                             "Jyoti Avardhanam Dhyaan ",
-                            mediaPlayer.getDuration()/60000,
-                            mediaPlayer.getDuration()/60000,String.valueOf(year)));
+                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                            String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -369,8 +377,9 @@ public class MeditationActivity extends AppCompatActivity {
 
                     }
                     long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,
-                            "Naad Yog Dhyaan ",mediaPlayer.getDuration()/60000,
-                            mediaPlayer.getDuration()/60000,String.valueOf(year)));
+                            "Naad Yog Dhyaan ",
+                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);
@@ -412,8 +421,9 @@ public class MeditationActivity extends AppCompatActivity {
                     }
                     long reportinserted = rDb.addUserReportData(new ReportData("Meditation",
                             formattedDate,formattedTime,formattedDay,
-                            "Tatv Bodh Dhyaan ",mediaPlayer.getDuration()/60000,
-                            mediaPlayer.getDuration()/60000,String.valueOf(year)));
+                            "Tatv Bodh Dhyaan ",
+                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),String.valueOf(year)));
                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
                     List<ReportData> reportDataList = rDb.getAllUserReportData();
                     Log.d(TAG, "onClick: "+reportDataList);

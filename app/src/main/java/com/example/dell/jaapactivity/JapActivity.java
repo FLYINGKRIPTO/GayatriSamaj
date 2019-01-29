@@ -125,20 +125,7 @@ public class JapActivity extends Activity {
 
 
         //Adding dummy data in Reports
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "2", "Sun", "by Time", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 6l, 4l, "Dec",
-                "5", "Wed", "by Time", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 1l, "Dec",
-                "6", "Fri", "with Pujya Mataji", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "8", "Sun", "by Time", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "10", "Tue", "by Mala", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "11", "Wed", "by Time", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 2l, "Dec",
-                "12", "Thu", "with Pujya Gurudev", "2018"));
+
         rDb.addUserReportData(new ReportData("Jap", 4l, 4l, "Dec",
                 "14", "Fri", "by Time", "2018"));
         rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
@@ -169,11 +156,11 @@ public class JapActivity extends Activity {
                 "31", "Mon", "with Pujya Mataji", "2018"));
         rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
                 "31", "Mon", "with Pujya Gurudev", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
+        rDb.addUserReportData(new ReportData("Jap", 4l, 6l, "Jan",
                 "1", "Tue", "with Pujya Mataji", "2019"));
         rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
                 "2", "Wed", "with Pujya Gurudev", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
+        rDb.addUserReportData(new ReportData("Jap", 4l, 6l, "Jan",
                 "3", "Thu", "with Pujya Mataji", "2019"));
         rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
                 "4", "Fri", "with Pujya Gurudev", "2019"));
