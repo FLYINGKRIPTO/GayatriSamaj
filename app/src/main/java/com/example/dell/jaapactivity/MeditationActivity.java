@@ -122,6 +122,19 @@ public class MeditationActivity extends AppCompatActivity {
                 ,3L,1L,"2019"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","14","Mon","Jyoti Avdhrnam Dhyaan"
                 ,3L,2L,"2019"));
+        rDb.addUserReportData(new ReportData("Meditation","Jan","24","Thu","Panchkosh Dhyaan"
+                ,3L,2L,"2019"));
+        rDb.addUserReportData(new ReportData("Meditation","Jan","25","Fri","Jyoti Avdhrnam Dhyaan"
+                ,3L,2L,"2019"));
+        rDb.addUserReportData(new ReportData("Meditation","Jan","26","Tue","Atam Bodh Dhyaan"
+                ,3L,2L,"2019"));
+        rDb.addUserReportData(new ReportData("Meditation","Jan","27","Fri","Tatv Bodh Dhyaan"
+                ,3L,2L,"2019"));
+        rDb.addUserReportData(new ReportData("Meditation","Jan","28","Sun","Panchkosh Dhyaan"
+                ,3L,1L,"2019"));
+        rDb.addUserReportData(new ReportData("Meditation","Jan","30","Mon","Jyoti Avdhrnam Dhyaan"
+                ,3L,2L,"2019"));
+
 
 
         playButton.setOnClickListener(new View.OnClickListener() {

@@ -172,6 +172,20 @@ public class JapActivity extends Activity {
                 "12", "Sat", "with Pujya Mataji", "2019"));
         rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
                 "14", "Mon", "with Pujya Gurudev", "2019"));
+        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
+                "24", "Wed", "with Pujya Gurudev", "2019"));
+        rDb.addUserReportData(new ReportData("Jap", 4l, 6l, "Jan",
+                "26", "Thu", "with Pujya Mataji", "2019"));
+        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
+                "28", "Fri", "with Pujya Gurudev", "2019"));
+        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
+                "28", "Sun", "with Pujya Mataji", "2019"));
+        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
+                "28", "Wed", "with Pujya Gurudev", "2019"));
+        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
+                "29", "Sat", "with Pujya Mataji", "2019"));
+        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
+                "29", "Mon", "with Pujya Gurudev", "2019"));
 
 
         JapTime = promptsView.findViewById(R.id.editTextDialogUserInput);

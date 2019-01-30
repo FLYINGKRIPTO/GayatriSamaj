@@ -1,6 +1,5 @@
 package com.example.dell.jaapactivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
@@ -43,6 +42,10 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
     int past_thirty_med_time = 0;
     int past_thirty_swa_time = 0;
     int past_thirty_yag_time = 0;
+    int past_seven_jap_time = 0;
+    int past_seven_meditation_time = 0;
+    int past_seven_swadhyay_time =0;
+    int past_seven_yagya_time=0;
     Button startDate;
     Button endDate;
     Integer selectedStartDate=1;
@@ -78,6 +81,9 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         rangeDataPieChart = findViewById(R.id.dataInARange);
 
         datePickerDialog = new DatePickerDialog(ReportActivity.this,ReportActivity.this,selectedStartYear,selectedStartMonth,selectedStartDate);
+
+        //Pie chart for past 7 days
+        PieChart pastSevenDays = findViewById(R.id.weeklyReport);
 
         //Date is month
         //Time is date
@@ -398,11 +404,68 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         Log.d(TAG, "onCreate: selected ending month from date picker" + selectedEndMonth);
         Log.d(TAG, "onCreate: selected ending year from date picker "+ selectedEndYear);
          //TODO :: Weekly Data Representation
-         //TODO :: Daily Data Representation
+
+        //weekly data representation
+        Calendar weekCalender = Calendar.getInstance();
+        weekCalender.get(Calendar.DAY_OF_MONTH);
+        Calendar weekCalender2 = Calendar.getInstance();
+        weekCalender2.add(Calendar.DAY_OF_MONTH,-7);
+
+        Log.d(TAG, "onCreate: date this week "+  weekCalender.get(Calendar.DAY_OF_MONTH));
+        Log.d(TAG, "onCreate: month this week"+weekCalender.get(Calendar.MONTH));
+        Log.d(TAG, "onCreate: date past week "+ weekCalender2.get(Calendar.DAY_OF_MONTH));
+        Log.d(TAG, "onCreate: month past week "+ weekCalender.get(Calendar.MONTH));
+
+        if(weekCalender.get(Calendar.DAY_OF_MONTH)>=7){
+            Log.d(TAG, "onCreate: Date is greater that 7");
+
+            past_seven_jap_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
+                    weekCalender.get(Calendar.MONTH),0);
+            past_seven_meditation_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
+                    weekCalender.get(Calendar.MONTH),1);
+            past_seven_swadhyay_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
+                    weekCalender.get(Calendar.MONTH),2);
+            past_seven_yagya_time = rDb.pastOneMonthDataF(weekCalender.get(Calendar.DAY_OF_MONTH),
+                    weekCalender.get(Calendar.MONTH),3);
 
 
+        }
 
+        else if (weekCalender2.get(Calendar.DAY_OF_MONTH)<7){
 
+            Log.d(TAG, "onCreate: Date is less that 7 ");
+            past_seven_jap_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
+                    weekCalender.get(Calendar.MONTH),0) +
+                    rDb.pastOneWeekB(weekCalender.get(Calendar.DAY_OF_MONTH),weekCalender.get(Calendar.MONTH),0);
+
+            past_seven_meditation_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
+                    weekCalender.get(Calendar.MONTH),1) +
+                    rDb.pastOneWeekB(weekCalender.get(Calendar.DAY_OF_MONTH),weekCalender.get(Calendar.MONTH),1);
+
+            past_seven_swadhyay_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
+                    weekCalender.get(Calendar.MONTH),2) +
+                    rDb.pastOneWeekB(weekCalender.get(Calendar.DAY_OF_MONTH),weekCalender.get(Calendar.MONTH),2);
+
+            past_seven_yagya_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
+                    weekCalender.get(Calendar.MONTH),3) +
+                    rDb.pastOneWeekB(weekCalender.get(Calendar.DAY_OF_MONTH),weekCalender.get(Calendar.MONTH),3);
+        }
+
+        //Pie chart for representing past seven days data
+        ArrayList<PieEntry> pastSevenDataList = new ArrayList<PieEntry>();
+        pastSevenDataList.add(new PieEntry(past_seven_jap_time,"JAP"));
+        pastSevenDataList.add(new PieEntry(past_seven_meditation_time,"MEDITATION"));
+        pastSevenDataList.add(new PieEntry(past_seven_swadhyay_time,"SWADHYAY"));
+        pastSevenDataList.add(new PieEntry(past_seven_yagya_time,"YAGYA"));
+
+        PieDataSet pastSevenDataSet = new PieDataSet(pastSevenDataList,"PAST SEVEN DAYS ");
+        PieData pastSevenData = new PieData(pastSevenDataSet);
+        pastSevenDays.setData(pastSevenData);
+        pastSevenDays.setCenterText("PAST SEVEN DAYS");
+        pastSevenDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        pastSevenDays.setEntryLabelColor(Color.BLACK);
+        pastSevenDataSet.setSliceSpace(1f);
+        pastSevenDays.animateXY(2000, 2000);
 
     }
 
@@ -445,7 +508,7 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         }
         return super.onOptionsItemSelected(item);
     }
-    public void refreshPieChart(){
+  /*  public void refreshPieChart(){
 
         //Pie Chart for displaying data in a date range set by user
         ReportDataBaseHandler rDb2 = new ReportDataBaseHandler(getParent());
@@ -465,13 +528,9 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         rangeDataPieChart.invalidate();
 
 
-    }
+    }*/
 
-    public void showDatePicker(){
-      datePickerDialog.show();
-    }
-
-    public void  showDialogBox(Activity activity, String title, final CharSequence message) {
+   /* public void  showDialogBox(Activity activity, String title, final CharSequence message) {
         LayoutInflater li = LayoutInflater.from(activity);
         View datePickView = li.inflate(R.layout.datedialog, null);
         startDate =  datePickView.findViewById(R.id.setStartDate);
@@ -497,7 +556,7 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         alertDialog.show();
 
 
-    }
+    }*/
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

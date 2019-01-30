@@ -114,6 +114,16 @@ public class Swadhyay extends AppCompatActivity {
                 "Fri",4L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Swadhyay","Jan","12",
                 "Sat",4L,2L,"2019"));
+        rDb.addUserReportData(new ReportData("Swadhyay","Jan","24",
+                "Sun",4L,2L,"2019"));
+        rDb.addUserReportData(new ReportData("Swadhyay","Jan","26",
+                "Tue",4L,2L,"2019"));
+        rDb.addUserReportData(new ReportData("Swadhyay","Jan","28",
+                "Wed",4L,2L,"2019"));
+        rDb.addUserReportData(new ReportData("Swadhyay","Jan","29",
+                "Fri",4L,2L,"2019"));
+        rDb.addUserReportData(new ReportData("Swadhyay","Jan","30",
+                "Sat",4L,2L,"2019"));
 
 
 

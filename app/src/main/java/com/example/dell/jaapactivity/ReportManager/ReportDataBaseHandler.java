@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "userReportManager.db";
+    private static final String TAG = "ReportDataBaseHandler";
 
 
     public ReportDataBaseHandler(Context context){
@@ -333,7 +335,181 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
         return titito;
     }
-    //total Mode Time past one Month
+
+    //TODO: total time past one week
+    //total time past week forward code if month doesn't change
+
+    public int pastOneWeekF(int date,int month,int mode){
+        int totalTimeOneWeek = 0;
+        String[] months = new String[12];
+        months[0]= "Jan";
+        months[1] = "Feb";
+        months[2]= "Mar";
+        months[3] = "Apr";
+        months[4]= "May";
+        months[5] = "Jun";
+        months[6]= "July";
+        months[7] = "Aug";
+        months[8]= "Sep";
+        months[9] = "Oct";
+        months[10] = "Nov";
+        months[11] = "Dec";
+
+        String[] modes  = new String[4];
+        modes[0]= "Jap";
+        modes[1] = "Meditation";
+        modes[2] = "Swadhyay";
+        modes[3] = "yagya";
+
+        Integer[] days = new Integer[31];
+        days[0]=1;
+        days[1]=2;
+        days[2]=3;
+        days[3]=4;
+        days[4]=5;
+        days[5]=6;
+        days[6]=7;
+        days[7]=8;
+        days[8]=9;
+        days[9]=10;
+        days[10]=11;
+        days[11]=12;
+        days[12]=13;
+        days[13]=14;
+        days[14]=15;
+        days[15]=16;
+        days[16]=17;
+        days[17]=18;
+        days[18]=19;
+        days[19]=20;
+        days[20]=21;
+        days[21]=22;
+        days[22]=23;
+        days[23]=24;
+        days[24]=25;
+        days[25]=26;
+        days[26]=27;
+        days[27]=28;
+        days[28]=29;
+        days[29]=30;
+        days[30]=31;
+
+
+        SQLiteDatabase db= getWritableDatabase();
+        if(date>=7){
+            Log.d(TAG, "pastOneWeekF: yes date is greater that 7  ");
+
+        for(int i=date;i>=date-7;i--){
+
+            Log.d(TAG, "pastOneWeekF: inside for loop ");
+            String query = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalTimePastWeekF FROM "
+                    + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= '"+modes[mode]+"' AND " + KEY_DATE +" ='"+months[month]+"' AND "
+                    + KEY_TIME+ "= '"+days[i]+"'";
+
+            Cursor cr = db.rawQuery(query,null);
+            if(cr.moveToFirst()){
+                totalTimeOneWeek = cr.getInt(cr.getColumnIndex("TotalTimePastWeekF"))+ totalTimeOneWeek;
+                Log.d(TAG, "pastOneWeekF: total time "+  totalTimeOneWeek);
+            }
+            cr.close();
+
+        }}
+        else {
+
+            for (int i = date;i>=1;i--){
+                String query = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalTimePastWeekF FROM "
+                        + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= '"+modes[mode]+"' AND " + KEY_DATE +" ='"+months[month]+"' AND "
+                        + KEY_TIME+ "= '"+days[i]+"'";
+
+                Cursor cr = db.rawQuery(query,null);
+                if(cr.moveToFirst()){
+                    totalTimeOneWeek = cr.getInt(cr.getColumnIndex("TotalTimePastWeekF"))+ totalTimeOneWeek;
+
+                }
+                cr.close();
+
+            }
+        }
+
+        return totalTimeOneWeek;
+    }
+
+    //total time one week backward if month changes
+    public int pastOneWeekB(int date,int month,int mode){
+        int totalTimeOneWeek = 0;
+        String[] months = new String[12];
+        months[0]= "Jan";
+        months[1] = "Feb";
+        months[2]= "Mar";
+        months[3] = "Apr";
+        months[4]= "May";
+        months[5] = "Jun";
+        months[6]= "July";
+        months[7] = "Aug";
+        months[8]= "Sep";
+        months[9] = "Oct";
+        months[10] = "Nov";
+        months[11] = "Dec";
+
+        String[] modes  = new String[4];
+        modes[0]= "Jap";
+        modes[1] = "Meditation";
+        modes[2] = "Swadhyay";
+        modes[3] = "yagya";
+
+        Integer[] days = new Integer[31];
+        days[0]=1;
+        days[1]=2;
+        days[2]=3;
+        days[3]=4;
+        days[4]=5;
+        days[5]=6;
+        days[6]=7;
+        days[7]=8;
+        days[8]=9;
+        days[9]=10;
+        days[10]=11;
+        days[11]=12;
+        days[12]=13;
+        days[13]=14;
+        days[14]=15;
+        days[15]=16;
+        days[16]=17;
+        days[17]=18;
+        days[18]=19;
+        days[19]=20;
+        days[20]=21;
+        days[21]=22;
+        days[22]=23;
+        days[23]=24;
+        days[24]=25;
+        days[25]=26;
+        days[26]=27;
+        days[27]=28;
+        days[28]=29;
+        days[29]=30;
+        days[30]=31;
+
+
+        SQLiteDatabase db= getWritableDatabase();
+
+            for(int i=date;i>=31;i++){
+                String query = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalTimePastWeekF FROM "
+                        + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= '"+modes[mode]+"' AND " + KEY_DATE +" ='"+months[month]+"' AND "
+                        + KEY_TIME+ "= '"+days[i]+"'";
+
+                Cursor cr = db.rawQuery(query,null);
+                if(cr.moveToFirst()){
+                    totalTimeOneWeek = cr.getInt(cr.getColumnIndex("TotalTimePastWeekF"))+ totalTimeOneWeek;
+
+                }
+                cr.close();
+
+            }
+            return totalTimeOneWeek;
+    }
+
+    //total Mode Time past 30 days
   public  int pastOneMonthDataF(int date,int month, int mode){
         int totalTimePastOneMonth = 0;
         String[] months = new String[12];
@@ -409,6 +585,9 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
         return totalTimePastOneMonth;
     }
+
+
+
     public  int pastOneMonthDataB(int date,int month, int mode){
         int totalTimePastOneMonth = 0;
         String[] months = new String[12];
