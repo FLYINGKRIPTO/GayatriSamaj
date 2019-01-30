@@ -2,9 +2,9 @@ package com.example.dell.jaapactivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 
 import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
 import com.example.dell.jaapactivity.Meditation.MeditationDataBaseHandler;
@@ -33,7 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ReportActivity extends AppCompatActivity  {
+public class ReportActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private static final String TAG = "ReportActivity";
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
     JapDatabaseHandler jDb = new JapDatabaseHandler(this);
@@ -44,13 +45,19 @@ public class ReportActivity extends AppCompatActivity  {
     int past_thirty_yag_time = 0;
     Button startDate;
     Button endDate;
-    Integer selectedStartDate;
-    Integer selectedStartMonth;
-    Integer selectedStartYear;
-    Integer selectedEndDate;
-    Integer selectedEndMonth;
-    Integer selectedEndYear;
+    Integer selectedStartDate=1;
+    Integer selectedStartMonth=0;
+    Integer selectedStartYear=2019;
+    Integer selectedEndDate=20;
+    Integer selectedEndMonth=0;
+    Integer selectedEndYear=2019;
+    public PieDataSet rangeDataSet;
+    DatePickerDialog datePickerDialog;
+    public int selected_date;
+    public int selected_month;
+    public int selected_year;
 
+   public PieChart rangeDataPieChart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +74,10 @@ public class ReportActivity extends AppCompatActivity  {
 
         //Pie chart for past 30 days data
         PieChart pastThirtyDays = findViewById(R.id.pastThirtyDays);
+
+        rangeDataPieChart = findViewById(R.id.dataInARange);
+
+        datePickerDialog = new DatePickerDialog(ReportActivity.this,ReportActivity.this,selectedStartYear,selectedStartMonth,selectedStartDate);
 
         //Date is month
         //Time is date
@@ -299,6 +310,25 @@ public class ReportActivity extends AppCompatActivity  {
         monthlyTimeChart.animateXY(2000,2000);
 
 
+        // to represent data in a particular range fixed by the user
+      /*  ArrayList<PieEntry> rangeDataList = new ArrayList<>();
+        rangeDataList.add(new PieEntry(rDb.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,0)));
+        rangeDataList.add(new PieEntry(rDb.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,1)));
+        rangeDataList.add(new PieEntry(rDb.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,2)));
+        rangeDataList.add(new PieEntry(rDb.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,3)));
+
+        PieDataSet rangeDataSet = new PieDataSet(rangeDataList,"Selected Range View");
+        PieData rangeData = new PieData(rangeDataSet);
+        rangeDataPieChart.setData(rangeData);
+        rangeDataPieChart.setCenterText("Your Range View");
+        rangeDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        rangeDataSet.setSliceSpace(1f);
+        rangeDataPieChart.setEntryLabelColor(Color.BLACK);
+        rangeDataPieChart.animateXY(2000,2000);
+        rangeDataPieChart.notifyDataSetChanged();
+        rangeDataPieChart.invalidate();*/
+
+
 
         List<ReportData> reportDataList = rDb.getAllUserReportData();
         Log.d(TAG, "onClick: "+reportDataList);
@@ -388,24 +418,65 @@ public class ReportActivity extends AppCompatActivity  {
         switch (item.getItemId())
         {
             case R.id.datePicker:
-                showDialogBox(ReportActivity.this,"Choose Date Range","Date Range");
+                LayoutInflater li = LayoutInflater.from(ReportActivity.this);
+                View datePickView = li.inflate(R.layout.datedialog, null);
+                startDate =  datePickView.findViewById(R.id.setStartDate);
+                endDate  = datePickView.findViewById(R.id.setEndDate);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ReportActivity.this);
+                builder.setView(datePickView);
 
+
+                startDate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        datePickerDialog.show();
+                    }
+                });
+                endDate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        datePickerDialog.show();
+
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
 
         }
         return super.onOptionsItemSelected(item);
     }
+    public void refreshPieChart(){
+
+        //Pie Chart for displaying data in a date range set by user
+        ReportDataBaseHandler rDb2 = new ReportDataBaseHandler(getParent());
+        ArrayList<PieEntry> rangeDataList = new ArrayList<>();
+        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,0),"Japs"));
+        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,1),"Meditataion"));
+        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,2),"Swadhyay"));
+        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,3),"Yagya"));
+        PieDataSet rangeDataSet = new PieDataSet(rangeDataList,"Selected Range View");
+        PieData rangeData = new PieData(rangeDataSet);
+        rangeDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        rangeDataSet.setSliceSpace(1f);
+        rangeDataPieChart.setEntryLabelColor(Color.BLACK);
+        rangeDataPieChart.animateXY(2000,2000);
+        rangeDataPieChart.setData(rangeData);
+        rangeData.notifyDataChanged();
+        rangeDataPieChart.invalidate();
+
+
+    }
 
     public void showDatePicker(){
-        DialogFragment newFragment = new MyDatePicketFragment();
-        newFragment.show(getSupportFragmentManager()," date picker ");
+      datePickerDialog.show();
     }
 
     public void  showDialogBox(Activity activity, String title, final CharSequence message) {
-        LayoutInflater li = LayoutInflater.from(this);
+        LayoutInflater li = LayoutInflater.from(activity);
         View datePickView = li.inflate(R.layout.datedialog, null);
         startDate =  datePickView.findViewById(R.id.setStartDate);
         endDate  = datePickView.findViewById(R.id.setEndDate);
-        AlertDialog.Builder builder = new AlertDialog.Builder(ReportActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
         builder.setView(datePickView);
 
 
@@ -413,25 +484,12 @@ public class ReportActivity extends AppCompatActivity  {
            @Override
            public void onClick(View v) {
                showDatePicker();
-               MyDatePicketFragment myD = new MyDatePicketFragment();
-               selectedStartDate = myD.selected_date;
-               selectedStartMonth = myD.selected_month;
-               selectedStartYear = myD.selected_year;
-
-
-
-
            }
        });
        endDate.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                showDatePicker();
-               MyDatePicketFragment myD = new MyDatePicketFragment();
-               selectedEndDate = myD.selected_date;
-               selectedEndMonth = myD.selected_month;
-               selectedEndYear = myD.selected_year;
-
 
            }
        });
@@ -441,9 +499,68 @@ public class ReportActivity extends AppCompatActivity  {
 
     }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        selected_date = view.getDayOfMonth();
+        selected_month = view.getMonth();
+        selected_year = view.getYear();
+        Log.d(TAG, "onCreate: selected date from date picker "+ selected_date);
+        Log.d(TAG, "onCreate: selected month from date picker "+ selected_month);
+        Log.d(TAG, "onCreate: selected year from date picker "+ selected_year);
+        ReportDataBaseHandler rDb2 = new ReportDataBaseHandler(ReportActivity.this);
+        ArrayList<PieEntry> rangeDataList = new ArrayList<>();
+        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,0),"Japs"));
+        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,1),"Meditations"));
+        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,2),"Swadhyay"));
+        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,3),"Yagya"));
+        PieDataSet rangeDataSet = new PieDataSet(rangeDataList,"Selected Range View");
+        PieData rangeData = new PieData(rangeDataSet);
+        rangeDataPieChart.setData(rangeData);
+        rangeDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        rangeDataSet.setSliceSpace(1f);
+        rangeDataPieChart.setEntryLabelColor(Color.BLACK);
+        rangeDataPieChart.animateXY(2000,2000);
+        rangeData.notifyDataChanged();
+        rangeDataPieChart.invalidate();
 
+    }
 
+  /*  public static class MyDatePicketFragment extends DialogFragment {
+        public int selected_date;
+        public int selected_month;
+        public int selected_year;
+        private static final String TAG = "MyDatePicketFragment";
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int year =  c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
 
+            return new DatePickerDialog(getActivity(),dateSetListener,year,month,day);
+        }
+        public DatePickerDialog.OnDateSetListener dateSetListener =
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Toast.makeText(getActivity(),"Selected date is "+ view.getYear() +
 
+                                "/"+ (view.getMonth())+
+                                "/"+ view.getDayOfMonth(),Toast.LENGTH_SHORT).show();
 
+                        selected_date = view.getDayOfMonth();
+                        selected_month = view.getMonth();
+                        selected_year = view.getYear();
+                        Log.d(TAG, "onCreate: selected date from date picker "+ selected_date);
+                        Log.d(TAG, "onCreate: selected month from date picker "+ selected_month);
+                        Log.d(TAG, "onCreate: selected year from date picker "+ selected_year);
+
+                        ReportActivity rp = new ReportActivity();
+                        rp.refreshPieChart();
+
+                    }
+                };
+
+    }*/
 }
