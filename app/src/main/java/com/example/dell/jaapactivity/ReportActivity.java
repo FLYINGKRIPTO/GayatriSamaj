@@ -85,6 +85,11 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         //Pie chart for past 7 days
         PieChart pastSevenDays = findViewById(R.id.weeklyReport);
 
+        //pie Chart for yearly repesentation
+        PieChart pastYearPieChart = findViewById(R.id.thisYearData);
+        PieChart thisYearPieChart = findViewById(R.id.pastYearData);
+
+
         //Date is month
         //Time is date
         //and day is day
@@ -300,6 +305,8 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         Log.d(TAG, "onCreate: Generalised total time of Yagya in January in this month"+ rDb.totalTimeMonthModes(3,calender.get(Calendar.MONTH)));
 
         //This month's time spent on different modes representation
+
+
         ArrayList<PieEntry> monthDataList = new ArrayList<PieEntry>();
         monthDataList.add(new PieEntry(rDb.totalTimeMonthModes(0,calender.get(Calendar.MONTH)),"Jap"));
         monthDataList.add(new PieEntry(rDb.totalTimeMonthModes(1,calender.get(Calendar.MONTH)), "Meditation"));
@@ -466,6 +473,40 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         pastSevenDays.setEntryLabelColor(Color.BLACK);
         pastSevenDataSet.setSliceSpace(1f);
         pastSevenDays.animateXY(2000, 2000);
+
+        //Pie chart for representing this year's data
+        Calendar pastYear = Calendar.getInstance();
+        pastYear.add(Calendar.YEAR,-1);
+        ArrayList<PieEntry> yearlyDataList = new ArrayList<PieEntry>();
+        yearlyDataList.add(new PieEntry(rDb.yearlyData(pastYear.get(Calendar.YEAR),0),"JAP"));
+        yearlyDataList.add(new PieEntry(rDb.yearlyData(pastYear.get(Calendar.YEAR),1),"MEDITATION"));
+        yearlyDataList.add(new PieEntry(rDb.yearlyData(pastYear.get(Calendar.YEAR),2),"SWADHYAY"));
+        yearlyDataList.add(new PieEntry(rDb.yearlyData(pastYear.get(Calendar.YEAR),3),"YAGYA"));
+
+        PieDataSet yearlyDataSet = new PieDataSet(yearlyDataList,"This year  ");
+        PieData thisYearData = new PieData(yearlyDataSet);
+        thisYearPieChart.setData(thisYearData);
+        thisYearPieChart.setCenterText("This Year Data");
+        yearlyDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        thisYearPieChart.setEntryLabelColor(Color.BLACK);
+        yearlyDataSet.setSliceSpace(1f);
+        thisYearPieChart.animateXY(2000, 2000);
+
+        //Pie Chart for previous year's data
+        ArrayList<PieEntry> yearlyDataList2 = new ArrayList<PieEntry>();
+        yearlyDataList2.add(new PieEntry(rDb.yearlyData(calender.get(Calendar.YEAR),0),"JAP"));
+        yearlyDataList2.add(new PieEntry(rDb.yearlyData(calender.get(Calendar.YEAR),1),"MEDITATION"));
+        yearlyDataList2.add(new PieEntry(rDb.yearlyData(calender.get(Calendar.YEAR),2),"SWADHYAY"));
+        yearlyDataList2.add(new PieEntry(rDb.yearlyData(calender.get(Calendar.YEAR),3),"YAGYA"));
+
+        PieDataSet yearlyDataSet2 = new PieDataSet(yearlyDataList2,"Past Year ");
+        PieData pastYearData = new PieData(yearlyDataSet2);
+        pastYearPieChart.setData(pastYearData);
+        pastYearPieChart.setCenterText("Past Year Data");
+        yearlyDataSet2.setColors(ColorTemplate.LIBERTY_COLORS);
+        pastYearPieChart.setEntryLabelColor(Color.BLACK);
+        yearlyDataSet2.setSliceSpace(1f);
+        pastYearPieChart.animateXY(2000, 2000);
 
     }
 

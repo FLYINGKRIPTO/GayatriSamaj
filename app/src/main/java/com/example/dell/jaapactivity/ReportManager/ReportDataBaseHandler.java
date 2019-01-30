@@ -684,11 +684,8 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         months[11] = "Dec";
 
         Integer[] days = new Integer[32];
-        days[0]=1;
-        days[1]=2;
-        days[2]=3;
-        days[3]=4;
-        days[4]=5;
+        days[0]=1;days[1]=2;days[2]=3;
+        days[3]=4;days[4]=5;
         days[5]=6;
         days[6]=7;
         days[7]=8;
@@ -740,13 +737,33 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
                 cr.close();
             }
         }
-
-
         return totalTimeInGivenRange;
-
-
-
     }
+
+    public int yearlyData(int year,int mode){
+        int totalTimeInYear = 0;
+
+        String[] modes  = new String[4];
+        modes[0]= "Jap";
+        modes[1] = "Meditation";
+        modes[2] = "Swadhyay";
+        modes[3] = "yagya";
+        SQLiteDatabase db = getWritableDatabase();
+
+        String query = " SELECT SUM(" + KEY_ACTUAL_TIME + ") as TotalTimeInYear FROM "
+                + TABLE_USER_REPORT + " WHERE " + KEY_MODE + "= '" + modes[mode] + "' AND " + KEY_YEAR + " ='" + year + "'";
+
+        Cursor cr = db.rawQuery(query,null);
+        if(cr.moveToFirst()){
+            totalTimeInYear = cr.getInt(cr.getColumnIndex("TotalTimeInYear"))+ totalTimeInYear;
+
+        }
+        cr.close();
+
+
+        return totalTimeInYear;
+    }
+
 
 
 
