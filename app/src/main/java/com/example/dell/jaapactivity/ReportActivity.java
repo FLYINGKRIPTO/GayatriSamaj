@@ -638,6 +638,7 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
           PieDataSet rangeDataSet = new PieDataSet(rangeDataList, "Selected Range View");
           PieData rangeData = new PieData(rangeDataSet);
           rangeDataPieChart.setData(rangeData);
+          rangeDataPieChart.setCenterText("Time in your selected range");
           rangeDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
           rangeDataSet.setSliceSpace(1f);
           rangeDataPieChart.setEntryLabelColor(Color.BLACK);

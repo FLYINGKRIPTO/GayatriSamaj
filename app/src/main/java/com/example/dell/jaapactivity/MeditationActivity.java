@@ -122,6 +122,7 @@ public class MeditationActivity extends AppCompatActivity {
                 ,3L,1L,"2019"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","14","Mon","Jyoti Avdhrnam Dhyaan"
                 ,3L,2L,"2019"));
+
         rDb.addUserReportData(new ReportData("Meditation","Jan","24","Thu","Panchkosh Dhyaan"
                 ,3L,2L,"2019"));
         rDb.addUserReportData(new ReportData("Meditation","Jan","25","Fri","Jyoti Avdhrnam Dhyaan"

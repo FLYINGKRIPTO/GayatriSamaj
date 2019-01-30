@@ -724,7 +724,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
 
         if(startMonth==endMonth){
 
-            for(int i = startDate;i<=endDate;i++) {
+            for(int i = startDate-1;i<=endDate;i++) {
 
                 String query = " SELECT SUM(" + KEY_ACTUAL_TIME + ") as TotalTimeInGivenRange FROM "
                         + TABLE_USER_REPORT + " WHERE " + KEY_MODE + "= '" + modes[mode] + "' AND " + KEY_DATE + " ='" + months[startMonth] + "' AND "
