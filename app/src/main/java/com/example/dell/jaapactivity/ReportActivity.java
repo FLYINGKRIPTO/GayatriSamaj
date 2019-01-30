@@ -60,6 +60,9 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
     public int selected_month;
     public int selected_year;
 
+    boolean startClicked = false;
+    boolean endClicked = true;
+
    public PieChart rangeDataPieChart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -533,12 +536,14 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
                 startDate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        startClicked = true;
                         datePickerDialog.show();
                     }
                 });
                 endDate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        endClicked = true;
                         datePickerDialog.show();
 
                     }
@@ -604,24 +609,49 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         selected_date = view.getDayOfMonth();
         selected_month = view.getMonth();
         selected_year = view.getYear();
-        Log.d(TAG, "onCreate: selected date from date picker "+ selected_date);
-        Log.d(TAG, "onCreate: selected month from date picker "+ selected_month);
-        Log.d(TAG, "onCreate: selected year from date picker "+ selected_year);
-        ReportDataBaseHandler rDb2 = new ReportDataBaseHandler(ReportActivity.this);
-        ArrayList<PieEntry> rangeDataList = new ArrayList<>();
-        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,0),"Japs"));
-        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,1),"Meditations"));
-        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,2),"Swadhyay"));
-        rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate,selectedEndDate,selectedStartMonth,selectedEndMonth,3),"Yagya"));
-        PieDataSet rangeDataSet = new PieDataSet(rangeDataList,"Selected Range View");
-        PieData rangeData = new PieData(rangeDataSet);
-        rangeDataPieChart.setData(rangeData);
-        rangeDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
-        rangeDataSet.setSliceSpace(1f);
-        rangeDataPieChart.setEntryLabelColor(Color.BLACK);
-        rangeDataPieChart.animateXY(2000,2000);
-        rangeData.notifyDataChanged();
-        rangeDataPieChart.invalidate();
+
+
+        if(startClicked){
+
+            selectedStartDate = selected_date;
+            selectedStartMonth = selected_month;
+            selectedStartYear = selected_year;
+            startClicked=false;
+
+        }
+        else if(endClicked){
+            selectedEndDate = selected_date;
+            selectedEndMonth = selected_month;
+            selectedEndYear = selected_year;
+            endClicked=false;
+
+        }
+      if(!startClicked&&!endClicked) {
+
+
+          ReportDataBaseHandler rDb2 = new ReportDataBaseHandler(ReportActivity.this);
+          ArrayList<PieEntry> rangeDataList = new ArrayList<>();
+          rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate, selectedEndDate, selectedStartMonth, selectedEndMonth, 0), "Japs"));
+          rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate, selectedEndDate, selectedStartMonth, selectedEndMonth, 1), "Meditations"));
+          rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate, selectedEndDate, selectedStartMonth, selectedEndMonth, 2), "Swadhyay"));
+          rangeDataList.add(new PieEntry(rDb2.timeBetweenRange(selectedStartDate, selectedEndDate, selectedStartMonth, selectedEndMonth, 3), "Yagya"));
+          PieDataSet rangeDataSet = new PieDataSet(rangeDataList, "Selected Range View");
+          PieData rangeData = new PieData(rangeDataSet);
+          rangeDataPieChart.setData(rangeData);
+          rangeDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+          rangeDataSet.setSliceSpace(1f);
+          rangeDataPieChart.setEntryLabelColor(Color.BLACK);
+          rangeDataPieChart.animateXY(2000, 2000);
+          rangeData.notifyDataChanged();
+          rangeDataPieChart.invalidate();
+
+      }
+
+
+        Log.d(TAG, "onCreate: selected date from date picker "+ selectedStartDate);
+        Log.d(TAG, "onCreate: selected month from date picker "+ selectedStartMonth);
+        Log.d(TAG, "onCreate: selected year from date picker "+ selectedStartYear);
+
 
     }
 
