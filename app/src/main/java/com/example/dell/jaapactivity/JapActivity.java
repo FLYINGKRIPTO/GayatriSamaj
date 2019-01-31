@@ -233,9 +233,8 @@ public class JapActivity extends Activity {
       /*  final MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);*/
 
-
-        //   videoView.setMediaController(mediaController);
-        videoView.setVideoURI(Uri.parse("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
+//https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4        //   videoView.setMediaController(mediaController);
+        videoView.setVideoURI(Uri.parse("https://s3.amazonaws.com/gauravubnare-newbucket/2.m3u8"));
         videoView.requestFocus();
         videoView.canPause();
         progressDialog = new ProgressDialog(JapActivity.this);

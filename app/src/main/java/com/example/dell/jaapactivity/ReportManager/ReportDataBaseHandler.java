@@ -361,7 +361,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         modes[2] = "Swadhyay";
         modes[3] = "yagya";
 
-        Integer[] days = new Integer[31];
+        Integer[] days = new Integer[32];
         days[0]=1;
         days[1]=2;
         days[2]=3;
@@ -393,6 +393,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         days[28]=29;
         days[29]=30;
         days[30]=31;
+        days[31]=31;
 
 
         SQLiteDatabase db= getWritableDatabase();
@@ -526,7 +527,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         months[10] = "Nov";
         months[11] = "Dec";
 
-        Integer[] days = new Integer[31];
+        Integer[] days = new Integer[32];
         days[0]=1;
         days[1]=2;
         days[2]=3;
@@ -558,6 +559,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         days[28]=29;
         days[29]=30;
         days[30]=31;
+        days[31]=31;
 
         String[] modes  = new String[4];
         modes[0]= "Jap";
