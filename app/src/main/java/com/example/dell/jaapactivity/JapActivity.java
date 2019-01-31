@@ -71,7 +71,7 @@ public class JapActivity extends Activity {
     TextView timerTextView;
     VideoView videoView;
     TextView timeInMilliTextView;
-    ;
+
     int dr = 0;
     int primaryKey = 0;
     private ProgressDialog progressDialog;
@@ -172,7 +172,6 @@ public class JapActivity extends Activity {
                 "12", "Sat", "with Pujya Mataji", "2019"));
         rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
                 "14", "Mon", "with Pujya Gurudev", "2019"));
-
         rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
                 "24", "Wed", "with Pujya Gurudev", "2019"));
         rDb.addUserReportData(new ReportData("Jap", 4l, 6l, "Jan",
