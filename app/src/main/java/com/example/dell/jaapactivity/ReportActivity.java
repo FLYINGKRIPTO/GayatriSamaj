@@ -413,7 +413,6 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         Log.d(TAG, "onCreate: selected ending date from date picker "+ selectedEndDate);
         Log.d(TAG, "onCreate: selected ending month from date picker" + selectedEndMonth);
         Log.d(TAG, "onCreate: selected ending year from date picker "+ selectedEndYear);
-         //TODO :: Weekly Data Representation
 
         //weekly data representation
         Calendar weekCalender = Calendar.getInstance();
