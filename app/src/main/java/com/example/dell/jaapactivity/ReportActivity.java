@@ -413,7 +413,6 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         Log.d(TAG, "onCreate: selected ending date from date picker "+ selectedEndDate);
         Log.d(TAG, "onCreate: selected ending month from date picker" + selectedEndMonth);
         Log.d(TAG, "onCreate: selected ending year from date picker "+ selectedEndYear);
-         //TODO :: Weekly Data Representation
 
         //weekly data representation
         Calendar weekCalender = Calendar.getInstance();
@@ -424,7 +423,7 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         Log.d(TAG, "onCreate: date this week "+  weekCalender.get(Calendar.DAY_OF_MONTH));
         Log.d(TAG, "onCreate: month this week"+weekCalender.get(Calendar.MONTH));
         Log.d(TAG, "onCreate: date past week "+ weekCalender2.get(Calendar.DAY_OF_MONTH));
-        Log.d(TAG, "onCreate: month past week "+ weekCalender.get(Calendar.MONTH));
+        Log.d(TAG, "onCreate: month past week "+ weekCalender2.get(Calendar.MONTH));
 
         if(weekCalender.get(Calendar.DAY_OF_MONTH)>=7){
             Log.d(TAG, "onCreate: Date is greater that 7");
@@ -441,24 +440,33 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
 
         }
 
-        else if (weekCalender2.get(Calendar.DAY_OF_MONTH)<7){
+        else if (weekCalender.get(Calendar.DAY_OF_MONTH)<7){
 
             Log.d(TAG, "onCreate: Date is less that 7 ");
             past_seven_jap_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
                     weekCalender.get(Calendar.MONTH),0) +
-                    rDb.pastOneWeekB(weekCalender.get(Calendar.DAY_OF_MONTH),weekCalender.get(Calendar.MONTH),0);
+                    rDb.pastOneWeekB(weekCalender2.get(Calendar.DAY_OF_MONTH),weekCalender2.get(Calendar.MONTH),0);
+
+            Log.d(TAG, "onCreate: past one week backward method jap output "+ rDb.pastOneWeekB(weekCalender2.get(Calendar.DAY_OF_MONTH),weekCalender2.get(Calendar.MONTH),0));
+
+            Log.d(TAG, "onCreate: past seven jap time "+ past_seven_jap_time);
 
             past_seven_meditation_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
                     weekCalender.get(Calendar.MONTH),1) +
-                    rDb.pastOneWeekB(weekCalender.get(Calendar.DAY_OF_MONTH),weekCalender.get(Calendar.MONTH),1);
+                    rDb.pastOneWeekB(weekCalender2.get(Calendar.DAY_OF_MONTH),weekCalender2.get(Calendar.MONTH),1);
 
+            Log.d(TAG, "onCreate: past seven meditation time "+ past_seven_meditation_time);
             past_seven_swadhyay_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
                     weekCalender.get(Calendar.MONTH),2) +
-                    rDb.pastOneWeekB(weekCalender.get(Calendar.DAY_OF_MONTH),weekCalender.get(Calendar.MONTH),2);
+                    rDb.pastOneWeekB(weekCalender2.get(Calendar.DAY_OF_MONTH),weekCalender2.get(Calendar.MONTH),2);
 
+            Log.d(TAG, "onCreate: past seven swadhyay time "+ past_seven_swadhyay_time);
             past_seven_yagya_time = rDb.pastOneWeekF(weekCalender.get(Calendar.DAY_OF_MONTH),
                     weekCalender.get(Calendar.MONTH),3) +
-                    rDb.pastOneWeekB(weekCalender.get(Calendar.DAY_OF_MONTH),weekCalender.get(Calendar.MONTH),3);
+                    rDb.pastOneWeekB(weekCalender2.get(Calendar.DAY_OF_MONTH),weekCalender2
+                            .get(Calendar.MONTH),3);
+
+            Log.d(TAG, "onCreate: past seven yagya time "+ past_seven_yagya_time);
         }
 
         //Pie chart for representing past seven days data

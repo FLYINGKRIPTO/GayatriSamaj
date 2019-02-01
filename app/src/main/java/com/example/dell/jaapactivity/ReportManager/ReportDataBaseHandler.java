@@ -425,7 +425,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
                 Cursor cr = db.rawQuery(query,null);
                 if(cr.moveToFirst()){
                     totalTimeOneWeek = cr.getInt(cr.getColumnIndex("TotalTimePastWeekF"))+ totalTimeOneWeek;
-
+                    Log.d(TAG, "pastOneWeekF: this week forward "+ totalTimeOneWeek);
                 }
                 cr.close();
 
@@ -458,7 +458,7 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         modes[2] = "Swadhyay";
         modes[3] = "yagya";
 
-        Integer[] days = new Integer[31];
+        Integer[] days = new Integer[32];
         days[0]=1;
         days[1]=2;
         days[2]=3;
@@ -490,20 +490,23 @@ public class ReportDataBaseHandler extends SQLiteOpenHelper {
         days[28]=29;
         days[29]=30;
         days[30]=31;
+        days[31]=31;
 
 
         SQLiteDatabase db= getWritableDatabase();
 
-            for(int i=date;i>=31;i++){
-                String query = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalTimePastWeekF FROM "
+            for(int i=date;i<=31;i++){
+
+                Log.d(TAG, "pastOneWeekB: inside for loop past one week backward ");
+                String query = " SELECT SUM(" + KEY_ACTUAL_TIME +") as TotalTimePastWeekB FROM "
                         + TABLE_USER_REPORT + " WHERE "+ KEY_MODE + "= '"+modes[mode]+"' AND " + KEY_DATE +" ='"+months[month]+"' AND "
                         + KEY_TIME+ "= '"+days[i]+"'";
 
                 Cursor cr = db.rawQuery(query,null);
                 if(cr.moveToFirst()){
-                    totalTimeOneWeek = cr.getInt(cr.getColumnIndex("TotalTimePastWeekF"))+ totalTimeOneWeek;
-
-                }
+                    totalTimeOneWeek = cr.getInt(cr.getColumnIndex("TotalTimePastWeekB"))+ totalTimeOneWeek;
+                    Log.d(TAG, "pastOneWeekB: time past week backward "+ totalTimeOneWeek);
+                 }
                 cr.close();
 
             }
