@@ -14,7 +14,7 @@
         android:textSize="20sp"
         android:text="Name"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
+        android:paddingLeft="5dp"
 
         />
     <TextView
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Address"
-        android:paddingLeft="20dp"
+        android:paddingLeft="7dp"
         android:gravity="center_vertical"/>
 
 </LinearLayout>
