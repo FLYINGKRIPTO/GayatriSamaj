@@ -1,199 +1,199 @@
 package com.example.dell.jaapactivity;
 
 import android.Manifest;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Looper;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.DatePicker;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import androidx.annotation.RequiresApi;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
-    Location myLocation;
-    public final static String TAG = "PiyushTag";
-    LocationManager locationManager;
-    FusedLocationProviderClient fusedLocationProviderClient;
-    LocationRequest locationRequest;
-    LocationCallback locationCallback;
-    public TextView t1,dob;
-    PlaceAPI mPlaceAPI;
-    resultReceiverClass mRRCobj;
-    static ArrayList<parsedData> locationSpinnerRawData;
-    String flag="";
-    int y,m,d;
-    Dialog dialog_main_back;
+    public static final String TAG = "PiyushTag";
+    static ProgressBar progressBar;
+    static NetworkInfo nInfo;
+    static boolean GPSflag=false,INTERNETflag=false;
 
 
-    public void setLocationSpinnerRawData(ArrayList<parsedData> locationSpinnerRawData) {
-        this.locationSpinnerRawData = locationSpinnerRawData;
-        //flag="changed";
 
-    }
 
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0) {
-            Log.i(TAG,"ononRequestPermissionsResult START");
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.i(TAG,"ononRequestPermissionsResult START....if part");
-
-            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                Log.i(TAG,"ononRequestPermissionsResult START..else part");
-
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED&&grantResults[1]==PackageManager.PERMISSION_GRANTED) {
+            //check for network and gps
+            checkMeraGPS();
+            checkInternetConnectivity();
+            if(GPSflag&&INTERNETflag){
+                moveOn();
             }
         }else{
-            Log.i(TAG,"ononRequestPermissionsResult START..not granted..!!");
+            Log.i(TAG,"Permission not available......exiting Application");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    new AlertDialog.Builder(MainActivity.this).setMessage("Permissiion Rejected....exiting Applicaiton").create().show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            finish();
+                        }
+                    }, 2000);
+                }
+            }, 2000);
         }
-        Log.i(TAG,"ononRequestPermissionsResult END");
+    }
+
+    public void moveOn(){
+        final Intent i4= new Intent(MainActivity.this,FrontActivity.class);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(i4);
+                finish();
+            }
+        }, 3000);
+
 
     }
 
 
+    public void checkMeraGPS(){
+        LocationManager locationManager = (LocationManager)getSystemService(this.LOCATION_SERVICE);
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            alertMessageNoGps();
+
+        }else{
+            GPSflag=true;
+            if(GPSflag&&INTERNETflag){
+                moveOn();
+            }
+        }
+
+    }
+    public void alertMessageNoGps(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("GPS isdisabled, wanna Enable....???")
+                .setCancelable(false)
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        if(GPSflag&&INTERNETflag){
+                            moveOn();
+                        }
+                    }
+                })
+                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        new AlertDialog.Builder(getBaseContext()).setMessage("NO GPS exiting application...").create().show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 2000);
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void checkInternetConnectivity(){
+        ConnectivityManager cnManager = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        nInfo = cnManager.getActiveNetworkInfo();
+        if(nInfo!=null&&nInfo.isConnected()){
+            Toast.makeText(this, "isConnected", Toast.LENGTH_SHORT).show();
+            INTERNETflag=true;
+            if(GPSflag&&INTERNETflag){
+                moveOn();
+            }
+        }else{
+            Toast.makeText(this, "isNotConnected", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        t1=(TextView)findViewById(R.id.choose_location);
-        dob=(TextView)findViewById(R.id.edit_DOB);
 
-        t1.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG,"Data check \n"+locationSpinnerRawData.get(0).getName());
-                dialog_main_back = new Dialog(MainActivity.this);
-                Log.i(TAG,"new Dialog");
-                dialog_main_back.setContentView(R.layout.dialogue_for_list);
-                Log.i(TAG,"setContentView");
-                ListView main_list_view = (ListView)dialog_main_back.findViewById(R.id.list_view_main);
-                Log.i(TAG,"listView");
-                CustomAdapter customAdapter = new CustomAdapter(MainActivity.this,locationSpinnerRawData);
-                Log.i(TAG,"CustomAdapter");
-                main_list_view.setAdapter(customAdapter);
-                main_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        t1.setText("Temple Location : "+locationSpinnerRawData.get(position).getName()+"\n"+locationSpinnerRawData.get(position).getAddress());
-                        dialog_main_back.dismiss();
-                    }
-                });
-                Log.i(TAG,"setCustomAdapter");
-                dialog_main_back.setCanceledOnTouchOutside(true);
-                dialog_main_back.create();
-                Log.i(TAG,"Dialog Create");
-                dialog_main_back.show();
-                Log.i(TAG,"Dialog Show");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, 1234);
+
+
+        }else{
+            checkMeraGPS();
+            checkInternetConnectivity();
+            if(GPSflag&&INTERNETflag){
+                moveOn();
             }
-        });
 
-        final Calendar cal = Calendar.getInstance();
-        dob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        dob.setText("Date of Birth : "+dayOfMonth+"/"+month+1+"/"+year);
-                    }
-                },y,m=+1,d);
-                datePickerDialog.show();
-            }
-        });
-
-
-
-
-
-
-//--------------------------------------------------------backendPart-----------------------------------------------------------
-
-        myLocation=null;
-        mRRCobj = new resultReceiverClass(new Handler());
-
-        final int requestCodeToSendLocation=101;
-        Log.i(TAG,"onCreate........Init");
-
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1234);
-        } else {
-            //when permission granted
-            //building locaitonRequest
-            locationRequest = new LocationRequest();
-            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            locationRequest.setInterval(5000);
-            locationRequest.setFastestInterval(3000);
-            locationRequest.setSmallestDisplacement(10);
-            //fusedLocationProvider
-            fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(this);
-            //building Location Call Back
-            Log.i(TAG,"Location Callback Done");
-            locationCallback = new LocationCallback() {
-                public void onLocationResult(LocationResult locationResult) {
-                    Log.i(TAG,"onLocationResult");
-                    for (Location location : locationResult.getLocations()) {
-                        myLocation=location;
-                        if(location==null){
-                            Log.i(TAG,"Dont have Location,......NULL Location");
-                        }
-                        else{
-                            Log.i(TAG,"Got Location...."+location.getLatitude()+","+location.getLongitude());
-                            //removeLocationUpdates;
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable("myLocation",location);
-                            mRRCobj.send(requestCodeToSendLocation,bundle);
-                            Log.i(TAG,"Location Bhej DI....resultReceiver....!!");
-                            fusedLocationProviderClient.removeLocationUpdates(locationCallback);
-                        }
-
-                        //Log.i(TAG,location.getLatitude() + "/" + location.getLongitude());
-                    }
-                }
-            };
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1234);
-                return;
-            }
-            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
         }
+        new CountDownTimer(20000,2000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if(GPSflag&&INTERNETflag){
+                    moveOn();
+                }
+            }
 
-
-//------------------------------------------backendPart----------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
+            @Override
+            public void onFinish() {
+                new AlertDialog.Builder(getBaseContext()).setMessage("NO GPS exiting application...").create().show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 2000);
+            }
+        };
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(GPSflag&&INTERNETflag){
+            moveOn();
+        }
+    }
 }
+
+
+//--------------------Internet Check----------------------------------------------------------------//
+
+
+
+
+
+/*                        progressDialog.setTitle("Checking Internet Connectivity");
+                        progressDialog.setCancelable(false);
+                        progressDialog.setCanceledOnTouchOutside(false);
+*/
+
+                        /*ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+                        if(null!=activeNetwork){
+                            Log.i(TAG,"Network Connected");
+                        }else{
+
+                        }*/
+
+//--------------------Internet Check----------------------------------------------------------------//
