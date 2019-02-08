@@ -1,5 +1,4 @@
 package com.example.dell.jaapactivity.Meditation;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

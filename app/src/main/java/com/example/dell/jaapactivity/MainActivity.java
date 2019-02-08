@@ -20,7 +20,6 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.dell.jaapactivity.R;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "PiyushTag";
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveOn(){
-        final Intent i4= new Intent(MainActivity.this,Main2Activity.class);
+        final Intent i4= new Intent(MainActivity.this,LoginActivity.class);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

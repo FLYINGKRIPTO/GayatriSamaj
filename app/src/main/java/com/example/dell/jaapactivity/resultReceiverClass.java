@@ -35,7 +35,7 @@ public class resultReceiverClass extends ResultReceiver {
 
             case 102:
 
-                MainActivity mainActivity_temp_obj = new MainActivity();
+                Main2Activity mainActivity_temp_obj = new Main2Activity();
                 mainActivity_temp_obj.setLocationSpinnerRawData(resultData.<parsedData>getParcelableArrayList("RawDataAddressList"));
 
                 break;

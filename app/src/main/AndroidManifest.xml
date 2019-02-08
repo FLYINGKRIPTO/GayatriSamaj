@@ -10,10 +10,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,12 +21,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".JapActivity"></activity>
-        <activity android:name=".ReportActivity"></activity>
-        <activity android:name=".Swadhyay"></activity>
-        <activity android:name=".YagyaActivity"></activity>
-        <activity android:name=".MeditationActivity"></activity>
-        <activity android:name=".Main2Activity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"></activity>
+        <activity android:name=".JapActivity" />
+        <activity android:name=".ReportActivity" />
+        <activity android:name=".Swadhyay" />
+        <activity android:name=".YagyaActivity" />
+        <activity android:name=".MeditationActivity" />
+        <activity android:name=".Main2Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

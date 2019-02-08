@@ -20,17 +20,21 @@ import java.util.ArrayList;
 
 public class PlaceAPI extends AsyncTask{
     public static final String TAG = "PiyushTag";
-    public static final String Type_Autocomplete="/autocomplete";
+    public static final String type="hindu_temple";
+    public static final String radius="10000";
     public static final String Out_JSON = "/json";
     public static final String API_KEY ="AIzaSyAO-5VL6lMJ8G3GoTjqn5W8kZ0JqmdpgM4";
     public static final String meraSearch="gayatri";
+    public Location mLocation;
     public static final String locality = "BHOPAL";
     public static final String base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=";
         //location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=YOUR_API_KEY";
         //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=23.2345089,77.4332221&keyword=shakti%20vidhyapeeth%20BHOPAL&key=AIzaSyAO-5VL6lMJ8G3GoTjqn5W8kZ0JqmdpgM4
-        public static final String temp_base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=gayatri&location=23.2345089,77.4332221&radius=10000&type=hindu_temple&key=AIzaSyAO-5VL6lMJ8G3GoTjqn5W8kZ0JqmdpgM4";
+    //public static final String temp_base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=gayatri&location=23.2345089,77.4332221&radius=10000&type=hindu_temple&key=AIzaSyAO-5VL6lMJ8G3GoTjqn5W8kZ0JqmdpgM4";
 
-    public Location mLocation;
+
+
+
     HttpURLConnection conn;
     ArrayList<parsedData> RawData;
     resultReceiverClass RRCobj;
@@ -58,6 +62,7 @@ public class PlaceAPI extends AsyncTask{
 
     @Override
     protected Object doInBackground(Object[] objects) {
+        String temp_base_url = base_url+meraSearch+"&location="+mLocation.getLatitude()+","+mLocation.getLongitude()+"&radius="+radius+"&type="+type+"&key="+API_KEY;
         Log.i(TAG, "resultReceiver.....jagahDhund.......START with Location : " + mLocation.getLatitude() + "," + mLocation.getLongitude());
         HttpURLConnection conn = null;
         ArrayList<String> resultArray = null;
