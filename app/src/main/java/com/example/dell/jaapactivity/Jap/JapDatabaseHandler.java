@@ -49,8 +49,7 @@ public class JapDatabaseHandler extends SQLiteOpenHelper {
     }
     //code to add new Jap Data
     public long addJapData(JapData japData){
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
+        SQLiteDatabase db = getWritableDatabase();ContentValues values = new ContentValues();
         values.put(KEY_TYPE,japData.getType());
         values.put(KEY_TIME,japData.getTime());
         values.put(HAS_VIDEO,japData.isHasVideo());
