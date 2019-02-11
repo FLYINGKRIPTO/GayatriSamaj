@@ -5,21 +5,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/all_reports"
+            android:icon="@drawable/analyticsthree"
+            android:title="All Reports" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/jap_reports"
+            android:icon="@drawable/analytics_two"
+            android:title="Jap Report" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/meditation_reports"
+            android:icon="@drawable/clipboard"
+            android:title ="Meditation Reports" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/swadhyay_reports"
+            android:icon="@drawable/piechart"
+            android:title="Swadhyay Reports" />
+        <item
+            android:id="@+id/yagya_reports"
+            android:icon="@drawable/clipboard"
+            android:title="Yagya Reports" />
     </group>
 
     <item android:title="Communicate">
@@ -31,7 +35,7 @@
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Send Your Reports" />
         </menu>
     </item>
 

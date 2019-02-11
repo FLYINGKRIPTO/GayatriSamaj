@@ -109,22 +109,25 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
 
         */
       //Total modes Pie Chart
-        ArrayList<PieEntry> totalModes = new ArrayList<>();
-        totalModes.add(new PieEntry((float)rDb.totalJaps(),"Japs"));
-        totalModes.add(new PieEntry((float)rDb.totalMeditations(),"Meditations"));
-        totalModes.add(new PieEntry((float)rDb.totalSwadhyay(),"Swadhyay"));
-        totalModes.add(new PieEntry((float)rDb.totalYagya(),"Yagya"));
 
-        PieDataSet dataSet = new PieDataSet(totalModes,"Different Modes");
+                ArrayList<PieEntry> totalModes = new ArrayList<>();
+                totalModes.add(new PieEntry((float)rDb.totalJaps(),"Japs"));
+                totalModes.add(new PieEntry((float)rDb.totalMeditations(),"Meditations"));
+                totalModes.add(new PieEntry((float)rDb.totalSwadhyay(),"Swadhyay"));
+                totalModes.add(new PieEntry((float)rDb.totalYagya(),"Yagya"));
 
-        PieData data = new PieData(dataSet);
-        pieChart.setData(data);
-        pieChart.setCenterText("Modes");
-        dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
-        pieChart.setEntryLabelColor(Color.BLACK);
-        dataSet.setSliceSpace(1f);
-        pieChart.animateXY(3000, 3000);
-        pieChart.setUsePercentValues(true);
+                PieDataSet dataSet = new PieDataSet(totalModes,"Different Modes");
+
+                PieData data = new PieData(dataSet);
+                pieChart.setData(data);
+                pieChart.setCenterText("Modes");
+                dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+                pieChart.setEntryLabelColor(Color.BLACK);
+                dataSet.setSliceSpace(1f);
+                pieChart.animateXY(3000, 3000);
+                pieChart.setUsePercentValues(true);
+
+
 
 
 

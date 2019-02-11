@@ -26,8 +26,8 @@ public class FrontActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_front);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
         japButton = findViewById(R.id.japButton1);
         meditationButton = findViewById(R.id.meditationButton1);
@@ -79,6 +79,7 @@ public class FrontActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
     }
 
     @Override
@@ -119,15 +120,17 @@ public class FrontActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.all_reports) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            Intent reportsIntet = new Intent(FrontActivity.this,ReportActivity.class);
+            startActivity(reportsIntet);
+        } else if (id == R.id.jap_reports) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.meditation_reports) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.swadhyay_reports) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.yagya_reports) {
 
         } else if (id == R.id.nav_send) {
 
