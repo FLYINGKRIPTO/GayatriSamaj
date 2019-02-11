@@ -6,13 +6,13 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".Swadhyay">
-    <Button
+    <ImageView
         android:id="@+id/swaButton2"
         android:layout_width="match_parent"
         android:transitionName="buttontransition"
-        android:layout_height="wrap_content"
-
-        android:background="@drawable/group3"
+        android:layout_height="200dp"
+        
+        android:background="@drawable/gg3"
 
         />
     <TextView

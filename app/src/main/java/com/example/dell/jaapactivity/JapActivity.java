@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -190,39 +189,7 @@ public class JapActivity extends Activity {
 
         JapTime = promptsView.findViewById(R.id.editTextDialogUserInput);
         //Meditation activity intent
-        meditationActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent(JapActivity.this, MeditationActivity.class);
-                startActivity(in);
-            }
-        });
-        //swadhyay activity intent
-        swadhyayActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent(JapActivity.this, Swadhyay.class);
-                startActivity(in);
-            }
-        });
 
-        //reportsActivity intent
-        reportsActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(JapActivity.this, ReportActivity.class);
-                startActivity(i);
-            }
-        });
-
-        //yagyaActivity intent
-        yagyaActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(JapActivity.this, YagyaActivity.class);
-                startActivity(i);
-            }
-        });
         //Variables initialisation from video Activity
         // timerTextView = findViewById(R.id.Jtimer);
         videoView = findViewById(R.id.videoViewV);

@@ -15,41 +15,45 @@
 
     <ImageView
         android:id="@+id/japButton2"
-        android:layout_width="wrap_content"
+        android:layout_width="390dp"
         android:transitionName="buttontransition"
-        android:layout_height="wrap_content"
+        android:layout_height="210dp"
         android:layout_marginTop="90dp"
-        android:layout_marginStart="60dp"
+        android:layout_gravity="center"
         android:background="@drawable/group1"
 
         />
 
     <ImageView
         android:id="@+id/medButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="60dp"
+        android:layout_width="370dp"
+        android:layout_height="190dp"
+        android:transitionName="buttontransition"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+
         android:background="@drawable/group2"
 
         />
 
     <ImageView
         android:id="@+id/swaButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="60dp"
+        android:layout_width="370dp"
+        android:transitionName="buttontransition"
+        android:layout_height="190dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:background="@drawable/group3"
 
         />
 
     <ImageView
         android:id="@+id/yagButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="60dp"
+        android:layout_width="370dp"
+        android:transitionName="buttontransition"
+        android:layout_height="190dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
         android:background="@drawable/group4"
 
         />

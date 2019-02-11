@@ -7,14 +7,13 @@
     android:orientation="vertical"
     tools:context=".YagyaActivity">
 
-    <Button
+    <ImageView
         android:id="@+id/yagButton2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:transitionName="buttontransition"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="60dp"
-        android:background="@drawable/group4"
+        android:layout_height="200dp"
+
+        android:background="@drawable/gg4"
 
         />
 

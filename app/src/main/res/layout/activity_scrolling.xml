@@ -11,8 +11,8 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:background="@drawable/curve"
+       android:background="@drawable/bg2"
+
         android:theme="@style/AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout

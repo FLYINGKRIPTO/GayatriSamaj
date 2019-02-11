@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ScrollingActivity"
+    tools:showIn="@layout/activity_jap">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,15 +15,7 @@
     android:layout_height="match_parent"
     tools:context=".JapActivity">
 
-    <Button
-        android:id="@+id/japButton2"
-        android:layout_width="match_parent"
-        android:transitionName="buttontransition"
-        android:layout_height="wrap_content"
 
-        android:background="@drawable/group1"
-
-        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,40 +100,13 @@
         android:background="@drawable/background"
         android:textColor="#ffffff"
         android:text="@string/stop_jap"
-         />
+        />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-    <Button
-        android:id="@+id/swadhyayButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Swadhyay"
 
-        />
-    <Button
-        android:id="@+id/nextActivity"
-        android:text="Meditation"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    <Button
-        android:id="@+id/reportsActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "Reports"
-
-        />
-        <Button
-            android:id="@+id/yagyaActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yagya"
-            />
     </LinearLayout>
-
-
 </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
