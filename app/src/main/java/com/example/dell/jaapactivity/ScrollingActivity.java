@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 public class ScrollingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
@@ -43,6 +46,12 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_scrolling);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
+
+        YoYo.with(Techniques.Tada).duration(1800).playOn(japActivity);
+        YoYo.with(Techniques.Tada).duration(1800).playOn(medActivity);
+        YoYo.with(Techniques.Tada).duration(1800).playOn(swaActivity);
+        YoYo.with(Techniques.Tada).duration(1800).playOn(yagyaActivity);
+
 
         japActivity.setOnClickListener(new View.OnClickListener() {
             @Override
