@@ -37,6 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.iwgang.countdownview.CountdownView;
+
 public class JapActivity extends Activity {
     Spinner options_spinner;
     MyCountdownTimer myCountdownTimer;
@@ -65,6 +67,8 @@ public class JapActivity extends Activity {
     public static final String Time_in_minutes = "timeKey";
     private static final String TAG = "JapActivity";
     EditText userInput;
+  //  LinearTimerView linearTimerView = (LinearTimerView)
+  //          findViewById(R.id.linearTimer);
 
     // Instance Variables from video activity
     TextView timerTextView;
@@ -122,7 +126,10 @@ public class JapActivity extends Activity {
         LayoutInflater li = LayoutInflater.from(this);
         final View promptsView = li.inflate(R.layout.prompts, null);
 
-
+      //  LinearTimerView linearTimerView= findViewById(R.id.linearTimer);
+        //LinearTimer linearTimer = new LinearTimer
+        //     .duration(millisUntilFinished * 1000)
+        //          .build();
         //Adding dummy data in Reports
 
         rDb.addUserReportData(new ReportData("Jap", 4l, 4l, "Dec",
@@ -616,6 +623,9 @@ public class JapActivity extends Activity {
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
             timer_text.setText(hms);
             sendNotification(hms);
+            CountdownView mCvCountdownView = (CountdownView)findViewById(R.id.countDown);
+            mCvCountdownView.start(millisUntilFinished);
+
         }
 
         @Override

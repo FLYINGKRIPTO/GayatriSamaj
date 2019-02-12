@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/japButton2"
+        android:id="@+id/japButton22"
         android:layout_width="390dp"
         android:transitionName="buttontransition"
         android:layout_height="210dp"
@@ -25,7 +25,7 @@
         />
 
     <ImageView
-        android:id="@+id/medButton2"
+        android:id="@+id/medButton22"
         android:layout_width="370dp"
         android:layout_height="190dp"
         android:transitionName="buttontransition"
@@ -37,7 +37,7 @@
         />
 
     <ImageView
-        android:id="@+id/swaButton2"
+        android:id="@+id/swaButton22"
         android:layout_width="370dp"
         android:transitionName="buttontransition"
         android:layout_height="190dp"
@@ -48,7 +48,7 @@
         />
 
     <ImageView
-        android:id="@+id/yagButton2"
+        android:id="@+id/yagButton22"
         android:layout_width="370dp"
         android:transitionName="buttontransition"
         android:layout_height="190dp"
