@@ -1,5 +1,4 @@
 package com.example.dell.jaapactivity;
-
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
@@ -31,15 +30,14 @@ import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
 import com.example.dell.jaapactivity.ReportManager.ReportData;
 import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import cn.iwgang.countdownview.CountdownView;
-
-public class JapActivity extends Activity {
+public class JapActivity extends Activity  {
     Spinner options_spinner;
     MyCountdownTimer myCountdownTimer;
     Context context;
@@ -61,6 +59,7 @@ public class JapActivity extends Activity {
     Button swadhyayActivity;
     Button reportsActivity;
     Button yagyaActivity;
+   ;
     public static final String MyPREFERENCES = "MyPrefs";
     public static final String OPTION_PREFERENCE = "OptionPref";
     public static final String selected_item = "item_selected";
@@ -602,6 +601,8 @@ public class JapActivity extends Activity {
         });
     }
 
+
+
     public class MyCountdownTimer extends CountDownTimer {
 
         /**
@@ -623,8 +624,9 @@ public class JapActivity extends Activity {
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
             timer_text.setText(hms);
             sendNotification(hms);
-            CountdownView mCvCountdownView = (CountdownView)findViewById(R.id.countDown);
-            mCvCountdownView.start(millisUntilFinished);
+         //   long percentProgress = (millisUntilFinished/time_in_milli)*100;
+          //  donutProgress.setProgress(percentProgress);
+
 
         }
 
