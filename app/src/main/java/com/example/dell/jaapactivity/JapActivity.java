@@ -1,4 +1,5 @@
 package com.example.dell.jaapactivity;
+
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
@@ -25,11 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.dell.jaapactivity.Jap.JapData;
 import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
 import com.example.dell.jaapactivity.ReportManager.ReportData;
 import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
-
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,7 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class JapActivity extends Activity  {
+public class JapActivity extends Activity {
     Spinner options_spinner;
     MyCountdownTimer myCountdownTimer;
     Context context;
@@ -86,7 +87,7 @@ public class JapActivity extends Activity  {
 
     //Report Manager Database
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
-
+    RoundCornerProgressBar progress1;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -109,6 +110,7 @@ public class JapActivity extends Activity  {
         //Current date and time
         Date currentTime = Calendar.getInstance().getTime();
 
+
         SimpleDateFormat df = new SimpleDateFormat("MMM");
         final String formattedDate = df.format(currentTime);
 
@@ -125,6 +127,10 @@ public class JapActivity extends Activity  {
         LayoutInflater li = LayoutInflater.from(this);
         final View promptsView = li.inflate(R.layout.prompts, null);
 
+        progress1 = findViewById(R.id.rcProgress);
+        progress1.setMax(100);
+        progress1.setProgress(0);
+        progress1.setVisibility(View.INVISIBLE);
       //  LinearTimerView linearTimerView= findViewById(R.id.linearTimer);
         //LinearTimer linearTimer = new LinearTimer
         //     .duration(millisUntilFinished * 1000)
@@ -623,6 +629,8 @@ public class JapActivity extends Activity  {
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
             timer_text.setText(hms);
+            progress1.setVisibility(View.VISIBLE);
+            progress1.setProgress(millisUntilFinished/time_in_milli*100);
             sendNotification(hms);
          //   long percentProgress = (millisUntilFinished/time_in_milli)*100;
           //  donutProgress.setProgress(percentProgress);

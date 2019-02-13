@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.dell.jaapactivity"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 28
         renderscriptTargetApi 25
         renderscriptSupportModeEnabled true
@@ -40,6 +40,8 @@ dependencies {
     implementation 'com.rom4ek:arcnavigationview:1.0.3'
     implementation 'com.daimajia.easing:library:2.0@aar'
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
+    implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    implementation 'com.github.Yalantis:Context-Menu.Android:1.1.4'
 
 
 }

@@ -32,12 +32,13 @@
         </activity>
         <activity android:name=".ReportActivity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".YagyaActivity" />
+        <activity android:name=".YagyaActivity"
+            android:theme="@style/AppTheme"/>
         <activity android:name=".Swadhyay"
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".JapActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
         <activity android:name=".MeditationActivity"
             android:theme="@style/AppTheme"/>
         <activity
