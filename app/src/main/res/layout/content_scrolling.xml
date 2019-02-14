@@ -13,46 +13,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/japButton2"
-        android:layout_width="wrap_content"
-        android:transitionName="buttontransition"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:layout_marginStart="60dp"
-        android:background="@drawable/group1"
+        <ImageView
+            android:id="@+id/japButton22"
+            android:layout_width="@dimen/cardWidth"
+            android:transitionName="buttontransition"
+            android:layout_height="@dimen/cardHeight"
+            android:layout_marginTop="@dimen/cardOneMarginTop"
+            android:layout_gravity="center"
+            android:background="@drawable/group1"
 
-        />
+            />
 
-    <ImageView
-        android:id="@+id/medButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="60dp"
-        android:background="@drawable/group2"
 
-        />
+        <ImageView
+            android:id="@+id/medButton22"
+            android:layout_width="@dimen/cardWidthTwo"
+            android:layout_height="@dimen/cardHeightTwo"
+            android:transitionName="buttontransition"
+            android:layout_marginTop="@dimen/marginTopCardTwo"
+            android:layout_gravity="center"
 
-    <ImageView
-        android:id="@+id/swaButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="60dp"
-        android:background="@drawable/group3"
+            android:background="@drawable/group2"
 
-        />
+            />
 
-    <ImageView
-        android:id="@+id/yagButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="60dp"
-        android:background="@drawable/group4"
+        <ImageView
+            android:id="@+id/swaButton22"
+            android:layout_width="@dimen/cardWidthTwo"
+            android:transitionName="buttontransition"
+            android:layout_height="@dimen/cardHeightTwo"
+            android:layout_marginTop="@dimen/marginTopCardTwo"
+            android:layout_gravity="center"
+            android:background="@drawable/group3"
 
-        />
+            />
+
+        <ImageView
+            android:id="@+id/yagButton22"
+            android:layout_width="@dimen/cardWidthTwo"
+            android:transitionName="buttontransition"
+            android:layout_height="@dimen/cardHeightTwo"
+            android:layout_marginTop="@dimen/marginTopCardTwo"
+            android:layout_gravity="center"
+            android:background="@drawable/group4"
+
+            />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

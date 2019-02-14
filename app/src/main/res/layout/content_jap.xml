@@ -8,13 +8,19 @@
     tools:context=".ScrollingActivity"
     tools:showIn="@layout/activity_jap">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".JapActivity">
+
+   <LinearLayout
+       android:id="@+id/llpart1"
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
 
 
     <TextView
@@ -38,22 +44,66 @@
         android:layout_gravity="center"
         android:layout_marginStart="30dp"
         >
-
     </Spinner>
-    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        <TextView
+            android:id="@+id/timer_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/blueColor"
+            android:visibility="invisible"
+            android:text=" "
+            />
+       <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+           android:layout_width="200dp"
+           android:id="@+id/rcProgress"
+           android:layout_height="60dp"
+           android:layout_marginTop="20dp"
+           app:rcProgress="0"
+           app:rcSecondaryProgress="0"
+           app:rcMax="100"
+           app:rcRadius="50dp"
+           app:rcBackgroundPadding="10dp"
+           app:rcReverse="true"
+           app:rcProgressColor="#f9f9f9"
+           android:layout_gravity="center"
+           app:rcSecondaryProgressColor="#32B5E6"
+           app:rcBackgroundColor="#3A3A3A" />
+
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="300dp"
+        android:id="@+id/linearLayoutToShift"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <Button
+        android:id="@+id/startJap"
         android:layout_width="200dp"
-        android:id="@+id/rcProgress"
-        android:layout_height="60dp"
-        app:rcProgress="0"
-        app:rcSecondaryProgress="0"
-        app:rcMax="100"
-        app:rcRadius="50dp"
-        app:rcBackgroundPadding="10dp"
-        app:rcReverse="true"
-        app:rcProgressColor="#f9f9f9"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        app:rcSecondaryProgressColor="#32B5E6"
-        app:rcBackgroundColor="#3A3A3A" />
+        android:layout_marginTop="10dp"
+        android:text="Start Jap"
+        android:textColor="#ffffff"
+        android:background="@drawable/background"
+        />
+    <Button
+        android:id="@+id/stopJap"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background"
+        android:textColor="#ffffff"
+        android:text="@string/stop_jap"
+        />
+
     <TextView
         android:id="@+id/time_text"
         android:layout_width="wrap_content"
@@ -61,18 +111,15 @@
         android:visibility="invisible"
 
         />
-    <TextView
-        android:id="@+id/timer_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:textColor="@color/blueColor"
-        android:visibility="invisible"
-        android:text=" "
-        />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lltoshiftup"
+        android:layout_marginTop="600dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
     <VideoView
@@ -99,27 +146,8 @@
         android:layout_marginTop="5dp"
 
         />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/startJap"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Start Jap"
-        android:textColor="#ffffff"
-        android:background="@drawable/background"
-        />
-    <Button
-        android:id="@+id/stopJap"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/background"
-        android:textColor="#ffffff"
-        android:text="@string/stop_jap"
-        />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -127,6 +155,6 @@
         >
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

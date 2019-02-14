@@ -21,6 +21,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,8 +85,9 @@ public class JapActivity extends Activity {
     EditText JapTime;
     float actualTime = 0f;
     //Jap Database
-    JapDatabaseHandler db = new JapDatabaseHandler(this);
-
+       JapDatabaseHandler db = new JapDatabaseHandler(this);
+       LinearLayout videoLayout;
+       LinearLayout buttonLayout;
     //Report Manager Database
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
     RoundCornerProgressBar progress1;
@@ -127,7 +130,14 @@ public class JapActivity extends Activity {
         LayoutInflater li = LayoutInflater.from(this);
         final View promptsView = li.inflate(R.layout.prompts, null);
 
+        videoLayout = (LinearLayout) findViewById(R.id.lltoshiftup);
+       // final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) videoLayout.getLayoutParams();
+        final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) videoLayout.getLayoutParams();
+
+        buttonLayout = findViewById(R.id.linearLayoutToShift);
+        final RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
         progress1 = findViewById(R.id.rcProgress);
+
         progress1.setMax(100);
         progress1.setProgress(0);
         progress1.setVisibility(View.INVISIBLE);
@@ -282,11 +292,18 @@ public class JapActivity extends Activity {
                     alertDialog.setView(promptsView);
                     alertDialog.show();
 
+                    params2.topMargin =750;
+                    buttonLayout.setLayoutParams(params2);
+
                 } else if (item.equalsIgnoreCase("by Mala")) {
 
 
                 } else if (item.equalsIgnoreCase("with Pujya Gurudev")) {
+                       params.topMargin = 730;
+                       videoLayout.setLayoutParams(params);
 
+                       params2.topMargin =1350;
+                       buttonLayout.setLayoutParams(params2);
 
                 } else if (item.equalsIgnoreCase("with Pujya Mataji")) {
 

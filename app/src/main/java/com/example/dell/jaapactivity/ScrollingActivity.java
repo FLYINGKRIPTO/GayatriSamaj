@@ -1,6 +1,7 @@
 package com.example.dell.jaapactivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -47,7 +48,9 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         final ImageView   yagyaActivity = findViewById(R.id.yagButton22);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_scrolling);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -118,7 +121,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
                 startActivity(i,options.toBundle());
             }
         });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,7 +158,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
     }
     private void initMenuFragment() {
         MenuParams menuParams = new MenuParams();
-      menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.tool_bar_height));
+        menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.tool_bar_height));
         menuParams.setMenuObjects(getMenuObjects());
         menuParams.setClosableOutside(false);
         mMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
@@ -166,19 +169,26 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
 
         List<MenuObject> menuObjects = new ArrayList<>();
         MenuObject close = new MenuObject("Close");
-        close.setResourceValue(R.drawable.ic_close_black_24dp);
+        close.setResourceValue(R.drawable.cancel);
         MenuObject send = new MenuObject("Send message");
-        send.setResourceValue(R.drawable.ic_send_black_24dp);
+        send.setResourceValue(R.drawable.mail);
         MenuObject like = new MenuObject("Reports");
-        like.setResourceValue(R.drawable.analytics);
+        like.setResourceValue(R.drawable.report);
         MenuObject addFr = new MenuObject("Account");
-        addFr.setResourceValue(R.drawable.ic_account_circle_black_24dp);
+        addFr.setResourceValue(R.drawable.personal_photo);
+        MenuObject share = new MenuObject("Share");
+        share.setResourceValue(R.drawable.send);
+        MenuObject info = new MenuObject("Info");
+        info.setResourceValue(R.drawable.info);
 
 
         menuObjects.add(close);
         menuObjects.add(send);
         menuObjects.add(like);
         menuObjects.add(addFr);
+        menuObjects.add(share);
+        menuObjects.add(info);
+
         return menuObjects;
     }
 

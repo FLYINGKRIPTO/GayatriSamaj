@@ -5,9 +5,10 @@
     <item
         android:id="@+id/context_menu"
         android:title="Context Menu"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/action_items_list"
         android:orderInCategory="100"
         app:showAsAction="always"
+
 
         />
 

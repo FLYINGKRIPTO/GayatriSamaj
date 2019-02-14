@@ -21,8 +21,8 @@
         android:theme="@style/Theme.AppCompat.Light">
         <activity
             android:name=".ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/NoActionBar">
+            android:label="Gayatri Samaj"
+            android:theme="@style/AppTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
