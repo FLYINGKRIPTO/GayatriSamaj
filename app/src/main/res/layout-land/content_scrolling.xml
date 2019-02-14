@@ -8,6 +8,7 @@
     tools:context=".ScrollingActivity"
     tools:showIn="@layout/activity_scrolling">
  <LinearLayout
+     android:gravity="center_horizontal"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
      android:orientation="vertical"

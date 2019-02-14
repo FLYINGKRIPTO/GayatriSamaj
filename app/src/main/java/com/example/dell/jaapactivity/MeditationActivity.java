@@ -8,12 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.dell.jaapactivity.Meditation.MeditationData;
 import com.example.dell.jaapactivity.Meditation.MeditationDataBaseHandler;
 import com.example.dell.jaapactivity.ReportManager.ReportData;
 import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
+import com.gauravk.audiovisualizer.visualizer.WaveVisualizer;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,6 +37,7 @@ public class MeditationActivity extends AppCompatActivity {
     String soundTrack;
     boolean pauseIsPressed = false;
     private MediaPlayer mediaPlayer;
+
     private static final String TAG = "MeditationActivity";
     SharedPreferences medSharedPreferences;
     SharedPreferences.Editor medEditor;
@@ -41,6 +46,8 @@ public class MeditationActivity extends AppCompatActivity {
     //Mediatation database
     MeditationDataBaseHandler mDb= new MeditationDataBaseHandler(this);
 
+    ImageView ImageViewName;
+    WaveVisualizer mVisulaizer ;
     //Report data base
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
 
@@ -57,6 +64,8 @@ public class MeditationActivity extends AppCompatActivity {
         medSharedPreferences = getSharedPreferences(BUTTON_COUNT_PREFERENCE, Context.MODE_PRIVATE);
         medSharedPreferences = getSharedPreferences(BUTTON_COUNT_PREFERENCE, Context.MODE_PRIVATE);
         buttonCountOnDestroy = medSharedPreferences.getInt(PLAY_BUTTON_CLICKS,0);
+        ImageViewName = findViewById(R.id.cardImage);
+        mVisulaizer = findViewById(R.id.blast);
         if(buttonCountOnDestroy==7){
             buttonCountOnDestroy=0;
         }
@@ -151,14 +160,26 @@ public class MeditationActivity extends AppCompatActivity {
                 Log.d(TAG,"onClick: "+playButtonPressCount);
                 if(playButtonPressCount==1){
                     mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_one);
+
                     if(pauseIsPressed){
                            mediaPlayer.seekTo(pausePosition+100);
                     }
 
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
+                    int audioSessionId  = mediaPlayer.getAudioSessionId();
+                    Log.d(TAG, "onClick: audio Sesssion ID : "+audioSessionId);
+                    if(audioSessionId != -1){
+                        mVisulaizer.setVisibility(View.VISIBLE);
+                        mVisulaizer.setAudioSessionId(audioSessionId);
+                    }
+
+
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                     soundTrackName.setText(R.string.song_one);
+                    ImageViewName.setImageResource(R.drawable.bgmed);
+                    YoYo.with(Techniques.Swing).duration(2000).playOn(ImageViewName);
+                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
 
                     //meditation database
                   long inserted=  mDb.addMeditationData(new MeditationData("No 1 Atam Bodh Dhyaan",mediaPlayer.getDuration()));
@@ -204,8 +225,17 @@ public class MeditationActivity extends AppCompatActivity {
                         mediaPlayer.seekTo(pausePosition+100);
                     }
                     soundTrackName.setText(R.string.song_two);
+                    ImageViewName.setImageResource(R.drawable.bgmed2);
+                    YoYo.with(Techniques.RotateInUpLeft).duration(2000).playOn(ImageViewName);
+                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
+                    int audioSessionId  = mediaPlayer.getAudioSessionId();
+                    if(audioSessionId != -1){
+                        mVisulaizer.setVisibility(View.VISIBLE);
+                        mVisulaizer.setAudioSessionId(audioSessionId);
+                    }
+
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                 long inserted =     mDb.addMeditationData(new MeditationData("No 2 Panchkosh Dhyaan",mediaPlayer.getDuration()));
                     Log.d(TAG, "onClick: inserted : "+ inserted);
@@ -247,8 +277,17 @@ public class MeditationActivity extends AppCompatActivity {
                         mediaPlayer.seekTo(pausePosition=100);
                     }
                     soundTrackName.setText(R.string.song_three);
+                    ImageViewName.setImageResource(R.drawable.bgmed11);
+                    YoYo.with(Techniques.SlideInLeft).duration(2000).playOn(ImageViewName);
+                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
+                    int audioSessionId  = mediaPlayer.getAudioSessionId();
+                    if(audioSessionId != -1){
+                        mVisulaizer.setVisibility(View.VISIBLE);
+                        mVisulaizer.setAudioSessionId(audioSessionId);
+                    }
+
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                   long inserted =   mDb.addMeditationData(new MeditationData("No 3 Sharir Dhyaan",mediaPlayer.getDuration()));
                     Log.d(TAG, "onClick: inserted "+ inserted);
@@ -290,8 +329,17 @@ public class MeditationActivity extends AppCompatActivity {
                         mediaPlayer.seekTo(pausePosition+100);
                     }
                     soundTrackName.setText(R.string.song_four);
+                    ImageViewName.setImageResource(R.drawable.bgmed3);
+                    YoYo.with(Techniques.SlideInRight).duration(2000).playOn(ImageViewName);
+                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
+                    int audioSessionId  = mediaPlayer.getAudioSessionId();
+                    if(audioSessionId != -1){
+                        mVisulaizer.setVisibility(View.VISIBLE);
+                        mVisulaizer.setAudioSessionId(audioSessionId);
+                    }
+
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                    long inserted =  mDb.addMeditationData(new MeditationData("No 4 Amrit Varsha Dhyaan",mediaPlayer.getDuration()));
                     Log.d(TAG, "onClick: inserted: "+ inserted);
@@ -331,11 +379,20 @@ public class MeditationActivity extends AppCompatActivity {
 
                     mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_five);
                     if(pauseIsPressed){
+                        mVisulaizer.setVisibility(View.VISIBLE);
                         mediaPlayer.seekTo(pausePosition+100);
                     }
                     soundTrackName.setText(R.string.song_five);
+                    ImageViewName.setImageResource(R.drawable.bgmed5);
+                    YoYo.with(Techniques.ZoomInLeft).duration(2000).playOn(ImageViewName);
+                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
                     mediaPlayer.start();
                     mediaPlayer.setLooping(true);
+                    int audioSessionId  = mediaPlayer.getAudioSessionId();
+
+                    if(audioSessionId != -1){
+                        mVisulaizer.setAudioSessionId(audioSessionId);
+                    }
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                     long inserted = mDb.addMeditationData(new MeditationData("No 5 Jyoti Avdhrnam Dhyaan",mediaPlayer.getDuration()));
                     Log.d(TAG, "onClick: inserted" + inserted);
@@ -378,7 +435,16 @@ public class MeditationActivity extends AppCompatActivity {
                     }
                     mediaPlayer.setLooping(true);
                     soundTrackName.setText(R.string.song_six);
+                    ImageViewName.setImageResource(R.drawable.bgmed6);
+                    YoYo.with(Techniques.BounceInLeft).duration(2000).playOn(ImageViewName);
+                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
                     mediaPlayer.start();
+                    int audioSessionId  = mediaPlayer.getAudioSessionId();
+                    if(audioSessionId != -1){
+                        mVisulaizer.setVisibility(View.VISIBLE);
+                        mVisulaizer.setAudioSessionId(audioSessionId);
+                    }
+
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                 long inserted =     mDb.addMeditationData(new MeditationData("No 6 Naad yog Dhyaan",mediaPlayer.getDuration()));
                     Log.d(TAG, "onClick: inserted "+ inserted);
@@ -420,8 +486,16 @@ public class MeditationActivity extends AppCompatActivity {
                     }
                     mediaPlayer.setLooping(true);
                     soundTrackName.setText(R.string.song_seven);
+                    ImageViewName.setImageResource(R.drawable.bgmed7);
+                    YoYo.with(Techniques.RotateInUpLeft).duration(2000).playOn(ImageViewName);
+                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
                     playButtonPressCount=0;
                     mediaPlayer.start();
+                    int audioSessionId  = mediaPlayer.getAudioSessionId();
+
+                    if(audioSessionId != -1){
+                        mVisulaizer.setAudioSessionId(audioSessionId);
+                    }
                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
                     long inserted = mDb.addMeditationData(new MeditationData("No 7 Tatv Bodh Dhyaan",mediaPlayer.getDuration()));
                     Log.d(TAG, "onClick: inserted : "+ inserted);
@@ -510,6 +584,8 @@ public class MeditationActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Log.d(TAG, "onDestroy: Method called");
+        if (mVisulaizer != null)
+            mVisulaizer.release();
         medSharedPreferences = getSharedPreferences(BUTTON_COUNT_PREFERENCE, Context.MODE_PRIVATE);
         buttonCountOnDestroy = medSharedPreferences.getInt(PLAY_BUTTON_CLICKS,0);
         Log.d(TAG, "onDestroy: "+buttonCountOnDestroy);
