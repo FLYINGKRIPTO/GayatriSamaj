@@ -57,6 +57,7 @@
             android:padding="18dp"
             android:alpha="0.7"
             custom:avWidth="280dp"
+            android:background="@drawable/eqbgfour"
             custom:avColor="@color/av_red"
             custom:avSpeed="fast"/>
 

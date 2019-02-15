@@ -1,5 +1,6 @@
 package com.example.dell.jaapactivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,7 +49,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
     String soundTrack;
     boolean pauseIsPressed = false;
     private MediaPlayer mediaPlayer;
-
+    private ProgressDialog progressDialog;
     private static final String TAG = "MeditationActivity";
     SharedPreferences medSharedPreferences;
     SharedPreferences.Editor medEditor;
@@ -71,6 +72,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        progressDialog = new ProgressDialog(MeditationActivity.this);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_scrolling);
@@ -206,6 +208,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                         Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
                                         Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
                                         Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
@@ -232,6 +235,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
                                             mVisulaizer.setAudioSessionId(audioSessionId);
                                         }
+
                                     }
 
 
@@ -288,7 +292,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                 }
 
                 else if(playButtonPressCount==2){
-                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3";
 
                     Thread thread = new Thread(new Runnable() {
                         @Override
@@ -387,7 +391,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
                 }
                 else if(playButtonPressCount==3){
-                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3";
 
                     Thread thread = new Thread(new Runnable() {
                         @Override
@@ -486,7 +490,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
                 }
                 else if(playButtonPressCount==4){
-                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3";
 
                     Thread thread = new Thread(new Runnable() {
                         @Override
@@ -585,7 +589,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
                 }
                 else if(playButtonPressCount==5){
-                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3";
 
                     Thread thread = new Thread(new Runnable() {
                         @Override
@@ -686,7 +690,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                 }
                 else if(playButtonPressCount==6){
 
-                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3";
 
                     Thread thread = new Thread(new Runnable() {
                         @Override
@@ -712,6 +716,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                     }
                                     Log.d(TAG, "run: "+ mediaPlayer);
                                     if(mediaPlayer !=null){
+
                                         mediaPlayer.start();
                                         Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
                                         Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
@@ -785,7 +790,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                 else if(playButtonPressCount==7){
 
 
-                       final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+                       final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3";
 
                        Thread thread = new Thread(new Runnable() {
                            @Override
@@ -811,6 +816,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                        }
                                        Log.d(TAG, "run: "+ mediaPlayer);
                                        if(mediaPlayer !=null){
+
                                            mediaPlayer.start();
                                            Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
                                            Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
@@ -957,6 +963,24 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
             // Handle the camera action
             Intent reportsIntet = new Intent(MeditationActivity.this,ReportActivity.class);
             startActivity(reportsIntet);
+        }
+        if(id == R.id.japInMenu){
+            Intent japIntent = new Intent(MeditationActivity.this,JapActivity.class);
+            startActivity(japIntent);
+
+        }
+        if(id == R.id.meditationInMenu){
+            Intent medIntent = new Intent(MeditationActivity.this,MeditationActivity.class);
+            startActivity(medIntent);
+
+        }
+        if(id== R.id.swadhyayInMenu){
+            Intent intent = new Intent(MeditationActivity.this,Swadhyay.class);
+            startActivity(intent);
+        }
+        if(id == R.id.yagyaInMenu){
+            Intent intent  = new Intent(MeditationActivity.this,YagyaActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

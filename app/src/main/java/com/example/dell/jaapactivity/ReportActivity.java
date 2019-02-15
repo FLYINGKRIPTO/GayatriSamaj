@@ -71,6 +71,7 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
 
 
 
+
         final PieChart pieChart = findViewById(R.id.pieChart);
         final PieChart japDataChart = findViewById(R.id.japDataPieChart);
         final PieChart meditaionDataPieChart =  findViewById(R.id.meditationDataPieChart);
@@ -109,6 +110,7 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
 
         */
       //Total modes Pie Chart
+
 
                      ArrayList<PieEntry> totalModes = new ArrayList<>();
                      totalModes.add(new PieEntry((float)rDb.totalJaps(),"Japs"));

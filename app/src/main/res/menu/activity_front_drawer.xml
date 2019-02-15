@@ -8,6 +8,22 @@
             android:id="@+id/all_reports"
             android:icon="@drawable/analyticsthree"
             android:title="Reports" />
+        <item
+            android:id="@+id/japInMenu"
+            android:icon="@drawable/gg1"
+            android:title="Jap" />
+        <item
+            android:id="@+id/meditationInMenu"
+            android:icon="@drawable/gg2"
+            android:title="Meditation" />
+        <item
+            android:id="@+id/swadhyayInMenu"
+            android:icon="@drawable/gg3"
+            android:title="Swadhyay" />
+        <item
+            android:id="@+id/yagyaInMenu"
+            android:icon="@drawable/gg4"
+            android:title="Yagya" />
 
     </group>
 

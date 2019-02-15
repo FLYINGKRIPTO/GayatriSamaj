@@ -272,6 +272,24 @@ public class Swadhyay extends AppCompatActivity implements NavigationView.OnNavi
             Intent reportsIntet = new Intent(Swadhyay.this,ReportActivity.class);
             startActivity(reportsIntet);
         }
+        if(id == R.id.japInMenu){
+            Intent japIntent = new Intent(Swadhyay.this,JapActivity.class);
+            startActivity(japIntent);
+
+        }
+        if(id == R.id.meditationInMenu){
+            Intent medIntent = new Intent(Swadhyay.this,MeditationActivity.class);
+            startActivity(medIntent);
+
+        }
+        if(id== R.id.swadhyayInMenu){
+            Intent intent = new Intent(Swadhyay.this,Swadhyay.class);
+            startActivity(intent);
+        }
+        if(id == R.id.yagyaInMenu){
+            Intent intent  = new Intent(Swadhyay.this,YagyaActivity.class);
+            startActivity(intent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

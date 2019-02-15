@@ -169,9 +169,9 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
         //          .build();
         //Adding dummy data in Reports
 
-        rDb.addUserReportData(new ReportData("Jap", 4l, 4l, "Dec",
+        rDb.addUserReportData(new ReportData("Jap", 4L, 4L, "Dec",
                 "14", "Fri", "by Time", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
+        rDb.addUserReportData(new ReportData("Jap", 4L, 3L, "Dec",
                 "15", "Sat", "by Time", "2018"));
         rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
                 "17", "Mon", "by Mala", "2018"));
@@ -654,6 +654,24 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
             // Handle the camera action
             Intent reportsIntet = new Intent(JapActivity.this,ReportActivity.class);
             startActivity(reportsIntet);
+        }
+        if(id == R.id.japInMenu){
+            Intent japIntent = new Intent(JapActivity.this,JapActivity.class);
+            startActivity(japIntent);
+
+        }
+        if(id == R.id.meditationInMenu){
+            Intent medIntent = new Intent(JapActivity.this,MeditationActivity.class);
+            startActivity(medIntent);
+
+        }
+        if(id== R.id.swadhyayInMenu){
+            Intent intent = new Intent(JapActivity.this,Swadhyay.class);
+            startActivity(intent);
+        }
+        if(id == R.id.yagyaInMenu){
+            Intent intent  = new Intent(JapActivity.this,YagyaActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

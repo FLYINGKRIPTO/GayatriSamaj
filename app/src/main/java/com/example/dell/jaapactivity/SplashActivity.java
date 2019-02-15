@@ -6,7 +6,10 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+
     private final int SPLASH_DISPLAY_LENGTH = 2000;
+    private int RECORD_AUDIO_PERMISSION = 200;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +24,10 @@ public class SplashActivity extends AppCompatActivity {
                 SplashActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
-    }
-    }
+
+
+
+
+    }}
+
 
