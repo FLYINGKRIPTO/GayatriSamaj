@@ -124,16 +124,6 @@ public class FrontActivity extends AppCompatActivity
             // Handle the camera action
             Intent reportsIntet = new Intent(FrontActivity.this,ReportActivity.class);
             startActivity(reportsIntet);
-        } else if (id == R.id.jap_reports) {
-
-        } else if (id == R.id.meditation_reports) {
-
-        } else if (id == R.id.swadhyay_reports) {
-
-        } else if (id == R.id.yagya_reports) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -37,7 +37,7 @@
         </activity>
         <activity
             android:name=".ReportActivity"
-            android:theme="@style/AppTheme" />
+           />
         <activity
             android:name=".YagyaActivity"
             android:theme="@style/AppTheme" />

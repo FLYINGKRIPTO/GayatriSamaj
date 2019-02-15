@@ -654,16 +654,6 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
             // Handle the camera action
             Intent reportsIntet = new Intent(JapActivity.this,ReportActivity.class);
             startActivity(reportsIntet);
-        } else if (id == R.id.jap_reports) {
-
-        } else if (id == R.id.meditation_reports) {
-
-        } else if (id == R.id.swadhyay_reports) {
-
-        } else if (id == R.id.yagya_reports) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

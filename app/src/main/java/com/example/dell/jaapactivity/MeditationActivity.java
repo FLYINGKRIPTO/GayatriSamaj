@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -27,6 +28,8 @@ import com.example.dell.jaapactivity.ReportManager.ReportData;
 import com.example.dell.jaapactivity.ReportManager.ReportDataBaseHandler;
 import com.gauravk.audiovisualizer.visualizer.WaveVisualizer;
 
+import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,6 +60,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
     ImageView ImageViewName;
     WaveVisualizer mVisulaizer ;
     //Report data base
+    URL url ;
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
 
     @Override
@@ -181,375 +185,705 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                 medEditor.apply();
                 Log.d(TAG,"onClick: "+playButtonPressCount);
                 if(playButtonPressCount==1){
-                    mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_one);
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
 
-                    if(pauseIsPressed){
-                           mediaPlayer.seekTo(pausePosition+100);
-                    }
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mediaPlayer = new MediaPlayer();
+                                    try {
+                                        mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
 
-                    mediaPlayer.start();
-                    mediaPlayer.setLooping(true);
-                    int audioSessionId  = mediaPlayer.getAudioSessionId();
-                    Log.d(TAG, "onClick: audio Sesssion ID : "+audioSessionId);
-                    if(audioSessionId != -1){
-                        mVisulaizer.setVisibility(View.VISIBLE);
-                        mVisulaizer.setAudioSessionId(audioSessionId);
-                    }
+                                    try {
+                                        mediaPlayer.prepare();
+                                        Log.d(TAG, "run: media player prepare  "+ mediaPlayer);
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Log.d(TAG, "run: "+ mediaPlayer);
+                                    if(mediaPlayer !=null){
+                                        mediaPlayer.start();
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+
+                                        //  mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                        Log.d(TAG, "run: media player not null ");
+                                        if(pauseIsPressed){
+                                            mediaPlayer.seekTo(pausePosition+100);
+                                        }
+                                        mediaPlayer.setLooping(true);
+                                        soundTrackName.setText(R.string.song_one);
+                                        ImageViewName.setImageResource(R.drawable.bgmed);
+                                        YoYo.with(Techniques.Swing).duration(2000).playOn(ImageViewName);
+                                        YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
+                                        int audioSessionId  = mediaPlayer.getAudioSessionId();
+                                        if(audioSessionId != -1){
+                                            mVisulaizer.setVisibility(View.VISIBLE);
+
+                                            mVisulaizer.setAudioSessionId(audioSessionId);
+                                        }
+                                    }
 
 
-                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                    soundTrackName.setText(R.string.song_one);
-                    ImageViewName.setImageResource(R.drawable.bgmed);
-                    YoYo.with(Techniques.Swing).duration(2000).playOn(ImageViewName);
-                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
+                                    else{
+                                        Log.d(TAG, "run: media Player not prepared ");
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+                    thread.start();
+
+
 
                     //meditation database
-                  long inserted=  mDb.addMeditationData(new MeditationData("No 1 Atam Bodh Dhyaan",mediaPlayer.getDuration()));
-                    Log.d(TAG, "onClick: inserted "+ inserted);
-                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
-                    for (MeditationData mp : meditationDataList) {
-                        String log = "Id: " + mp.getId() + " ,Audio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
-                                mp.getDuration();
-                        // Writing Contacts to log
-                        Log.d("Name: ", log);
+                    if(mediaPlayer!=null){
+                        long inserted=  mDb.addMeditationData(new MeditationData("No 1 Atam Bodh Dhyaan",mediaPlayer.getDuration()));
+                        Log.d(TAG, "onClick: inserted "+ inserted);
+                        List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                        for (MeditationData mp : meditationDataList) {
+                            String log = "Id: " + mp.getId() + " ,Audio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                    mp.getDuration();
+                            // Writing Contacts to log
+                            Log.d("Name: ", log);
 
 
 
-                    }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,
-                            "Atam Bodh Dhyaan "
-                            ,Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000))
-                            ,Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000))
-                            ,String.valueOf(year)));
-                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
-                    List<ReportData> reportDataList = rDb.getAllUserReportData();
-                    Log.d(TAG, "onClick: "+reportDataList);
-                    for (ReportData rp : reportDataList) {
-                        Log.d(TAG, "onClick: For loop");
-                        String reportLog = "Id: "+rp.getId() //0
-                                + ", Mode: "+ rp.getMode()   //1
-                                + ", User Time: "+ rp.getUserTime() //2
-                                + ", Actual Time: "+ rp.getActualTime() //3
-                                + ", Date : "+rp.getDate() //4
-                                + ", Time : "+rp.getTime()  //5
-                                + ", Day: "+rp.getDay()  //6
-                                + ", Type: "+rp.getType() //7
-                                + ", Audio Name : "+rp.getAudioName(); //8
-                        Log.d("Report: ",reportLog);
+                        }
+                        long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,
+                                "Atam Bodh Dhyaan "
+                                ,Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000))
+                                ,Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000))
+                                ,String.valueOf(year)));
+                        Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                        List<ReportData> reportDataList = rDb.getAllUserReportData();
+                        Log.d(TAG, "onClick: "+reportDataList);
+                        for (ReportData rp : reportDataList) {
+                            Log.d(TAG, "onClick: For loop");
+                            String reportLog = "Id: "+rp.getId() //0
+                                    + ", Mode: "+ rp.getMode()   //1
+                                    + ", User Time: "+ rp.getUserTime() //2
+                                    + ", Actual Time: "+ rp.getActualTime() //3
+                                    + ", Date : "+rp.getDate() //4
+                                    + ", Time : "+rp.getTime()  //5
+                                    + ", Day: "+rp.getDay()  //6
+                                    + ", Type: "+rp.getType() //7
+                                    + ", Audio Name : "+rp.getAudioName(); //8
+                            Log.d("Report: ",reportLog);
+                        }
+
                     }
 
                 }
 
                 else if(playButtonPressCount==2){
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
 
-                    mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_two);
-                    if(pauseIsPressed){
-                        mediaPlayer.seekTo(pausePosition+100);
-                    }
-                    soundTrackName.setText(R.string.song_two);
-                    ImageViewName.setImageResource(R.drawable.bgmed2);
-                    YoYo.with(Techniques.RotateInUpLeft).duration(2000).playOn(ImageViewName);
-                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
-                    mediaPlayer.start();
-                    mediaPlayer.setLooping(true);
-                    int audioSessionId  = mediaPlayer.getAudioSessionId();
-                    if(audioSessionId != -1){
-                        mVisulaizer.setVisibility(View.VISIBLE);
-                        mVisulaizer.setAudioSessionId(audioSessionId);
-                    }
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mediaPlayer = new MediaPlayer();
+                                    try {
+                                        mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
 
-                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                long inserted =     mDb.addMeditationData(new MeditationData("No 2 Panchkosh Dhyaan",mediaPlayer.getDuration()));
-                    Log.d(TAG, "onClick: inserted : "+ inserted);
-                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
-                    for (MeditationData mp : meditationDataList) {
-                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
-                                mp.getDuration();
-                        // Writing Contacts to log
-                        Log.d("Name: ", log);
+                                    try {
+                                        mediaPlayer.prepare();
+                                        Log.d(TAG, "run: media player prepare  "+ mediaPlayer);
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Log.d(TAG, "run: "+ mediaPlayer);
+                                    if(mediaPlayer !=null){
+                                        mediaPlayer.start();
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+
+                                        //  mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                        Log.d(TAG, "run: media player not null ");
+                                        if(pauseIsPressed){
+                                            mediaPlayer.seekTo(pausePosition+100);
+                                        }
+                                        mediaPlayer.setLooping(true);
+                                        soundTrackName.setText(R.string.song_two);
+                                        ImageViewName.setImageResource(R.drawable.bgmed2);
+                                        YoYo.with(Techniques.RotateInUpLeft).duration(2000).playOn(ImageViewName);
+                                        YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
+                                        int audioSessionId  = mediaPlayer.getAudioSessionId();
+                                        if(audioSessionId != -1){
+                                            mVisulaizer.setVisibility(View.VISIBLE);
+
+                                            mVisulaizer.setAudioSessionId(audioSessionId);
+                                        }
+                                    }
 
 
-                    }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,
-                            formattedTime,formattedDay,"Panchkosh Dhyaan ",Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),String.valueOf(year)));
+                                    else{
+                                        Log.d(TAG, "run: media Player not prepared ");
+                                    }
 
-                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
-                    List<ReportData> reportDataList = rDb.getAllUserReportData();
-                    Log.d(TAG, "onClick: "+reportDataList);
-                    for (ReportData rp : reportDataList) {
-                        Log.d(TAG, "onClick: For loop");
-                        String reportLog = "Id: "+rp.getId() //0
-                                + ", Mode: "+ rp.getMode()   //1
-                                + ", User Time: "+ rp.getUserTime() //2
-                                + ", Actual Time: "+ rp.getActualTime() //3
-                                + ", Date : "+rp.getDate() //4
-                                + ", Time : "+rp.getTime()  //5
-                                + ", Day: "+rp.getDay()  //6
-                                + ", Type: "+rp.getType() //7
-                                + ", Audio Name : "+rp.getAudioName(); //8
-                        Log.d("Report: ",reportLog);
-                    }
+                                }
+                            });
+                        }
+                    });
+                    thread.start();
 
+                 if(mediaPlayer!=null){
+                     Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                     long inserted =     mDb.addMeditationData(new MeditationData("No 2 Panchkosh Dhyaan",mediaPlayer.getDuration()));
+                     Log.d(TAG, "onClick: inserted : "+ inserted);
+                     List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                     for (MeditationData mp : meditationDataList) {
+                         String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                 mp.getDuration();
+                         // Writing Contacts to log
+                         Log.d("Name: ", log);
+
+
+                     }
+                     long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,
+                             formattedTime,formattedDay,"Panchkosh Dhyaan ",Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),String.valueOf(year)));
+
+                     Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                     List<ReportData> reportDataList = rDb.getAllUserReportData();
+                     Log.d(TAG, "onClick: "+reportDataList);
+                     for (ReportData rp : reportDataList) {
+                         Log.d(TAG, "onClick: For loop");
+                         String reportLog = "Id: "+rp.getId() //0
+                                 + ", Mode: "+ rp.getMode()   //1
+                                 + ", User Time: "+ rp.getUserTime() //2
+                                 + ", Actual Time: "+ rp.getActualTime() //3
+                                 + ", Date : "+rp.getDate() //4
+                                 + ", Time : "+rp.getTime()  //5
+                                 + ", Day: "+rp.getDay()  //6
+                                 + ", Type: "+rp.getType() //7
+                                 + ", Audio Name : "+rp.getAudioName(); //8
+                         Log.d("Report: ",reportLog);
+                     }
+
+
+                 }
 
 
                 }
                 else if(playButtonPressCount==3){
-                    mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_three);
-                    if(pauseIsPressed){
-                        mediaPlayer.seekTo(pausePosition=100);
-                    }
-                    soundTrackName.setText(R.string.song_three);
-                    ImageViewName.setImageResource(R.drawable.bgmed11);
-                    YoYo.with(Techniques.SlideInLeft).duration(2000).playOn(ImageViewName);
-                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
-                    mediaPlayer.start();
-                    mediaPlayer.setLooping(true);
-                    int audioSessionId  = mediaPlayer.getAudioSessionId();
-                    if(audioSessionId != -1){
-                        mVisulaizer.setVisibility(View.VISIBLE);
-                        mVisulaizer.setAudioSessionId(audioSessionId);
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mediaPlayer = new MediaPlayer();
+                                    try {
+                                        mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    try {
+                                        mediaPlayer.prepare();
+                                        Log.d(TAG, "run: media player prepare  "+ mediaPlayer);
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Log.d(TAG, "run: "+ mediaPlayer);
+                                    if(mediaPlayer !=null){
+                                        mediaPlayer.start();
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+
+                                        //  mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                        Log.d(TAG, "run: media player not null ");
+                                        if(pauseIsPressed){
+                                            mediaPlayer.seekTo(pausePosition+100);
+                                        }
+                                        mediaPlayer.setLooping(true);
+                                        soundTrackName.setText(R.string.song_three);
+                                        ImageViewName.setImageResource(R.drawable.bgmed11);
+                                        YoYo.with(Techniques.SlideInLeft).duration(2000).playOn(ImageViewName);
+                                        YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
+                                        int audioSessionId  = mediaPlayer.getAudioSessionId();
+                                        if(audioSessionId != -1){
+                                            mVisulaizer.setVisibility(View.VISIBLE);
+
+                                            mVisulaizer.setAudioSessionId(audioSessionId);
+                                        }
+                                    }
+
+
+                                    else{
+                                        Log.d(TAG, "run: media Player not prepared ");
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+                    thread.start();
+
+                    if(mediaPlayer != null){
+                        Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                        long inserted =   mDb.addMeditationData(new MeditationData("No 3 Sharir Dhyaan",mediaPlayer.getDuration()));
+                        Log.d(TAG, "onClick: inserted "+ inserted);
+                        List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                        for (MeditationData mp : meditationDataList) {
+                            String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                    mp.getDuration();
+                            // Writing Contacts to log
+                            Log.d("Name: ", log);
+
+                        }
+                        long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,
+                                formattedDay,"Sharir Dhyaan ",
+                                Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                                Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                                String.valueOf(year)));
+                        Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                        List<ReportData> reportDataList = rDb.getAllUserReportData();
+                        Log.d(TAG, "onClick: "+reportDataList);
+                        for (ReportData rp : reportDataList) {
+                            Log.d(TAG, "onClick: For loop");
+                            String reportLog = "Id: "+rp.getId() //0
+                                    + ", Mode: "+ rp.getMode()   //1
+                                    + ", User Time: "+ rp.getUserTime() //2
+                                    + ", Actual Time: "+ rp.getActualTime() //3
+                                    + ", Date : "+rp.getDate() //4
+                                    + ", Time : "+rp.getTime()  //5
+                                    + ", Day: "+rp.getDay()  //6
+                                    + ", Type: "+rp.getType() //7
+                                    + ", Audio Name : "+rp.getAudioName(); //8
+                            Log.d("Report: ",reportLog);
+                        }
                     }
 
-                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                  long inserted =   mDb.addMeditationData(new MeditationData("No 3 Sharir Dhyaan",mediaPlayer.getDuration()));
-                    Log.d(TAG, "onClick: inserted "+ inserted);
-                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
-                    for (MeditationData mp : meditationDataList) {
-                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
-                                mp.getDuration();
-                        // Writing Contacts to log
-                        Log.d("Name: ", log);
 
-                    }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,
-                            formattedDay,"Sharir Dhyaan ",
-                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
-                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
-                            String.valueOf(year)));
-                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
-                    List<ReportData> reportDataList = rDb.getAllUserReportData();
-                    Log.d(TAG, "onClick: "+reportDataList);
-                    for (ReportData rp : reportDataList) {
-                        Log.d(TAG, "onClick: For loop");
-                        String reportLog = "Id: "+rp.getId() //0
-                                + ", Mode: "+ rp.getMode()   //1
-                                + ", User Time: "+ rp.getUserTime() //2
-                                + ", Actual Time: "+ rp.getActualTime() //3
-                                + ", Date : "+rp.getDate() //4
-                                + ", Time : "+rp.getTime()  //5
-                                + ", Day: "+rp.getDay()  //6
-                                + ", Type: "+rp.getType() //7
-                                + ", Audio Name : "+rp.getAudioName(); //8
-                        Log.d("Report: ",reportLog);
-                    }
 
                 }
                 else if(playButtonPressCount==4){
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
 
-                    mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_four);
-                    if(pauseIsPressed){
-                        mediaPlayer.seekTo(pausePosition+100);
-                    }
-                    soundTrackName.setText(R.string.song_four);
-                    ImageViewName.setImageResource(R.drawable.bgmed3);
-                    YoYo.with(Techniques.SlideInRight).duration(2000).playOn(ImageViewName);
-                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
-                    mediaPlayer.start();
-                    mediaPlayer.setLooping(true);
-                    int audioSessionId  = mediaPlayer.getAudioSessionId();
-                    if(audioSessionId != -1){
-                        mVisulaizer.setVisibility(View.VISIBLE);
-                        mVisulaizer.setAudioSessionId(audioSessionId);
-                    }
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mediaPlayer = new MediaPlayer();
+                                    try {
+                                        mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
 
-                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                   long inserted =  mDb.addMeditationData(new MeditationData("No 4 Amrit Varsha Dhyaan",mediaPlayer.getDuration()));
-                    Log.d(TAG, "onClick: inserted: "+ inserted);
-                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
-                    for (MeditationData mp : meditationDataList) {
-                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
-                                mp.getDuration();
-                        // Writing Contacts to log
-                        Log.d("Name: ", log);
+                                    try {
+                                        mediaPlayer.prepare();
+                                        Log.d(TAG, "run: media player prepare  "+ mediaPlayer);
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Log.d(TAG, "run: "+ mediaPlayer);
+                                    if(mediaPlayer !=null){
+                                        mediaPlayer.start();
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
 
-                    }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,
-                            formattedTime,formattedDay,
-                            "Amrit Varsha Dhyaan ",
-                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
-                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000))
-                            ,String.valueOf(year)));
-                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
-                    List<ReportData> reportDataList = rDb.getAllUserReportData();
-                    Log.d(TAG, "onClick: "+reportDataList);
-                    for (ReportData rp : reportDataList) {
-                        Log.d(TAG, "onClick: For loop");
-                        String reportLog = "Id: "+rp.getId() //0
-                                + ", Mode: "+ rp.getMode()   //1
-                                + ", User Time: "+ rp.getUserTime() //2
-                                + ", Actual Time: "+ rp.getActualTime() //3
-                                + ", Date : "+rp.getDate() //4
-                                + ", Time : "+rp.getTime()  //5
-                                + ", Day: "+rp.getDay()  //6
-                                + ", Type: "+rp.getType() //7
-                                + ", Audio Name : "+rp.getAudioName(); //8
-                        Log.d("Report: ",reportLog);
+                                        //  mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                        Log.d(TAG, "run: media player not null ");
+                                        if(pauseIsPressed){
+                                            mediaPlayer.seekTo(pausePosition+100);
+                                        }
+                                        mediaPlayer.setLooping(true);
+                                        soundTrackName.setText(R.string.song_four);
+                                        ImageViewName.setImageResource(R.drawable.bgmed3);
+                                        YoYo.with(Techniques.SlideInRight).duration(2000).playOn(ImageViewName);
+                                        YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
+                                        int audioSessionId  = mediaPlayer.getAudioSessionId();
+                                        if(audioSessionId != -1){
+                                            mVisulaizer.setVisibility(View.VISIBLE);
+
+                                            mVisulaizer.setAudioSessionId(audioSessionId);
+                                        }
+                                    }
+
+
+                                    else{
+                                        Log.d(TAG, "run: media Player not prepared ");
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+                    thread.start();
+
+                    if(mediaPlayer != null){
+                        Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                        long inserted =  mDb.addMeditationData(new MeditationData("No 4 Amrit Varsha Dhyaan",mediaPlayer.getDuration()));
+                        Log.d(TAG, "onClick: inserted: "+ inserted);
+                        List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                        for (MeditationData mp : meditationDataList) {
+                            String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                    mp.getDuration();
+                            // Writing Contacts to log
+                            Log.d("Name: ", log);
+
+                        }
+                        long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,
+                                formattedTime,formattedDay,
+                                "Amrit Varsha Dhyaan ",
+                                Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                                Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000))
+                                ,String.valueOf(year)));
+                        Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                        List<ReportData> reportDataList = rDb.getAllUserReportData();
+                        Log.d(TAG, "onClick: "+reportDataList);
+                        for (ReportData rp : reportDataList) {
+                            Log.d(TAG, "onClick: For loop");
+                            String reportLog = "Id: "+rp.getId() //0
+                                    + ", Mode: "+ rp.getMode()   //1
+                                    + ", User Time: "+ rp.getUserTime() //2
+                                    + ", Actual Time: "+ rp.getActualTime() //3
+                                    + ", Date : "+rp.getDate() //4
+                                    + ", Time : "+rp.getTime()  //5
+                                    + ", Day: "+rp.getDay()  //6
+                                    + ", Type: "+rp.getType() //7
+                                    + ", Audio Name : "+rp.getAudioName(); //8
+                            Log.d("Report: ",reportLog);
+                        }
+
                     }
 
                 }
                 else if(playButtonPressCount==5){
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
 
-                    mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_five);
-                    if(pauseIsPressed){
-                        mVisulaizer.setVisibility(View.VISIBLE);
-                        mediaPlayer.seekTo(pausePosition+100);
-                    }
-                    soundTrackName.setText(R.string.song_five);
-                    ImageViewName.setImageResource(R.drawable.bgmed5);
-                    YoYo.with(Techniques.ZoomInLeft).duration(2000).playOn(ImageViewName);
-                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
-                    mediaPlayer.start();
-                    mediaPlayer.setLooping(true);
-                    int audioSessionId  = mediaPlayer.getAudioSessionId();
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mediaPlayer = new MediaPlayer();
+                                    try {
+                                        mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
 
-                    if(audioSessionId != -1){
-                        mVisulaizer.setAudioSessionId(audioSessionId);
-                    }
-                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                    long inserted = mDb.addMeditationData(new MeditationData("No 5 Jyoti Avdhrnam Dhyaan",mediaPlayer.getDuration()));
-                    Log.d(TAG, "onClick: inserted" + inserted);
-                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
-                    for (MeditationData mp : meditationDataList) {
-                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
-                                mp.getDuration();
-                        // Writing Contacts to log
-                        Log.d("Name: ", log);
+                                    try {
+                                        mediaPlayer.prepare();
+                                        Log.d(TAG, "run: media player prepare  "+ mediaPlayer);
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Log.d(TAG, "run: "+ mediaPlayer);
+                                    if(mediaPlayer !=null){
+                                        mediaPlayer.start();
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
 
-                    }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",
-                            formattedDate,formattedTime,formattedDay,
-                            "Jyoti Avardhanam Dhyaan ",
-                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
-                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
-                            String.valueOf(year)));
-                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
-                    List<ReportData> reportDataList = rDb.getAllUserReportData();
-                    Log.d(TAG, "onClick: "+reportDataList);
-                    for (ReportData rp : reportDataList) {
-                        Log.d(TAG, "onClick: For loop");
-                        String reportLog = "Id: "+rp.getId() //0
-                                + ", Mode: "+ rp.getMode()   //1
-                                + ", User Time: "+ rp.getUserTime() //2
-                                + ", Actual Time: "+ rp.getActualTime() //3
-                                + ", Date : "+rp.getDate() //4
-                                + ", Time : "+rp.getTime()  //5
-                                + ", Day: "+rp.getDay()  //6
-                                + ", Type: "+rp.getType() //7
-                                + ", Audio Name : "+rp.getAudioName(); //8
-                        Log.d("Report: ",reportLog);
+                                        //  mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                        Log.d(TAG, "run: media player not null ");
+                                        if(pauseIsPressed){
+                                            mediaPlayer.seekTo(pausePosition+100);
+                                        }
+                                        mediaPlayer.setLooping(true);
+                                        soundTrackName.setText(R.string.song_five);
+                                        ImageViewName.setImageResource(R.drawable.bgmed5);
+                                        YoYo.with(Techniques.ZoomInLeft).duration(2000).playOn(ImageViewName);
+                                        YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
+                                        int audioSessionId  = mediaPlayer.getAudioSessionId();
+                                        if(audioSessionId != -1){
+                                            mVisulaizer.setVisibility(View.VISIBLE);
+
+                                            mVisulaizer.setAudioSessionId(audioSessionId);
+                                        }
+                                    }
+
+
+                                    else{
+                                        Log.d(TAG, "run: media Player not prepared ");
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+                    thread.start();
+
+                    if(mediaPlayer != null){
+                        Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                        long inserted = mDb.addMeditationData(new MeditationData("No 5 Jyoti Avdhrnam Dhyaan",mediaPlayer.getDuration()));
+                        Log.d(TAG, "onClick: inserted" + inserted);
+                        List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                        for (MeditationData mp : meditationDataList) {
+                            String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                    mp.getDuration();
+                            // Writing Contacts to log
+                            Log.d("Name: ", log);
+
+                        }
+                        long reportinserted = rDb.addUserReportData(new ReportData("Meditation",
+                                formattedDate,formattedTime,formattedDay,
+                                "Jyoti Avardhanam Dhyaan ",
+                                Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                                Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                                String.valueOf(year)));
+                        Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                        List<ReportData> reportDataList = rDb.getAllUserReportData();
+                        Log.d(TAG, "onClick: "+reportDataList);
+                        for (ReportData rp : reportDataList) {
+                            Log.d(TAG, "onClick: For loop");
+                            String reportLog = "Id: "+rp.getId() //0
+                                    + ", Mode: "+ rp.getMode()   //1
+                                    + ", User Time: "+ rp.getUserTime() //2
+                                    + ", Actual Time: "+ rp.getActualTime() //3
+                                    + ", Date : "+rp.getDate() //4
+                                    + ", Time : "+rp.getTime()  //5
+                                    + ", Day: "+rp.getDay()  //6
+                                    + ", Type: "+rp.getType() //7
+                                    + ", Audio Name : "+rp.getAudioName(); //8
+                            Log.d("Report: ",reportLog);
+                        }
+
+
                     }
 
                 }
                 else if(playButtonPressCount==6){
-                    mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_six);
-                    if(pauseIsPressed){
-                        mediaPlayer.seekTo(pausePosition+100);
-                    }
-                    mediaPlayer.setLooping(true);
-                    soundTrackName.setText(R.string.song_six);
-                    ImageViewName.setImageResource(R.drawable.bgmed6);
-                    YoYo.with(Techniques.BounceInLeft).duration(2000).playOn(ImageViewName);
-                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
-                    mediaPlayer.start();
-                    int audioSessionId  = mediaPlayer.getAudioSessionId();
-                    if(audioSessionId != -1){
-                        mVisulaizer.setVisibility(View.VISIBLE);
-                        mVisulaizer.setAudioSessionId(audioSessionId);
-                    }
 
-                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                long inserted =     mDb.addMeditationData(new MeditationData("No 6 Naad yog Dhyaan",mediaPlayer.getDuration()));
-                    Log.d(TAG, "onClick: inserted "+ inserted);
-                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
-                    for (MeditationData mp : meditationDataList) {
-                        String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
-                                mp.getDuration();
-                        // Writing Contacts to log
-                        Log.d("Name: ", log);
+                    final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
 
-                    }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,
-                            "Naad Yog Dhyaan ",
-                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
-                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),String.valueOf(year)));
-                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
-                    List<ReportData> reportDataList = rDb.getAllUserReportData();
-                    Log.d(TAG, "onClick: "+reportDataList);
-                    for (ReportData rp : reportDataList) {
-                        Log.d(TAG, "onClick: For loop");
-                        String reportLog = "Id: "+rp.getId() //0
-                                + ", Mode: "+ rp.getMode()   //1
-                                + ", User Time: "+ rp.getUserTime() //2
-                                + ", Actual Time: "+ rp.getActualTime() //3
-                                + ", Date : "+rp.getDate() //4
-                                + ", Time : "+rp.getTime()  //5
-                                + ", Day: "+rp.getDay()  //6
-                                + ", Type: "+rp.getType() //7
-                                + ", Audio Name : "+rp.getAudioName(); //8
-                        Log.d("Report: ",reportLog);
-                    }
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mediaPlayer = new MediaPlayer();
+                                    try {
+                                        mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    try {
+                                        mediaPlayer.prepare();
+                                        Log.d(TAG, "run: media player prepare  "+ mediaPlayer);
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Log.d(TAG, "run: "+ mediaPlayer);
+                                    if(mediaPlayer !=null){
+                                        mediaPlayer.start();
+                                        Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                        Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                        Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+
+                                        //  mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                        Log.d(TAG, "run: media player not null ");
+                                        if(pauseIsPressed){
+                                            mediaPlayer.seekTo(pausePosition+100);
+                                        }
+                                        mediaPlayer.setLooping(true);
+                                        soundTrackName.setText(R.string.song_six);
+                                        ImageViewName.setImageResource(R.drawable.bgmed6);
+                                        YoYo.with(Techniques.BounceInLeft).duration(2000).playOn(ImageViewName);
+                                        YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);  int audioSessionId  = mediaPlayer.getAudioSessionId();
+
+                                        if(audioSessionId != -1){
+                                            mVisulaizer.setVisibility(View.VISIBLE);
+
+                                            mVisulaizer.setAudioSessionId(audioSessionId);
+                                        }
+                                    }
+
+
+                                    else{
+                                        Log.d(TAG, "run: media Player not prepared ");
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+                    thread.start();
+
+                   if(mediaPlayer != null){
+                       Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                       long inserted =     mDb.addMeditationData(new MeditationData("No 6 Naad yog Dhyaan",mediaPlayer.getDuration()));
+                       Log.d(TAG, "onClick: inserted "+ inserted);
+                       List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                       for (MeditationData mp : meditationDataList) {
+                           String log = "Id: " + mp.getId() + " ,Audiio Nsme : " + mp.getAudioName() + " ,Duration Time: " +
+                                   mp.getDuration();
+                           // Writing Contacts to log
+                           Log.d("Name: ", log);
+
+                       }
+                       long reportinserted = rDb.addUserReportData(new ReportData("Meditation",formattedDate,formattedTime,formattedDay,
+                               "Naad Yog Dhyaan ",
+                               Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                               Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),String.valueOf(year)));
+                       Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                       List<ReportData> reportDataList = rDb.getAllUserReportData();
+                       Log.d(TAG, "onClick: "+reportDataList);
+                       for (ReportData rp : reportDataList) {
+                           Log.d(TAG, "onClick: For loop");
+                           String reportLog = "Id: "+rp.getId() //0
+                                   + ", Mode: "+ rp.getMode()   //1
+                                   + ", User Time: "+ rp.getUserTime() //2
+                                   + ", Actual Time: "+ rp.getActualTime() //3
+                                   + ", Date : "+rp.getDate() //4
+                                   + ", Time : "+rp.getTime()  //5
+                                   + ", Day: "+rp.getDay()  //6
+                                   + ", Type: "+rp.getType() //7
+                                   + ", Audio Name : "+rp.getAudioName(); //8
+                           Log.d("Report: ",reportLog);
+                       }
+
+                   }
 
                 }
                 else if(playButtonPressCount==7){
 
-                    mediaPlayer = MediaPlayer.create(getBaseContext(),R.raw.day_seven);
-                    if(pauseIsPressed){
-                        mediaPlayer.seekTo(pausePosition+100);
-                    }
-                    mediaPlayer.setLooping(true);
-                    soundTrackName.setText(R.string.song_seven);
-                    ImageViewName.setImageResource(R.drawable.bgmed7);
-                    YoYo.with(Techniques.RotateInUpLeft).duration(2000).playOn(ImageViewName);
-                    YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
+
+                       final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+
+                       Thread thread = new Thread(new Runnable() {
+                           @Override
+                           public void run() {
+                               runOnUiThread(new Runnable() {
+                                   @Override
+                                   public void run() {
+                                       mediaPlayer = new MediaPlayer();
+                                       try {
+                                           mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
+                                       } catch (IOException e) {
+                                           e.printStackTrace();
+                                       }
+
+                                       try {
+                                           mediaPlayer.prepare();
+                                           Log.d(TAG, "run: media player prepare  "+ mediaPlayer);
+                                           Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                           Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                           Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+                                       } catch (Exception e) {
+                                           e.printStackTrace();
+                                       }
+                                       Log.d(TAG, "run: "+ mediaPlayer);
+                                       if(mediaPlayer !=null){
+                                           mediaPlayer.start();
+                                           Log.d(TAG, "run: audio session id "+ mediaPlayer.getAudioSessionId());
+                                           Log.d(TAG, "run:  duration "+ mediaPlayer.getDuration());
+                                           Log.d(TAG, "run:  current position "+ mediaPlayer.getCurrentPosition());
+
+                                           //  mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                           Log.d(TAG, "run: media player not null ");
+                                           if(pauseIsPressed){
+                                               mediaPlayer.seekTo(pausePosition+100);
+                                           }
+                                           mediaPlayer.setLooping(true);
+                                           soundTrackName.setText(R.string.song_seven);
+                                           ImageViewName.setImageResource(R.drawable.bgmed7);
+                                           YoYo.with(Techniques.RotateInUpLeft).duration(2000).playOn(ImageViewName);
+                                           YoYo.with(Techniques.FadeIn).duration(1000).delay(1000).playOn(mVisulaizer);
+                                           int audioSessionId  = mediaPlayer.getAudioSessionId();
+
+                                           if(audioSessionId != -1){
+                                               mVisulaizer.setVisibility(View.VISIBLE);
+                                               mVisulaizer.setAudioSessionId(audioSessionId);
+                                           }
+                                       }
+
+                                       
+                                       else{
+                                           Log.d(TAG, "run: media Player not prepared ");
+                                       }
+                                      
+                                   }
+                               });
+                           }
+                       });
+                       thread.start();
+
                     playButtonPressCount=0;
-                    mediaPlayer.start();
-                    int audioSessionId  = mediaPlayer.getAudioSessionId();
 
-                    if(audioSessionId != -1){
-                        mVisulaizer.setAudioSessionId(audioSessionId);
-                    }
-                    Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
-                    long inserted = mDb.addMeditationData(new MeditationData("No 7 Tatv Bodh Dhyaan",mediaPlayer.getDuration()));
-                    Log.d(TAG, "onClick: inserted : "+ inserted);
-                    List<MeditationData> meditationDataList = mDb.getAllMeditationData();
-                    for (MeditationData mp : meditationDataList) {
-                        String log = "Id: " + mp.getId() + " ,Audio Name : " + mp.getAudioName() + " ,Duration Time: " +
-                         mp.getDuration();
-                        // Writing Contacts to log
-                        Log.d("Name: ", log);
 
+
+                    if(mediaPlayer != null){
+                        Log.d(TAG, "onClick: Position " + mediaPlayer.getCurrentPosition());
+                        long inserted = mDb.addMeditationData(new MeditationData("No 7 Tatv Bodh Dhyaan",mediaPlayer.getDuration()));
+                        Log.d(TAG, "onClick: inserted : "+ inserted);
+                        List<MeditationData> meditationDataList = mDb.getAllMeditationData();
+                        for (MeditationData mp : meditationDataList) {
+                            String log = "Id: " + mp.getId() + " ,Audio Name : " + mp.getAudioName() + " ,Duration Time: " +
+                                    mp.getDuration();
+                            // Writing Contacts to log
+                            Log.d("Name: ", log);
+
+                        }
+                        long reportinserted = rDb.addUserReportData(new ReportData("Meditation",
+                                formattedDate,formattedTime,formattedDay,
+                                "Tatv Bodh Dhyaan ",
+                                Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
+                                Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),String.valueOf(year)));
+                        Log.d(TAG, "onClick: report inserted : "+reportinserted);
+                        List<ReportData> reportDataList = rDb.getAllUserReportData();
+                        Log.d(TAG, "onClick: "+reportDataList);
+                        for (ReportData rp : reportDataList) {
+                            Log.d(TAG, "onClick: For loop");
+                            String reportLog = "Id: "+rp.getId() //0
+                                    + ", Mode: "+ rp.getMode()   //1
+                                    + ", User Time: "+ rp.getUserTime() //2
+                                    + ", Actual Time: "+ rp.getActualTime() //3
+                                    + ", Date : "+rp.getDate() //4
+                                    + ", Time : "+rp.getTime()  //5
+                                    + ", Day: "+rp.getDay()  //6
+                                    + ", Type: "+rp.getType() //7
+                                    + ", Audio Name : "+rp.getAudioName(); //8
+                            Log.d("Report: ",reportLog);
+                        }
                     }
-                    long reportinserted = rDb.addUserReportData(new ReportData("Meditation",
-                            formattedDate,formattedTime,formattedDay,
-                            "Tatv Bodh Dhyaan ",
-                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),
-                            Long.parseLong(String.valueOf(mediaPlayer.getDuration()/60000)),String.valueOf(year)));
-                    Log.d(TAG, "onClick: report inserted : "+reportinserted);
-                    List<ReportData> reportDataList = rDb.getAllUserReportData();
-                    Log.d(TAG, "onClick: "+reportDataList);
-                    for (ReportData rp : reportDataList) {
-                        Log.d(TAG, "onClick: For loop");
-                        String reportLog = "Id: "+rp.getId() //0
-                                + ", Mode: "+ rp.getMode()   //1
-                                + ", User Time: "+ rp.getUserTime() //2
-                                + ", Actual Time: "+ rp.getActualTime() //3
-                                + ", Date : "+rp.getDate() //4
-                                + ", Time : "+rp.getTime()  //5
-                                + ", Day: "+rp.getDay()  //6
-                                + ", Type: "+rp.getType() //7
-                                + ", Audio Name : "+rp.getAudioName(); //8
-                        Log.d("Report: ",reportLog);
-                    }
+
 
                 }
 
@@ -573,9 +907,9 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                 playButton.setEnabled(true);
                 pauseIsPressed = false;
                 pausePosition = 0;
-                Log.d(TAG, "onClick: stop button clicked "+mediaPlayer.getCurrentPosition()/1000 +" seconds" );
+              Log.d(TAG, "onClick: stop button clicked "+mediaPlayer.getCurrentPosition()/1000 +" seconds" );
                 int lastid = rDb.getLastId();
-                rDb.updateData(String.valueOf(lastid),(float)mediaPlayer.getCurrentPosition()/60000);
+               rDb.updateData(String.valueOf(lastid),(float)mediaPlayer.getCurrentPosition()/60000);
                 mediaPlayer.stop();
 
             }
@@ -623,16 +957,6 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
             // Handle the camera action
             Intent reportsIntet = new Intent(MeditationActivity.this,ReportActivity.class);
             startActivity(reportsIntet);
-        } else if (id == R.id.jap_reports) {
-
-        } else if (id == R.id.meditation_reports) {
-
-        } else if (id == R.id.swadhyay_reports) {
-
-        } else if (id == R.id.yagya_reports) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
