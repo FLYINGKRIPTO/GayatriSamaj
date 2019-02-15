@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_scrolling"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -39,6 +48,19 @@
 
 
 </android.support.design.widget.CoordinatorLayout>
+    <com.rom4ek.arcnavigationview.ArcNavigationView
+        android:id="@+id/nav_view_scrolling"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white"
+        android:fitsSystemWindows="true"
+        app:itemBackground="@android:color/white"
+        app:headerLayout="@layout/nav_header_front"
+        app:menu="@menu/activity_front_drawer"
+        app:arc_cropDirection="cropInside"
+        app:arc_width="@dimen/arc_width"/>
+</android.support.v4.widget.DrawerLayout>
 
 <!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

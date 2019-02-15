@@ -71,11 +71,11 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
 
 
 
-        PieChart pieChart = findViewById(R.id.pieChart);
-        PieChart japDataChart = findViewById(R.id.japDataPieChart);
-        PieChart meditaionDataPieChart =  findViewById(R.id.meditationDataPieChart);
-        PieChart timeComparisionChart = findViewById(R.id.timeCompare);
-        BarChart dayWiseTimeChart  = findViewById(R.id.dayWiseBarChart);
+        final PieChart pieChart = findViewById(R.id.pieChart);
+        final PieChart japDataChart = findViewById(R.id.japDataPieChart);
+        final PieChart meditaionDataPieChart =  findViewById(R.id.meditationDataPieChart);
+        final PieChart timeComparisionChart = findViewById(R.id.timeCompare);
+        final BarChart dayWiseTimeChart  = findViewById(R.id.dayWiseBarChart);
         PieChart monthlyTimeChart = findViewById(R.id.monthlyReport);
 
         //Pie chart for past 30 days data
@@ -110,104 +110,110 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         */
       //Total modes Pie Chart
 
-                ArrayList<PieEntry> totalModes = new ArrayList<>();
-                totalModes.add(new PieEntry((float)rDb.totalJaps(),"Japs"));
-                totalModes.add(new PieEntry((float)rDb.totalMeditations(),"Meditations"));
-                totalModes.add(new PieEntry((float)rDb.totalSwadhyay(),"Swadhyay"));
-                totalModes.add(new PieEntry((float)rDb.totalYagya(),"Yagya"));
+                     ArrayList<PieEntry> totalModes = new ArrayList<>();
+                     totalModes.add(new PieEntry((float)rDb.totalJaps(),"Japs"));
+                     totalModes.add(new PieEntry((float)rDb.totalMeditations(),"Meditations"));
+                     totalModes.add(new PieEntry((float)rDb.totalSwadhyay(),"Swadhyay"));
+                     totalModes.add(new PieEntry((float)rDb.totalYagya(),"Yagya"));
 
-                PieDataSet dataSet = new PieDataSet(totalModes,"Different Modes");
+                     PieDataSet dataSet = new PieDataSet(totalModes,"Different Modes");
 
-                PieData data = new PieData(dataSet);
-                pieChart.setData(data);
-                pieChart.setCenterText("Modes");
-                dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
-                pieChart.setEntryLabelColor(Color.BLACK);
-                dataSet.setSliceSpace(1f);
-                pieChart.animateXY(3000, 3000);
-                pieChart.setUsePercentValues(true);
+                     PieData data = new PieData(dataSet);
+                     pieChart.setData(data);
+                     pieChart.setCenterText("Modes");
+                     dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+                     pieChart.setEntryLabelColor(Color.BLACK);
+                     dataSet.setSliceSpace(1f);
+                     pieChart.animateXY(3000, 3000);
+                     pieChart.setUsePercentValues(true);
+
 
 
 
 
 
         //Jap data PieChart
-        ArrayList<PieEntry> japDataList = new ArrayList<>();
-        japDataList.add(new PieEntry((float)jDb.totalbyTime(),"by Time"));
-        japDataList.add(new PieEntry((float)jDb.totalbyMala(),"by Mala"));
-        japDataList.add(new PieEntry((float)jDb.totalwithGurudev(),"with Pujya Gurudev"));
-        japDataList.add(new PieEntry((float)jDb.totalwithMataji(),"with Pujya Mataji"));
-
-        PieDataSet japDataSet = new PieDataSet(japDataList,"Different Jap Modes");
-
-        PieData Japdata = new PieData(japDataSet);
-        japDataChart.setData(Japdata);
-        japDataChart.setCenterText("Jap Modes");
-        japDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
-        japDataChart.setEntryLabelColor(Color.BLACK);
-        japDataSet.setSliceSpace(1f);
-        japDataChart.animateXY(2000, 2000);
 
 
-        //Meditation Data PieChart
-        ArrayList<PieEntry> meditationDataList = new ArrayList<PieEntry>();
-        meditationDataList.add(new PieEntry(mDb.totalSong1(),"Atam Bodh Dhyan"));
-        meditationDataList.add(new PieEntry(mDb.totalSong2(),"Panchkosh Dhyaan"));
-        meditationDataList.add(new PieEntry(mDb.totalSong3(),"Sharir Dhyaan"));
-        meditationDataList.add(new PieEntry(mDb.totalSong4(),"Amrit Varsha Dhyaan"));
-        meditationDataList.add(new PieEntry(mDb.totalSong5(),"Jyoti Avdhrnam Dhyaan"));
-        meditationDataList.add(new PieEntry(mDb.totalSong6(),"Naad yog Dhyaan"));
-        meditationDataList.add(new PieEntry(mDb.totalSong7(),"Tatv Bodh Dhyaan"));
+                ArrayList<PieEntry> japDataList = new ArrayList<>();
+                japDataList.add(new PieEntry((float)jDb.totalbyTime(),"by Time"));
+                japDataList.add(new PieEntry((float)jDb.totalbyMala(),"by Mala"));
+                japDataList.add(new PieEntry((float)jDb.totalwithGurudev(),"with Pujya Gurudev"));
+                japDataList.add(new PieEntry((float)jDb.totalwithMataji(),"with Pujya Mataji"));
 
-        PieDataSet meditationDataSet = new PieDataSet(meditationDataList,"Meditation Tracks");
-        PieData meditatationData = new PieData(meditationDataSet);
-        meditaionDataPieChart.setData(meditatationData);
-        meditaionDataPieChart.setCenterText("Meditation Audios");
-        meditationDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
-        meditaionDataPieChart.setEntryLabelColor(Color.BLACK);
-        meditationDataSet.setSliceSpace(1f);
-        meditaionDataPieChart.animateXY(2000, 2000);
+                PieDataSet japDataSet = new PieDataSet(japDataList,"Different Jap Modes");
+
+                PieData Japdata = new PieData(japDataSet);
+                japDataChart.setData(Japdata);
+                japDataChart.setCenterText("Jap Modes");
+                japDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+                japDataChart.setEntryLabelColor(Color.BLACK);
+                japDataSet.setSliceSpace(1f);
+                japDataChart.animateXY(2000, 2000);
+
+
+                //Meditation Data PieChart
+                ArrayList<PieEntry> meditationDataList = new ArrayList<PieEntry>();
+                meditationDataList.add(new PieEntry(mDb.totalSong1(),"Atam Bodh Dhyan"));
+                meditationDataList.add(new PieEntry(mDb.totalSong2(),"Panchkosh Dhyaan"));
+                meditationDataList.add(new PieEntry(mDb.totalSong3(),"Sharir Dhyaan"));
+                meditationDataList.add(new PieEntry(mDb.totalSong4(),"Amrit Varsha Dhyaan"));
+                meditationDataList.add(new PieEntry(mDb.totalSong5(),"Jyoti Avdhrnam Dhyaan"));
+                meditationDataList.add(new PieEntry(mDb.totalSong6(),"Naad yog Dhyaan"));
+                meditationDataList.add(new PieEntry(mDb.totalSong7(),"Tatv Bodh Dhyaan"));
+
+                PieDataSet meditationDataSet = new PieDataSet(meditationDataList,"Meditation Tracks");
+                PieData meditatationData = new PieData(meditationDataSet);
+                meditaionDataPieChart.setData(meditatationData);
+                meditaionDataPieChart.setCenterText("Meditation Audios");
+                meditationDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+                meditaionDataPieChart.setEntryLabelColor(Color.BLACK);
+                meditationDataSet.setSliceSpace(1f);
+                meditaionDataPieChart.animateXY(2000, 2000);
+
 
         //Time Comparision pie chart
 
-        ArrayList<PieEntry> timeCompareDataList = new ArrayList<PieEntry>();
-        timeCompareDataList.add(new PieEntry(rDb.sumUserTime(),"Entered Time"));
-        timeCompareDataList.add(new PieEntry(rDb.sumActualTime(), "Followed Time"));
 
-        PieDataSet timeCompareDataSet = new PieDataSet(timeCompareDataList,"Time Comparision");
-        PieData timeCompareData = new PieData(timeCompareDataSet);
-        timeComparisionChart.setData(timeCompareData);
-        timeComparisionChart.setCenterText("Entered Time V/S Followed Time");
-        timeCompareDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
-        timeCompareDataSet.setSliceSpace(1f);
-        timeComparisionChart.setEntryLabelColor(Color.BLACK);
-        timeComparisionChart.animateXY(2000,2000);
+                ArrayList<PieEntry> timeCompareDataList = new ArrayList<PieEntry>();
+                timeCompareDataList.add(new PieEntry(rDb.sumUserTime(),"Entered Time"));
+                timeCompareDataList.add(new PieEntry(rDb.sumActualTime(), "Followed Time"));
 
-
-        //Day Wise Bar Chart
-
-        ArrayList<BarEntry> dayWiseTime = new ArrayList<BarEntry>();
-        dayWiseTime.add(new BarEntry(1,rDb.totalDaysTime(0)));
-        dayWiseTime.add(new BarEntry(2,rDb.totalDaysTime(1)));
-        dayWiseTime.add(new BarEntry(3, rDb.totalDaysTime(2)));
-        dayWiseTime.add(new BarEntry(4, rDb.totalDaysTime(3)));
-        dayWiseTime.add(new BarEntry(5,rDb.totalDaysTime(4)));
-        dayWiseTime.add(new BarEntry(6,rDb.totalDaysTime(5)));
-        dayWiseTime.add(new BarEntry(7,rDb.totalDaysTime(6)));
-
-        BarDataSet dayWiseTimeBar = new BarDataSet(dayWiseTime,"Day Wise Comparision");
-        BarData barData = new BarData(dayWiseTimeBar);
-        dayWiseTimeChart.setData(barData);
-        dayWiseTimeBar.setLabel("Days");
-        String [] labels = {"","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
-        dayWiseTimeBar.setStackLabels(labels);
-        dayWiseTimeChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-        dayWiseTimeBar.setColors(ColorTemplate.JOYFUL_COLORS);
-        dayWiseTimeChart.animateXY(6000,6000);
-        dayWiseTimeBar.setBarBorderColor(Color.BLACK);
+                PieDataSet timeCompareDataSet = new PieDataSet(timeCompareDataList,"Time Comparision");
+                PieData timeCompareData = new PieData(timeCompareDataSet);
+                timeComparisionChart.setData(timeCompareData);
+                timeComparisionChart.setCenterText("Entered Time V/S Followed Time");
+                timeCompareDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+                timeCompareDataSet.setSliceSpace(1f);
+                timeComparisionChart.setEntryLabelColor(Color.BLACK);
+                timeComparisionChart.animateXY(2000,2000);
 
 
-        Calendar calender = Calendar.getInstance();
+                //Day Wise Bar Chart
+
+                ArrayList<BarEntry> dayWiseTime = new ArrayList<BarEntry>();
+                dayWiseTime.add(new BarEntry(1,rDb.totalDaysTime(0)));
+                dayWiseTime.add(new BarEntry(2,rDb.totalDaysTime(1)));
+                dayWiseTime.add(new BarEntry(3, rDb.totalDaysTime(2)));
+                dayWiseTime.add(new BarEntry(4, rDb.totalDaysTime(3)));
+                dayWiseTime.add(new BarEntry(5,rDb.totalDaysTime(4)));
+                dayWiseTime.add(new BarEntry(6,rDb.totalDaysTime(5)));
+                dayWiseTime.add(new BarEntry(7,rDb.totalDaysTime(6)));
+
+                BarDataSet dayWiseTimeBar = new BarDataSet(dayWiseTime,"Day Wise Comparision");
+                BarData barData = new BarData(dayWiseTimeBar);
+                dayWiseTimeChart.setData(barData);
+                dayWiseTimeBar.setLabel("Days");
+                String [] labels = {"","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+                dayWiseTimeBar.setStackLabels(labels);
+                dayWiseTimeChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
+                dayWiseTimeBar.setColors(ColorTemplate.JOYFUL_COLORS);
+                dayWiseTimeChart.animateXY(6000,6000);
+                dayWiseTimeBar.setBarBorderColor(Color.BLACK);
+
+
+
+                Calendar calender = Calendar.getInstance();
         Calendar calender2 = Calendar.getInstance();
         Log.d(TAG, "onCreate: Current Week : "+ calender.get(Calendar.WEEK_OF_YEAR));
         Log.d(TAG, "onCreate: Current Month : "+ calender.get(Calendar.MONTH)+1);
@@ -265,6 +271,8 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
 
         //   Log.d(TAG, "onCreate: previous month Jap data "+ rDb.oneMonthData(calender.get(Calendar.DATE),calender.get(Calendar.MONTH),0));
       //Past 30 days
+
+
         ArrayList<PieEntry> pastThirtyDataList = new ArrayList<PieEntry>();
         pastThirtyDataList.add(new PieEntry(past_thirty_jap_time,"JAP"));
         pastThirtyDataList.add(new PieEntry(past_thirty_med_time,"MEDITATION"));

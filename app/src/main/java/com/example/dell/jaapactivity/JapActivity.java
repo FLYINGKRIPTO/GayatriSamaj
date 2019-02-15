@@ -5,16 +5,25 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -40,7 +49,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class JapActivity extends Activity {
+public class JapActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener {
     Spinner options_spinner;
     MyCountdownTimer myCountdownTimer;
     Context context;
@@ -113,6 +122,19 @@ public class JapActivity extends Activity {
         //Current date and time
         Date currentTime = Calendar.getInstance().getTime();
 
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.BLACK);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_scrolling);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_scrolling);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
         SimpleDateFormat df = new SimpleDateFormat("MMM");
         final String formattedDate = df.format(currentTime);
@@ -624,6 +646,30 @@ public class JapActivity extends Activity {
         });
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if (id == R.id.all_reports) {
+            // Handle the camera action
+            Intent reportsIntet = new Intent(JapActivity.this,ReportActivity.class);
+            startActivity(reportsIntet);
+        } else if (id == R.id.jap_reports) {
+
+        } else if (id == R.id.meditation_reports) {
+
+        } else if (id == R.id.swadhyay_reports) {
+
+        } else if (id == R.id.yagya_reports) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
 
     public class MyCountdownTimer extends CountDownTimer {

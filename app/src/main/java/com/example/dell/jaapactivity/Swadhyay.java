@@ -2,13 +2,21 @@ package com.example.dell.jaapactivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +33,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class Swadhyay extends AppCompatActivity {
+public class Swadhyay extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
      EditText swadhyayTime;
      TextView swadhyayTextView;
      TextView swadhyayaTv;
@@ -48,6 +56,19 @@ public class Swadhyay extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swadhyay);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_scrolling);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_scrolling);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
         swadhyayTextView = findViewById(R.id.textViewSwadhyay);
         timerTextView = findViewById(R.id.swadhyayTimer);
         startSwadhyay = findViewById(R.id.startSwadhyay);
@@ -241,6 +262,32 @@ public class Swadhyay extends AppCompatActivity {
          });
 
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if (id == R.id.all_reports) {
+            // Handle the camera action
+            Intent reportsIntet = new Intent(Swadhyay.this,ReportActivity.class);
+            startActivity(reportsIntet);
+        } else if (id == R.id.jap_reports) {
+
+        } else if (id == R.id.meditation_reports) {
+
+        } else if (id == R.id.swadhyay_reports) {
+
+        } else if (id == R.id.yagya_reports) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
     public class MyCountdownTimer extends CountDownTimer {
 
         /**
