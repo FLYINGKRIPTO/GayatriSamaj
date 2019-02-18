@@ -13,7 +13,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -205,8 +204,8 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
             Intent intent = new Intent(ScrollingActivity.this,ChatActivity.class);
             startActivity(intent);
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+      //  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+      //  drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
