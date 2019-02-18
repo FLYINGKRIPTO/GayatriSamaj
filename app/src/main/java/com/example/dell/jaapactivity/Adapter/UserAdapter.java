@@ -3,6 +3,7 @@ package com.example.dell.jaapactivity.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.example.dell.jaapactivity.R;
 
 import java.util.List;
 
+import static android.support.constraint.Constraints.TAG;
+
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private Context mContext;
     private List<User> mUsers;
@@ -24,7 +27,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         this.mContext = mContext;
 
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -35,7 +37,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        User user = mUsers.get(i);
+        final User user = mUsers.get(i);
         viewHolder.username.setText(user.getUsername());
         if(user.getImageURL().equals("default")){
             viewHolder.profile_image.setImageResource(R.mipmap.ic_launcher);
@@ -46,25 +48,30 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             Glide.with(mContext).load(user.getImageURL()).into(viewHolder.profile_image);
 
         }
+
     }
+    public class ViewHolder extends RecyclerView.ViewHolder{
+
+        public  TextView username;
+        public  ImageView profile_image;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            username =itemView.findViewById(R.id.username);
+            Log.d(TAG, "ViewHolder: "+ username);
+            profile_image = itemView.findViewById(R.id.profile_image);
+
+        }
+
+    }
+
+
 
     @Override
     public int getItemCount() {
         return mUsers.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView username;
-        public ImageView profile_image;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-           username =itemView.findViewById(R.id.username);
-           profile_image = itemView.findViewById(R.id.profile_image);
-
-        }
-
-    }
 
 }
