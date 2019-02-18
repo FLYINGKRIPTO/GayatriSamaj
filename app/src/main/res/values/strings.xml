@@ -154,4 +154,7 @@
     <string name="swadhyay_button">Swadhyay Button</string>
     <string name="meditation_button">meditation Button</string>
     <string name="jap_button">Jap Button</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

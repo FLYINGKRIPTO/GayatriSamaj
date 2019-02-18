@@ -201,6 +201,10 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
             Intent intent  = new Intent(ScrollingActivity.this,YagyaActivity.class);
             startActivity(intent);
         }
+        if(id == R.id.chat){
+            Intent intent = new Intent(ScrollingActivity.this,ChatActivity.class);
+            startActivity(intent);
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

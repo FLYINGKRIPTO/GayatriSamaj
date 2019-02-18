@@ -24,6 +24,10 @@
             android:id="@+id/yagyaInMenu"
             android:icon="@drawable/gg4"
             android:title="Yagya" />
+        <item
+            android:id="@+id/chat"
+            android:icon="@drawable/mail"
+            android:title="chat"/>
 
     </group>
 
