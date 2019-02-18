@@ -37,7 +37,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.dell.jaapactivity.Jap.JapData;
 import com.example.dell.jaapactivity.Jap.JapDatabaseHandler;
 import com.example.dell.jaapactivity.ReportManager.ReportData;
@@ -99,7 +98,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
        LinearLayout buttonLayout;
     //Report Manager Database
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
-    RoundCornerProgressBar progress1;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -158,11 +157,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
 
         buttonLayout = findViewById(R.id.linearLayoutToShift);
         final RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) buttonLayout.getLayoutParams();
-        progress1 = findViewById(R.id.rcProgress);
 
-        progress1.setMax(100);
-        progress1.setProgress(0);
-        progress1.setVisibility(View.INVISIBLE);
       //  LinearTimerView linearTimerView= findViewById(R.id.linearTimer);
         //LinearTimer linearTimer = new LinearTimer
         //     .duration(millisUntilFinished * 1000)
@@ -700,8 +695,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
             timer_text.setText(hms);
-            progress1.setVisibility(View.VISIBLE);
-            progress1.setProgress(millisUntilFinished/time_in_milli*100);
+
             sendNotification(hms);
          //   long percentProgress = (millisUntilFinished/time_in_milli)*100;
           //  donutProgress.setProgress(percentProgress);

@@ -21,7 +21,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".SplashActivity"
+        <activity android:name=".startActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".startActivity"
+            />
+        <activity android:name=".RegisterActivity"
+            android:parentActivityName=".startActivity"
+            />
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,12 +42,8 @@
         <activity
             android:name=".ScrollingActivity"
             android:label="Gayatri Samaj"
-            android:theme="@style/AppTheme">
-
-        </activity>
-        <activity
-            android:name=".ReportActivity"
-           />
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ReportActivity" />
         <activity
             android:name=".YagyaActivity"
             android:theme="@style/AppTheme" />
@@ -55,7 +61,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".FrontActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

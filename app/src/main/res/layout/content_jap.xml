@@ -57,21 +57,7 @@
             android:visibility="invisible"
             android:text=" "
             />
-       <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-           android:layout_width="200dp"
-           android:id="@+id/rcProgress"
-           android:layout_height="60dp"
-           android:layout_marginTop="20dp"
-           app:rcProgress="0"
-           app:rcSecondaryProgress="0"
-           app:rcMax="100"
-           app:rcRadius="50dp"
-           app:rcBackgroundPadding="10dp"
-           app:rcReverse="true"
-           app:rcProgressColor="#f9f9f9"
-           android:layout_gravity="center"
-           app:rcSecondaryProgressColor="#32B5E6"
-           app:rcBackgroundColor="#3A3A3A" />
+
 
 
 </LinearLayout>
