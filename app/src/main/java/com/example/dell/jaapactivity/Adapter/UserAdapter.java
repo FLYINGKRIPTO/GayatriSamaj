@@ -38,6 +38,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         final User user = mUsers.get(i);
+        Log.d(TAG, "onBindViewHolder: name : "+ user.getUsername());
         viewHolder.username.setText(user.getUsername());
         if(user.getImageURL().equals("default")){
             viewHolder.profile_image.setImageResource(R.mipmap.ic_launcher);
@@ -49,6 +50,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         }
 
+
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -57,15 +59,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            username =itemView.findViewById(R.id.username);
+            username =itemView.findViewById(R.id.usernamet);
             Log.d(TAG, "ViewHolder: "+ username);
-            profile_image = itemView.findViewById(R.id.profile_image);
+            profile_image = itemView.findViewById(R.id.profile_imaget);
 
         }
 
     }
-
-
 
     @Override
     public int getItemCount() {
