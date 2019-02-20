@@ -25,6 +25,10 @@
         android:layout_marginTop="10dp"
         android:textSize="15sp"
         />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <EditText
         android:id="@+id/emailid"
         android:layout_width="match_parent"
@@ -34,6 +38,23 @@
         android:padding="20dp"
         android:textSize="15sp"
         />
+        <TextView
+            android:id="@+id/verify_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verify"
+            android:visibility="invisible"
+            android:clickable="false"
+            android:textColor="@color/av_dark_blue"
+            android:textStyle="bold"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="30dp"
+            android:padding="10dp"
+
+            />
+
+    </FrameLayout>
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
@@ -42,6 +63,35 @@
         android:inputType="textPassword"
         android:padding="20dp"
         android:textSize="15sp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:hint="Enter Your Number"
+        android:padding="20dp"
+        android:textSize="15sp"
+        />
+        <TextView
+            android:id="@+id/verify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verify"
+            android:textColor="@color/av_dark_blue"
+            android:textStyle="bold"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="30dp"
+            android:padding="10dp"
+
+            />
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/register"

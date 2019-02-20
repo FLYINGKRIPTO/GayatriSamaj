@@ -1,6 +1,7 @@
 package com.example.dell.jaapactivity.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.dell.jaapactivity.MessageActivity;
 import com.example.dell.jaapactivity.Model.User;
 import com.example.dell.jaapactivity.R;
 
@@ -35,7 +37,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         final User user = mUsers.get(i);
         Log.d(TAG, "onBindViewHolder: name : "+ user.getUsername());
@@ -49,6 +51,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             Glide.with(mContext).load(user.getImageURL()).into(viewHolder.profile_image);
 
         }
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MessageActivity.class);
+                intent.putExtra("userid",user.getId());
+                mContext.startActivity(intent);
+            }
+        });
 
 
     }

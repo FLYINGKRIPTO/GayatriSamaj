@@ -12,6 +12,20 @@ import com.google.firebase.auth.FirebaseUser;
 public class startActivity extends AppCompatActivity {
     Button singup, login;
     FirebaseUser firebaseUser;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        //check if user is null
+        if(firebaseUser != null){
+            Intent intent= new Intent(startActivity.this,ChatActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +35,7 @@ public class startActivity extends AppCompatActivity {
         login = findViewById(R.id.login);
 
         //check if user is null
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if(firebaseUser!= null){
             Intent in = new Intent(startActivity.this,ScrollingActivity.class);

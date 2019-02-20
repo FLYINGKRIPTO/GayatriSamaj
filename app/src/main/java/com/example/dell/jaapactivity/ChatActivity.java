@@ -117,5 +117,6 @@ public class ChatActivity extends AppCompatActivity {
             return titles.get(position);
         }
     }
+
 }
 

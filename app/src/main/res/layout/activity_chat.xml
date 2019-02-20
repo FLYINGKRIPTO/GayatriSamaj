@@ -43,9 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@drawable/actionbarbg"
-        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabSelectedTextColor="#000"
         app:tabIndicatorColor="@color/colorPrimary"
-        app:tabTextColor="#000000"
+        app:tabTextColor="@color/colorPrimaryDark"
 
         />
 
