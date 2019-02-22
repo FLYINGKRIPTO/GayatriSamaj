@@ -22,7 +22,6 @@
         android:layout_height="@dimen/app_bar_height"
         android:background="@drawable/gg1"
         android:transitionName="buttontransition"
-
         android:theme="@style/AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout

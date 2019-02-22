@@ -16,8 +16,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -247,6 +249,14 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         if(id == R.id.chat){
             Intent intent = new Intent(ScrollingActivity.this,ChatActivity.class);
             startActivity(intent);
+        }
+        if(id== R.id.nav_about_us){
+            LayoutInflater li = LayoutInflater.from(this);
+            final View aboutUs = li.inflate(R.layout.about_us, null);
+            AlertDialog alertDialog = new AlertDialog.Builder(ScrollingActivity.this).create();
+            alertDialog.setView(aboutUs);
+            alertDialog.show();
+
         }
      //   DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
        // drawer.closeDrawer(GravityCompat.START);

@@ -34,7 +34,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="380dp"
         android:text="Done"
-        android:visibility="invisible"
+        android:background="@drawable/background"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:padding="18dp"
         android:textSize="20sp"
 
