@@ -3,6 +3,8 @@ package com.example.dell.jaapactivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
@@ -32,7 +34,11 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
                 Intent mainIntent = new Intent(SplashActivity.this, startActivity.class);
-                SplashActivity.this.startActivity(mainIntent);
+              ActivityOptionsCompat options =   ActivityOptionsCompat.makeSceneTransitionAnimation(SplashActivity.this,appname,
+                        ViewCompat.getTransitionName(appname));
+
+
+                SplashActivity.this.startActivity(mainIntent,options.toBundle());
                 SplashActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);

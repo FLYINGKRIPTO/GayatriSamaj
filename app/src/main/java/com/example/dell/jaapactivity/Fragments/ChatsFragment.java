@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class ChatsFragment extends Fragment {
 
@@ -85,20 +89,24 @@ public class ChatsFragment extends Fragment {
                 mUsers.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-
-                    for(String id : usersList){
-                        if(user.getId().equals(id)){
-                            if(mUsers.size() != 0){
-                                for(User user1 : mUsers){
-                                    if(!user.getId().equals(user1.getId())){
-                                        mUsers.add(user);
+                    try{
+                        for(String id : usersList){
+                            if(user.getId().equals(id)){
+                                if(mUsers.size() != 0){
+                                    for(User user1 : mUsers){
+                                        if(!user.getId().equals(user1.getId())){
+                                            mUsers.add(user);
+                                        }
                                     }
+                                }else{
+                                    mUsers.add(user);
                                 }
-                            }else{
-                                mUsers.add(user);
                             }
                         }
+                    }catch (ConcurrentModificationException e){
+                        Log.d(TAG, "onDataChange: ");
                     }
+
                 }
                 userAdapter = new UserAdapter(getContext(),mUsers);
                 recyclerView.setAdapter(userAdapter);

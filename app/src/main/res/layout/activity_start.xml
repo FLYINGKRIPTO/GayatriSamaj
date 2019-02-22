@@ -11,6 +11,7 @@
     <ImageView
         android:id="@+id/logo"
         android:layout_width="100dp"
+        android:transitionName="logotransition"
         android:layout_height="100dp"
         android:background="@drawable/splashlogo"
         android:layout_gravity="center_horizontal"
@@ -22,6 +23,7 @@
         android:layout_width="230dp"
         android:layout_gravity="center_horizontal"
         android:layout_height="70dp"
+        android:transitionName="appnametransition"
         android:background="@drawable/appname"
         />
 
@@ -34,7 +36,7 @@
         android:background="@drawable/background"
         android:textSize="20sp"
         android:fontFamily="serif"
-        android:layout_width="300dp"
+        android:layout_width="270dp"
         android:textStyle="bold"
         android:layout_height="80dp" />
     <Button
@@ -46,6 +48,6 @@
         android:background="@drawable/background"
         android:layout_marginTop="15dp"
         android:fontFamily="serif"
-        android:layout_width="300dp"
+        android:layout_width="270dp"
         android:layout_height="80dp" />
 </LinearLayout>
