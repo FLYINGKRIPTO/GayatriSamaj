@@ -21,15 +21,30 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.dell.jaapactivity.Model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class ScrollingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private int RECORD_AUDIO_PERMISSION = 200;
+    TextView headerName;
+    TextView headerEmail;
+    ImageView headerImageView;
+    DatabaseReference reference;
+
+    FirebaseUser firebaseUser;
 
     private FragmentManager fragmentManager;
     @Override
@@ -48,6 +63,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
 
+
         if(isReadAudioAllowed()){
             Toast.makeText(ScrollingActivity.this,"You have permission",Toast.LENGTH_SHORT).show();
 
@@ -62,6 +78,34 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_scrolling);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
+
+        View header = navigationView.getHeaderView(0);
+        headerName = header.findViewById(R.id.headerName);
+        headerEmail = header.findViewById(R.id.headerEmail);
+        headerImageView = header.findViewById(R.id.headerImageView);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                assert user != null;
+                headerName.setText(user.getUsername());
+
+
+                if(user.getImageURL().equals("default")){
+                    headerImageView.setImageResource(R.drawable.boy);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         YoYo.with(Techniques.FadeInUp).duration(2000).playOn(japActivity);
         YoYo.with(Techniques.FadeInUp).duration(1800).playOn(medActivity);

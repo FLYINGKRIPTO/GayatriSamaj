@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,11 +21,13 @@ public class LoginActivity extends AppCompatActivity {
     MaterialEditText email,password;
     Button signIn;
     FirebaseAuth auth;
+    ProgressBar loginProgress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        loginProgress = findViewById(R.id.loginProgress);
         email = findViewById(R.id.emailId);
         password = findViewById(R.id.password);
         signIn = findViewById(R.id.signIn);
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginProgress.setVisibility(View.VISIBLE);
                 String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
                 if(TextUtils.isEmpty(txt_email)||TextUtils.isEmpty(txt_password)){
@@ -44,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
+                                        loginProgress.setVisibility(View.INVISIBLE);
                                         Intent intent = new Intent(LoginActivity.this,ScrollingActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
@@ -51,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     }
                                     else {
-                                        Toast.makeText(LoginActivity.this,"Authentication failed",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this,"Wrong email Id or Password ",Toast.LENGTH_SHORT).show();
 
                                     }
                                 }

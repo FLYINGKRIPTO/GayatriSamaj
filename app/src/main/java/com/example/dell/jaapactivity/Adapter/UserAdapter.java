@@ -43,7 +43,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         Log.d(TAG, "onBindViewHolder: name : "+ user.getUsername());
         viewHolder.username.setText(user.getUsername());
         if(user.getImageURL().equals("default")){
-            viewHolder.profile_image.setImageResource(R.mipmap.ic_launcher);
+            viewHolder.profile_image.setImageResource(R.drawable.boy);
 
         }
         else

@@ -2,6 +2,7 @@ package com.example.dell.jaapactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -53,7 +57,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                     return;
                 }
 
-                verifyCode(code);
+              //  verifyCode(code);
 
             }
         });
@@ -62,13 +66,14 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
     private void verifyCode(String code){
         PhoneAuthCredential  credential = PhoneAuthProvider.getCredential(verificationId,code);
-      //  signInWithCredential(credential);
-        Intent in = new Intent(PhoneVerificationActivity.this,RegisterActivity.class);
-        in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(in);
+       signInWithCredential(credential);
+       // Intent in = new Intent(PhoneVerificationActivity.this,RegisterActivity.class);
+       // in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+       // startActivity(in);
+        finish();
     }
 
-   /* private void signInWithCredential(PhoneAuthCredential credential) {
+    private void signInWithCredential(PhoneAuthCredential credential) {
           mAuth.signInWithCredential(credential)
                   .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                       @Override
@@ -83,7 +88,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                             }
                       }
                   });
-    }*/
+    }
 
     public void sendVerificationCode(String number){
         Log.d(TAG, "sendVerificationCode: "+ number);

@@ -58,7 +58,7 @@ public class ChatActivity extends AppCompatActivity {
                username.setText(user.getUsername());
 
                if(user.getImageURL().equals("default")){
-                   profile_image.setImageResource(R.mipmap.ic_launcher);
+                   profile_image.setImageResource(R.drawable.boy);
 
                }
                else {

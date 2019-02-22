@@ -4,31 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bgmed4"
     android:layout_height="match_parent"
     tools:context=".startActivity">
 
-    <TextView
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/splashlogo"
         android:layout_gravity="center_horizontal"
-        android:text="Gayatri Samaj"
-        android:textSize="30sp"
-        android:padding="10dp"
-        android:layout_width="300dp"
-        android:gravity="center"
-        android:layout_marginTop="100dp"
-        android:layout_height="90dp" />
+        android:layout_marginTop="160dp"
+
+        />
+    <TextView
+        android:id="@+id/appname"
+        android:layout_width="230dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="70dp"
+        android:background="@drawable/appname"
+        />
+
 
     <Button
         android:id="@+id/signUp"
         android:layout_gravity="center"
-        android:text="Sign Up"
+        android:text="@string/sign_up"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/background"
         android:textSize="20sp"
+        android:fontFamily="serif"
         android:layout_width="300dp"
+        android:textStyle="bold"
         android:layout_height="80dp" />
     <Button
         android:id="@+id/login"
         android:layout_gravity="center"
-        android:text="Login"
+        android:text="@string/login"
+        android:textStyle="bold"
         android:textSize="20sp"
+        android:background="@drawable/background"
+        android:layout_marginTop="15dp"
+        android:fontFamily="serif"
         android:layout_width="300dp"
         android:layout_height="80dp" />
 </LinearLayout>

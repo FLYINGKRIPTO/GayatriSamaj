@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,13 +26,14 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText username , email, password;
+    MaterialEditText username , email, password;
     Button register;
     MaterialEditText phoneNumber;
     FirebaseAuth  auth;
     DatabaseReference reference;
     boolean verified;
     TextView verify,verify_email;
+    ProgressBar registerProgress;
     private String mVerificationId;
     private static final String TAG = "RegisterActivity";
     @Override
@@ -47,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         phoneNumber = findViewById(R.id.phoneNumber);
         verify = findViewById(R.id.verify);
         verify_email = findViewById(R.id.verify_email);
+        registerProgress = findViewById(R.id.registerProgress);
         LayoutInflater li = LayoutInflater.from(this);
 
         FirebaseApp.initializeApp(this);
@@ -120,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String txt_password = password.getText().toString();
                 String txt_phoneNumber = phoneNumber.getText().toString().trim();
 
-
+               registerProgress.setVisibility(View.VISIBLE);
 
                 if(TextUtils.isEmpty(txt_username)|| TextUtils.isEmpty(txt_email)|| TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_phoneNumber)  ){
                     Toast.makeText(RegisterActivity.this,"All fields are required",Toast.LENGTH_SHORT).show();
@@ -138,6 +140,9 @@ public class RegisterActivity extends AppCompatActivity {
                     phoneNumber.requestFocus();
                     return;
                 }
+
+
+
                 else {
                     register(txt_username,txt_email,txt_password,txt_phoneNumber);
                 }
@@ -164,7 +169,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    private void register(final String username, String email, final String password, final String phoneNumber){
+    private void register(final String username, final String email, final String password, final String phoneNumber){
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -180,11 +185,13 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put("username", username);
                             hashMap.put("imageURL", "default");
                             hashMap.put("phoneNumber", phoneNumber);
+                            hashMap.put("emailID",email);
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                          Intent intent = new Intent(RegisterActivity.this,ScrollingActivity.class);
+                                        registerProgress.setVisibility(View.INVISIBLE);
+                                          Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                                           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                            startActivity(intent);
                                           finish();

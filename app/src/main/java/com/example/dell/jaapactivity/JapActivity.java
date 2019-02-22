@@ -1,6 +1,8 @@
 package com.example.dell.jaapactivity;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,12 +12,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -99,7 +101,8 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
     //Report Manager Database
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
 
-
+    private static final int TIME_REMINDER_NOTIFICATION_ID = 1138;
+    private static final String TIME_REMINDER_NOTIFICATION_CHANNEL_ID = "reminder_notification_channel";
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -228,7 +231,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
 
         JapTime = promptsView.findViewById(R.id.editTextDialogUserInput);
         //Meditation activity intent
-
+        
         //Variables initialisation from video Activity
         // timerTextView = findViewById(R.id.Jtimer);
         videoView = findViewById(R.id.videoViewV);
@@ -710,14 +713,29 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
     }
 
     public void sendNotification(String timer) {
-        NotificationCompat.Builder mNotification = new NotificationCompat.Builder(getApplicationContext())
-                .setSmallIcon(R.drawable.ic_launcher_background)
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.d(TAG, "sendNotification: Build version > O ");
+            NotificationChannel mChannel = new NotificationChannel(
+                    TIME_REMINDER_NOTIFICATION_CHANNEL_ID,
+                    this.getString(R.string.main_notification_channel_name),
+                    NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+        NotificationCompat.Builder mNotification = new NotificationCompat.Builder(JapActivity.this,TIME_REMINDER_NOTIFICATION_CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle("Jap Timer On")
                 .setContentText(timer)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setDefaults(Notification.DEFAULT_VIBRATE);
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(1, mNotification.build());
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+                && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            mNotification.setPriority(NotificationCompat.PRIORITY_HIGH);
+        }
+        notificationManager.notify(TIME_REMINDER_NOTIFICATION_ID, mNotification.build());
 
     }
 }
