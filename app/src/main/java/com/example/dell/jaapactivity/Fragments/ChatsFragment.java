@@ -30,14 +30,14 @@ import static android.support.constraint.Constraints.TAG;
 
 public class ChatsFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private UserAdapter userAdapter;
-    private List<User> mUsers;
+    public RecyclerView recyclerView;
+    public UserAdapter userAdapter;
+    public List<User> mUsers;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
-    private List<String> usersList;
+    public List<String> usersList;
 
 
     @Override
@@ -80,7 +80,7 @@ public class ChatsFragment extends Fragment {
        return view;
     }
 
-    private void readChats() {
+    public void readChats() {
         mUsers = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.addValueEventListener(new ValueEventListener() {

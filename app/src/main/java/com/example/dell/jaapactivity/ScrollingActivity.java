@@ -1,5 +1,4 @@
 package com.example.dell.jaapactivity;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -40,7 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ScrollingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private int RECORD_AUDIO_PERMISSION = 200;
+    public int RECORD_AUDIO_PERMISSION = 200;
     TextView headerName;
     TextView headerEmail;
     ImageView headerImageView;
@@ -48,9 +47,9 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
 
     FirebaseUser firebaseUser;
 
-    private FragmentManager fragmentManager;
+    public FragmentManager fragmentManager;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
 
@@ -177,7 +176,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
             }
         });
     }
-    private void requestAudioPermission(){
+    public void requestAudioPermission(){
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
             //If the user has denied the permission previously your code will come to this block
@@ -188,7 +187,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},RECORD_AUDIO_PERMISSION);
     }
-    private boolean isReadAudioAllowed() {
+    public boolean isReadAudioAllowed() {
         //Getting the permission status
         int result = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
 
@@ -249,6 +248,10 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         if(id == R.id.chat){
             Intent intent = new Intent(ScrollingActivity.this,ChatActivity.class);
             startActivity(intent);
+        }
+        if(id == R.id.payment){
+            Intent it = new Intent(ScrollingActivity.this,StripePayment.class);
+            startActivity(it);
         }
         if(id== R.id.nav_about_us){
             LayoutInflater li = LayoutInflater.from(this);

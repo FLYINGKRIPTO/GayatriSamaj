@@ -25,9 +25,9 @@ import java.util.List;
 
 public class UsersFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private UserAdapter userAdapter;
-    private List<User> mUsers;
+    public RecyclerView recyclerView;
+    public UserAdapter userAdapter;
+    public List<User> mUsers;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class UsersFragment extends Fragment {
         return view;
     }
 
-    private void readUsers() {
+    public void readUsers() {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final DatabaseReference reference  = FirebaseDatabase.getInstance().getReference("Users");
         reference.addValueEventListener(new ValueEventListener() {

@@ -689,6 +689,11 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
          */
         public MyCountdownTimer(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
+            String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisInFuture),
+                    TimeUnit.MILLISECONDS.toMinutes(millisInFuture) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisInFuture)),
+                    TimeUnit.MILLISECONDS.toSeconds(millisInFuture) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisInFuture)));
+
+            sendNotification(hms);
         }
 
         @Override
@@ -699,7 +704,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
             timer_text.setText(hms);
 
-            sendNotification(hms);
+
          //   long percentProgress = (millisUntilFinished/time_in_milli)*100;
           //  donutProgress.setProgress(percentProgress);
 

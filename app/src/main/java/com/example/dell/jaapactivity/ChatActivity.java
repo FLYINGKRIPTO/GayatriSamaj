@@ -36,7 +36,7 @@ public class ChatActivity extends AppCompatActivity {
     FirebaseUser  firebaseUser;
     TextView username;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
@@ -86,8 +86,8 @@ public class ChatActivity extends AppCompatActivity {
     }
     class ViewPagerAdapter extends FragmentPagerAdapter{
 
-        private ArrayList<Fragment> fragments;
-        private ArrayList<String> titles;
+        public ArrayList<Fragment> fragments;
+        public ArrayList<String> titles;
 
         ViewPagerAdapter(FragmentManager fm){
             super(fm);

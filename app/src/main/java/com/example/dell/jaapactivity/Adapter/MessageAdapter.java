@@ -85,6 +85,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return mChat.size();
