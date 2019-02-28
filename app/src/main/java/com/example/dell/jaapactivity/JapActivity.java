@@ -28,6 +28,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -397,7 +399,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
 
                 } else if (selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev")) {
                     display_time_selected.setVisibility(View.INVISIBLE);
-                    timer_text.setVisibility(View.VISIBLE);
+                    timer_text.setVisibility(View.INVISIBLE);
                     videoView.setVisibility(View.VISIBLE);
 
                     progressDialog.setTitle("Loading Video");
@@ -608,12 +610,14 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
                     videoView.setVisibility(View.INVISIBLE);
                     actualTime = (float) dr - Long.parseLong(String.valueOf(time_textView_store.getText()));
                     Log.d(TAG, "onClick: " + actualTime);
+
                     timer_text.setText("00:00:00");
                     myCountdownTimer.cancel();
 
                 } else if (selectedItemFromOptions.equalsIgnoreCase("by Time")) {
                     actualTime = (float) time_in_milli - Long.parseLong(String.valueOf(time_textView_store.getText()));
                     Log.d(TAG, "onClick: " + actualTime);
+
                     timer_text.setText("00:00:00");
                     myCountdownTimer.cancel();
                 }
@@ -644,6 +648,9 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
         });
     }
 
+    public void withPujyaGurudev(){
+
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
@@ -702,7 +709,15 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
             String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
+            timer_text.setVisibility(View.VISIBLE);
             timer_text.setText(hms);
+            Log.d(TAG, "onTick: "+ millisUntilFinished);
+            int flag =1;
+            if(millisUntilFinished<10000 && flag ==1){
+                Log.d(TAG, "onTick: inside this ");
+                startBlinking(millisUntilFinished);
+                flag = 0;
+            }
 
 
          //   long percentProgress = (millisUntilFinished/time_in_milli)*100;
@@ -713,7 +728,20 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
 
         @Override
         public void onFinish() {
+            Log.d(TAG, "onFinish: onFinish called ");
 
+        }
+    }
+
+    public void startBlinking(Long mili){
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(50); //You can manage the time of the blink with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        timer_text.startAnimation(anim);
+        if(mili<100){
+            timer_text.clearAnimation();
         }
     }
 

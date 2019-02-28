@@ -80,6 +80,7 @@ public class ChatActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
         viewPagerAdapter.addFragment(new UsersFragment(),"People");
 
+
         viewPager.setAdapter(viewPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);

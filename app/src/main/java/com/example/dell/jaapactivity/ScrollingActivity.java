@@ -183,7 +183,9 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
             //Here you can explain why you need this permission
             //Explain here why you need this permission
         }
-
+        if (ContextCompat.checkSelfPermission(ScrollingActivity.this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ScrollingActivity.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 101);
+        }
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},RECORD_AUDIO_PERMISSION);
     }
@@ -250,7 +252,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
             startActivity(intent);
         }
         if(id == R.id.payment){
-            Intent it = new Intent(ScrollingActivity.this,StripePayment.class);
+            Intent it = new Intent(ScrollingActivity.this,PaymentActivity.class);
             startActivity(it);
         }
         if(id== R.id.nav_about_us){
