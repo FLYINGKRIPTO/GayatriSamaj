@@ -80,7 +80,8 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
     public static final String selected_item = "item_selected";
     public static final String Time_in_minutes = "timeKey";
     private static final String TAG = "JapActivity";
-    EditText userInput;
+    EditText userInput; int flag =0;
+
   //  LinearTimerView linearTimerView = (LinearTimerView)
   //          findViewById(R.id.linearTimer);
 
@@ -88,7 +89,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
     TextView timerTextView;
     VideoView videoView;
     TextView timeInMilliTextView;
-
+     private  MediaPlayer mediaPlayer;
     int dr = 0;
     int primaryKey = 0;
     private ProgressDialog progressDialog;
@@ -264,7 +265,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
         //item click listener on option spinner
         options_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
                 item = parent.getItemAtPosition(position).toString();
                 Log.d(TAG, "onItemSelected: item selected " + item);
                 optionEditor = optionSelectedPreference.edit();
@@ -327,7 +328,13 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
                        params2.topMargin =1350;
                        buttonLayout.setLayoutParams(params2);
 
-                } else if (item.equalsIgnoreCase("with Pujya Mataji")) {
+                    }
+
+
+
+
+
+                 else if (item.equalsIgnoreCase("with Pujya Mataji")) {
 
                 } else {
                     display_time_selected.setVisibility(View.INVISIBLE);
@@ -349,6 +356,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
         startJap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                flag = 0;
                 startJap.setEnabled(false);
                 optionSelectedPreference = getSharedPreferences(OPTION_PREFERENCE, Context.MODE_PRIVATE);
                 selectedItemFromOptions = optionSelectedPreference.getString(selected_item, "Choose Options");
@@ -603,6 +611,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
         stopJap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                timer_text.setTextColor(getResources().getColor(R.color.black));
                 display_time_selected.setVisibility(View.INVISIBLE);
                 startJap.setEnabled(true);
                 if (selectedItemFromOptions.equalsIgnoreCase("with Pujya Gurudev") || selectedItemFromOptions.equalsIgnoreCase("with Pujya Mataji")) {
@@ -705,6 +714,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
 
         @Override
         public void onTick(long millisUntilFinished) {
+
             time_textView_store.setText(String.valueOf(millisUntilFinished));
             String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
@@ -712,12 +722,26 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
             timer_text.setVisibility(View.VISIBLE);
             timer_text.setText(hms);
             Log.d(TAG, "onTick: "+ millisUntilFinished);
-            int flag =1;
-            if(millisUntilFinished<10000 && flag ==1){
-                Log.d(TAG, "onTick: inside this ");
-                startBlinking(millisUntilFinished);
-                flag = 0;
+
+            if(millisUntilFinished<10000){
+                if(flag>1){
+
+                }
+                else
+                {
+                    flag =1;
+                    if(millisUntilFinished<10000 && flag ==1){
+                        Log.d(TAG, "onTick: inside this ");
+                        startBlinking(millisUntilFinished);
+
+                    }
+                    flag++;
+
+                }
+
             }
+
+
 
 
          //   long percentProgress = (millisUntilFinished/time_in_milli)*100;
@@ -729,20 +753,38 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
         @Override
         public void onFinish() {
             Log.d(TAG, "onFinish: onFinish called ");
+            timer_text.setTextColor(getResources().getColor(R.color.black));
+            stopAlarm();
 
         }
     }
 
     public void startBlinking(Long mili){
+        sendNotification("Almost Done ");
+        playAlarm();
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(50); //You can manage the time of the blink with this parameter
-        anim.setStartOffset(20);
-        anim.setRepeatMode(Animation.REVERSE);
-        anim.setRepeatCount(Animation.INFINITE);
+        anim.setDuration(mili/10); //You can manage the time of the blink with this parameter
+       // anim.setStartOffset(80);
+      //  anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(9);
+
         timer_text.startAnimation(anim);
-        if(mili<100){
+        timer_text.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        if(mili<1000){
             timer_text.clearAnimation();
         }
+    }
+
+    private void playAlarm() {
+         mediaPlayer = MediaPlayer.create(this,R.raw.beep_two);
+         mediaPlayer.start();
+
+         mediaPlayer.setLooping(true);
+         Long dur = (long) mediaPlayer.getDuration();
+        Log.d(TAG, "playAlarm: duration "+ dur);
+    }
+    private void stopAlarm(){
+        mediaPlayer.stop();
     }
 
     public void sendNotification(String timer) {
@@ -758,7 +800,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
         }
         NotificationCompat.Builder mNotification = new NotificationCompat.Builder(JapActivity.this,TIME_REMINDER_NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContentTitle("Jap Timer On")
+                .setContentTitle(" Timer On")
                 .setContentText(timer)
                 .setDefaults(Notification.DEFAULT_VIBRATE);
 
