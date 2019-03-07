@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     boolean verified;
     TextView verify,verify_email;
     ProgressBar registerProgress;
+    ImageView back;
     private String mVerificationId;
     private static final String TAG = "RegisterActivity";
     @Override
@@ -49,6 +51,13 @@ public class RegisterActivity extends AppCompatActivity {
         verify = findViewById(R.id.verify);
         verify_email = findViewById(R.id.verify_email);
         registerProgress = findViewById(R.id.registerProgress);
+        back = findViewById(R.id.logo);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         LayoutInflater li = LayoutInflater.from(this);
 
         FirebaseApp.initializeApp(this);

@@ -1,4 +1,5 @@
 package com.example.dell.jaapactivity;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -44,7 +45,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
     TextView headerEmail;
     ImageView headerImageView;
     DatabaseReference reference;
-
+    TextView swadhyayHeading,swadhyayText,MeditationHeading,meditationText,yagyatext;
     FirebaseUser firebaseUser;
 
     public FragmentManager fragmentManager;
@@ -60,9 +61,17 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         final ImageView  swaActivity = findViewById(R.id.swaButton22);
         final ImageView   yagyaActivity = findViewById(R.id.yagButton22);
 
+        swadhyayHeading = findViewById(R.id.swadhyayHeading);
+        swadhyayText = findViewById(R.id.swadhyayText);
+        MeditationHeading = findViewById(R.id.meditationHeading);
+        meditationText = findViewById(R.id.meditationText);
+        yagyatext = findViewById(R.id.yagyatext);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
+
+
 
 
         if(isReadAudioAllowed()){
@@ -73,7 +82,11 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_scrolling);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle.setDrawerIndicatorEnabled(true);
+
+
         drawer.addDrawerListener(toggle);
+        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_scrolling);
@@ -108,10 +121,22 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
             }
         });
 
-        YoYo.with(Techniques.FadeInUp).duration(2000).playOn(japActivity);
-        YoYo.with(Techniques.FadeInUp).duration(1800).playOn(medActivity);
-        YoYo.with(Techniques.FadeInUp).duration(1800).playOn(swaActivity);
-        YoYo.with(Techniques.FadeInUp).duration(1800).playOn(yagyaActivity);
+       YoYo.with(Techniques.Landing).duration(3200).playOn(japActivity);
+
+
+            YoYo.with(Techniques.Landing).duration(3200).playOn(medActivity);
+
+
+        YoYo.with(Techniques.Landing).duration(3200).playOn(swaActivity);
+        YoYo.with(Techniques.Landing).duration(3200).playOn(yagyaActivity);
+       //YoYo.with(Techniques.FadeInLeft).duration(4200).playOn(yagyaActivity);
+
+        YoYo.with(Techniques.Landing).duration(3200).playOn(MeditationHeading);
+        YoYo.with(Techniques.Landing).duration(3200).playOn(meditationText);
+        YoYo.with(Techniques.Landing).duration(3200).playOn(swadhyayText);
+        YoYo.with(Techniques.Landing).duration(3200).playOn(swadhyayHeading);
+        YoYo.with(Techniques.Landing).duration(3200).playOn(yagyatext);
+
 
 
         japActivity.setOnClickListener(new View.OnClickListener() {
@@ -184,10 +209,10 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
             //Explain here why you need this permission
         }
         if (ContextCompat.checkSelfPermission(ScrollingActivity.this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ScrollingActivity.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS}, 101);
+            ActivityCompat.requestPermissions(ScrollingActivity.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS,Manifest.permission.RECORD_AUDIO}, 101);
         }
         //And finally ask for the permission
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},RECORD_AUDIO_PERMISSION);
+       // ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},RECORD_AUDIO_PERMISSION);
     }
     public boolean isReadAudioAllowed() {
         //Getting the permission status

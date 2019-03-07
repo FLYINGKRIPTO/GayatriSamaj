@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GayatriSamaj</string>
+    <string name="app_name">Gayatri Parivar</string>
     <string name="time_prompt">Select Time in Minutes</string>
     <string name="stop_jap">Stop Jap</string>
     <string name="song_one">No 1 Atam Bodh Dhyaan</string>
@@ -41,7 +41,7 @@
     <string name="title_activity_front">FrontActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Gayatri Samaj</string>
+    <string name="nav_header_title">Gayatri Pariwar</string>
     <string name="nav_header_subtitle">gayatrisamaj@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>

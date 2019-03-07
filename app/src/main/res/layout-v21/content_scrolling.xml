@@ -6,55 +6,158 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ScrollingActivity"
+    android:background="#FEFFDB"
     tools:showIn="@layout/activity_scrolling">
+
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+      <!--  <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:layout_collapseMode="pin"
+            android:background="#707070"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Gayatri Pariwar"
+            app:titleTextColor="#fff"
+            />-->
 
     <ImageView
         android:id="@+id/japButton22"
         android:layout_width="@dimen/cardWidth"
         android:transitionName="buttontransition"
         android:layout_height="@dimen/cardHeight"
-        android:layout_marginTop="@dimen/cardOneMarginTop"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:background="@drawable/group1"
-
+        android:background="@drawable/japnewbg"
         android:contentDescription="@string/jap_button" />
 
 
-    <ImageView
-        android:id="@+id/medButton22"
-        android:layout_width="@dimen/cardWidthTwo"
-        android:layout_height="@dimen/cardHeightTwo"
-        android:transitionName="buttontransition"
-        android:layout_marginTop="@dimen/marginTopCardTwo"
-        android:layout_gravity="center"
-        android:background="@drawable/group2"
-        android:contentDescription="@string/meditation_button" />
 
-    <ImageView
-        android:id="@+id/swaButton22"
-        android:layout_width="@dimen/cardWidthTwo"
-        android:transitionName="buttontransition"
-        android:layout_height="@dimen/cardHeightTwo"
-        android:layout_marginTop="@dimen/marginTopCardTwo"
-        android:layout_gravity="center"
-        android:background="@drawable/group3"
+        <LinearLayout
 
-        android:contentDescription="@string/swadhyay_button" />
+            android:layout_marginTop="-30dp"
+            android:orientation="horizontal"
+            android:layout_width="390dp"
+            android:layout_gravity="center"
+            android:layout_height="230dp">
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/medButton22"
+                android:layout_width="200dp"
+                android:layout_height="130dp"
+                android:transitionName="buttontransition"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+
+                android:background="@drawable/medimg"
+                android:contentDescription="@string/meditation_button" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Meditation"
+                    android:paddingLeft="15dp"
+                    android:id="@+id/meditationHeading"
+                    android:textColor="#444"
+                    android:fontFamily="@font/tahomabo"
+                    android:layout_marginTop="-6dp"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bring out the innate focus
+within you."
+                    android:paddingLeft="15dp"
+                    android:id="@+id/meditationText"
+                    android:textColor="#444"
+                    android:layout_marginTop="1dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/tahomareg"
+                    android:maxWidth="190dp"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/swaButton22"
+                android:layout_width="190dp"
+                android:transitionName="buttontransition"
+                android:layout_height="130dp"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/swaimg"
+
+                android:contentDescription="@string/swadhyay_button" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Swadhyay"
+                    android:textColor="#444"
+                    android:paddingLeft="15dp"
+                    android:id="@+id/swadhyayHeading"
+                    android:fontFamily="@font/tahomabo"
+                    android:layout_marginTop="-6dp"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Press pause in the middle
+of your workday."
+                    android:paddingLeft="15dp"
+                    android:id="@+id/swadhyayText"
+                    android:textColor="#444"
+                    android:layout_marginTop="1dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/tahomareg"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="400dp"
+            android:layout_gravity="center"
+            android:layout_height="250dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Yagya"
+          android:id="@+id/yagyatext"
+          android:textColor="#444"
+          android:textSize="45sp"
+          android:layout_marginStart="20dp"
+          android:fontFamily="@font/tahomabo"
+
+          />
     <ImageView
         android:id="@+id/yagButton22"
-        android:layout_width="@dimen/cardWidthTwo"
+        android:layout_width="390dp"
         android:transitionName="buttontransition"
-        android:layout_height="@dimen/cardHeightTwo"
-        android:layout_marginTop="@dimen/marginTopCardTwo"
+        android:layout_height="200dp"
+        android:layout_marginTop="0dp"
         android:layout_gravity="center"
-        android:background="@drawable/group4"
+        android:background="@drawable/hawan"
         android:contentDescription="@string/yagya_button" />
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

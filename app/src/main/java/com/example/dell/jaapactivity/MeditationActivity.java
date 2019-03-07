@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
     //Report data base
     URL url ;
     ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
+   private  ProgressDialog pd ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,13 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+
         progressDialog = new ProgressDialog(MeditationActivity.this);
+      //  progressDialog.setMessage("Loading");
+      pd = new ProgressDialog(this);
+      pd.setCancelable(false);
+      pd.setMessage("Loading Audio");
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_scrolling);
@@ -79,6 +87,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                 this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_scrolling);
         navigationView.setNavigationItemSelectedListener(this);
@@ -116,67 +125,12 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
         //adding dummy data
 
-        rDb.addUserReportData(new ReportData("Meditation","Dec","13","Thu","Atam Bodh Dhyaan"
-        ,3L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","16","Sun","Tatv Bodh Dhyaan"
-                ,3L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","18","Tue","Atam Bodh Dhyaan"
-                ,3L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","20","Thu","Jyoti Avdhrnam Dhyaan"
-                ,3L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","22","Sat","Naad yog Dhyaan"
-                ,5L,3L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","24","Mon","Jyoti Avdhrnam Dhyaan"
-                ,3L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","29","Sat","Naad yog Dhyaan"
-                ,5L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","30","Sun","Atam Bodh Dhyaan"
-                ,3L,1L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","30","Sun","Panchkosh Dhyaan"
-                ,4L,1L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","30","Sun","Atam Bodh Dhyaan"
-                ,6L,1L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","31","Mon","Tatv Bodh Dhyaan"
-                ,3L,1L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","31","Mon","Panchkosh Dhyaan"
-                ,7L,1L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Dec","31","Mon","Jyoti Avdhrnam Dhyaan"
-                ,5L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","1","Tue","Atam Bodh Dhyaan"
-                ,3L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","2","Wed","Tatv Bodh Dhyaan"
-                ,3L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","3","Thu","Panchkosh Dhyaan"
-                ,3L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","4","Fri","Jyoti Avdhrnam Dhyaan"
-                ,3L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","8","Tue","Atam Bodh Dhyaan"
-                ,3L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","11","Fri","Tatv Bodh Dhyaan"
-                ,3L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","13","Sun","Panchkosh Dhyaan"
-                ,3L,1L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","14","Mon","Jyoti Avdhrnam Dhyaan"
-                ,3L,2L,"2019"));
-
-        rDb.addUserReportData(new ReportData("Meditation","Jan","24","Thu","Panchkosh Dhyaan"
-                ,3L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","25","Fri","Jyoti Avdhrnam Dhyaan"
-                ,3L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","26","Tue","Atam Bodh Dhyaan"
-                ,3L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","27","Fri","Tatv Bodh Dhyaan"
-                ,3L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","28","Sun","Panchkosh Dhyaan"
-                ,3L,1L,"2019"));
-        rDb.addUserReportData(new ReportData("Meditation","Jan","30","Mon","Jyoti Avdhrnam Dhyaan"
-                ,3L,2L,"2019"));
-
-
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pd.show();
+
                 id++;
                 playButton.setEnabled(false);
                 playButtonPressCount++;
@@ -186,6 +140,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                 medEditor.apply();
                 Log.d(TAG,"onClick: "+playButtonPressCount);
                 if(playButtonPressCount==1){
+                    pd.show();
+
                     final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
 
                     Thread thread = new Thread(new Runnable() {
@@ -195,6 +151,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                 @Override
                                 public void run() {
                                     mediaPlayer = new MediaPlayer();
+                                    pd.show();
+
                                     try {
                                         mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
                                     } catch (IOException e) {
@@ -211,6 +169,12 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
+                                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                        @Override
+                                        public void onPrepared(MediaPlayer mp) {
+                                            pd.dismiss();
+                                        }
+                                    });
                                     Log.d(TAG, "run: "+ mediaPlayer);
                                     if(mediaPlayer !=null){
                                         mediaPlayer.start();
@@ -291,6 +255,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                 }
 
                 else if(playButtonPressCount==2){
+                    pd.show();
+
                     final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3";
 
                     Thread thread = new Thread(new Runnable() {
@@ -300,6 +266,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                 @Override
                                 public void run() {
                                     mediaPlayer = new MediaPlayer();
+                                    pd.show();
+
                                     try {
                                         mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
                                     } catch (IOException e) {
@@ -315,6 +283,12 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
+                                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                        @Override
+                                        public void onPrepared(MediaPlayer mp) {
+                                            pd.dismiss();
+                                        }
+                                    });
                                     Log.d(TAG, "run: "+ mediaPlayer);
                                     if(mediaPlayer !=null){
                                         mediaPlayer.start();
@@ -390,6 +364,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
                 }
                 else if(playButtonPressCount==3){
+                    pd.show();
+
                     final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3";
 
                     Thread thread = new Thread(new Runnable() {
@@ -399,6 +375,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                 @Override
                                 public void run() {
                                     mediaPlayer = new MediaPlayer();
+                                    pd.show();
+
                                     try {
                                         mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
                                     } catch (IOException e) {
@@ -426,6 +404,13 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                         if(pauseIsPressed){
                                             mediaPlayer.seekTo(pausePosition+100);
                                         }
+
+                                        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                            @Override
+                                            public void onPrepared(MediaPlayer mp) {
+                                                pd.dismiss();
+                                            }
+                                        });
                                         mediaPlayer.setLooping(true);
                                         soundTrackName.setText(R.string.song_three);
                                         ImageViewName.setImageResource(R.drawable.bgmed11);
@@ -489,6 +474,10 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
                 }
                 else if(playButtonPressCount==4){
+                    pd.show();
+
+                    pd.show();
+
                     final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3";
 
                     Thread thread = new Thread(new Runnable() {
@@ -498,6 +487,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                 @Override
                                 public void run() {
                                     mediaPlayer = new MediaPlayer();
+                                    pd.show();
+
                                     try {
                                         mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
                                     } catch (IOException e) {
@@ -525,6 +516,12 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                         if(pauseIsPressed){
                                             mediaPlayer.seekTo(pausePosition+100);
                                         }
+                                        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                            @Override
+                                            public void onPrepared(MediaPlayer mp) {
+                                                pd.dismiss();
+                                            }
+                                        });
                                         mediaPlayer.setLooping(true);
                                         soundTrackName.setText(R.string.song_four);
                                         ImageViewName.setImageResource(R.drawable.bgmed3);
@@ -588,6 +585,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
                 }
                 else if(playButtonPressCount==5){
+                    pd.show();
+
                     final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3";
 
                     Thread thread = new Thread(new Runnable() {
@@ -597,6 +596,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                 @Override
                                 public void run() {
                                     mediaPlayer = new MediaPlayer();
+                                    pd.show();
+
                                     try {
                                         mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
                                     } catch (IOException e) {
@@ -624,6 +625,12 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                         if(pauseIsPressed){
                                             mediaPlayer.seekTo(pausePosition+100);
                                         }
+                                        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                            @Override
+                                            public void onPrepared(MediaPlayer mp) {
+                                                pd.dismiss();
+                                            }
+                                        });
                                         mediaPlayer.setLooping(true);
                                         soundTrackName.setText(R.string.song_five);
                                         ImageViewName.setImageResource(R.drawable.bgmed5);
@@ -688,6 +695,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
 
                 }
                 else if(playButtonPressCount==6){
+                    pd.show();
 
                     final String url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3";
 
@@ -698,6 +706,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                 @Override
                                 public void run() {
                                     mediaPlayer = new MediaPlayer();
+                                    pd.show();
+
                                     try {
                                         mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
                                     } catch (IOException e) {
@@ -726,6 +736,12 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                         if(pauseIsPressed){
                                             mediaPlayer.seekTo(pausePosition+100);
                                         }
+                                        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                            @Override
+                                            public void onPrepared(MediaPlayer mp) {
+                                                pd.dismiss();
+                                            }
+                                        });
                                         mediaPlayer.setLooping(true);
                                         soundTrackName.setText(R.string.song_six);
                                         ImageViewName.setImageResource(R.drawable.bgmed6);
@@ -797,6 +813,8 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                runOnUiThread(new Runnable() {
                                    @Override
                                    public void run() {
+                                       pd.show();
+
                                        mediaPlayer = new MediaPlayer();
                                        try {
                                            mediaPlayer.setDataSource(MeditationActivity.this, Uri.parse(url));
@@ -826,6 +844,12 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                                            if(pauseIsPressed){
                                                mediaPlayer.seekTo(pausePosition+100);
                                            }
+                                           mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                               @Override
+                                               public void onPrepared(MediaPlayer mp) {
+                                                   pd.dismiss();
+                                               }
+                                           });
                                            mediaPlayer.setLooping(true);
                                            soundTrackName.setText(R.string.song_seven);
                                            ImageViewName.setImageResource(R.drawable.bgmed7);
@@ -916,6 +940,7 @@ public class MeditationActivity extends AppCompatActivity implements NavigationV
                 int lastid = rDb.getLastId();
                rDb.updateData(String.valueOf(lastid),(float)mediaPlayer.getCurrentPosition()/60000);
                 mediaPlayer.stop();
+                progressDialog.dismiss();
 
             }
         });

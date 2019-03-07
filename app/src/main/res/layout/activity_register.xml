@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,14 +7,36 @@
     android:orientation="vertical"
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
-    android:background="@drawable/bgmed4"
+    android:background="#FEFFDB"
     tools:context=".RegisterActivity">
-
-    <TextView
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:background="@drawable/ic_arrow_back_black_24dp"
+
+        />
+
+    <ImageView
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/signup"
+        />
+
+    <TextView
+        android:id="@+id/in"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:textSize="25sp"
+        android:layout_below="@id/logo"
         android:textStyle="bold"
         android:fontFamily="serif"
         android:text="@string/create_new_account"
@@ -24,22 +46,26 @@
         android:id="@+id/username"
         app:met_floatingLabel="highlight"
         app:met_maxCharacters="20"
+        android:layout_below="@id/in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_marginTop="20dp"
+        app:met_primaryColor="#444"
+        android:layout_marginTop="10dp"
         android:textSize="15sp"
         />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
-
+        android:id="@+id/fr"
+        android:layout_below="@id/username"
         android:layout_height="wrap_content">
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/emailid"
+        app:met_primaryColor="#444"
         app:met_floatingLabel="highlight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,7 +97,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:layout_below="@id/fr"
         android:layout_marginTop="10dp"
+        app:met_primaryColor="#444"
+
         android:inputType="textPassword"
         app:met_floatingLabel="highlight"
         android:paddingLeft="10dp"
@@ -79,8 +108,10 @@
         android:textSize="15sp"/>
 
     <FrameLayout
+        android:id="@+id/fr2"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
+        android:layout_below="@id/password"
         android:layout_height="wrap_content">
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -88,6 +119,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
+        app:met_primaryColor="#444"
+
         app:met_floatingLabel="highlight"
         android:hint="Enter Your Number"
         android:paddingLeft="10dp"
@@ -112,11 +145,11 @@
 
     <Button
         android:id="@+id/register"
+        android:layout_below="@+id/fr2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Submit"
-        android:background="@drawable/background"
+        android:background="@drawable/signupbutton"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:layout_marginTop="40dp"
@@ -125,10 +158,11 @@
     <ProgressBar
         android:id="@+id/registerProgress"
         android:layout_width="wrap_content"
+        android:layout_below="@id/register"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:visibility="invisible"
 
         />
-</LinearLayout>
+</RelativeLayout>

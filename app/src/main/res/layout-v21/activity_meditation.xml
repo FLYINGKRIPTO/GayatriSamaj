@@ -15,13 +15,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MeditationActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        app:layout_collapseMode="pin"
+        android:background="#444"
+        android:layout_height="?attr/actionBarSize"
+
+        app:titleTextColor="#fff"
+        app:popupTheme="@style/PopupOverlay" >
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Meditation"
+            android:fontFamily="@font/tahomabo"
+            android:textColor="#ffffff"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+    </android.support.v7.widget.Toolbar>
+
     <ImageView
-        android:id="@+id/medButton2"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="@drawable/medbgbg"
         android:transitionName="buttontransition"
-        android:background="@drawable/gg2"
-
         />
     <TextView
         android:id="@+id/soundTrackName"
@@ -83,25 +103,28 @@
     <Button
         android:id="@+id/playButton"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="Play"
-        android:background="@drawable/background"
+        android:textColor="#fff"
+        android:background="@drawable/buttonbgnew"
         />
         <Button
             android:id="@+id/pauseButton"
             android:layout_width="100dp"
             android:layout_marginStart="30dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="pause"
-            android:background="@drawable/background"
+            android:textColor="#fff"
+            android:background="@drawable/buttonbgnew"
             />
         <Button
             android:id="@+id/stopButton"
             android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:background="@drawable/background"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonbgnew"
             android:text="stop"
+            android:textColor="#fff"
             android:layout_marginStart="30dp"
             />
     </LinearLayout>

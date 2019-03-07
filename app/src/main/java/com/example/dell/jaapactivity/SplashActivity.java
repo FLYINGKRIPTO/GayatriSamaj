@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -15,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 
     private final int SPLASH_DISPLAY_LENGTH = 2000;
-    ImageView appname;
+    TextView appname;
     ImageView logoapp;
 
     private int RECORD_AUDIO_PERMISSION = 200;

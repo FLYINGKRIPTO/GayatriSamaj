@@ -1,36 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/all_reports"
             android:icon="@drawable/analyticsthree"
+            app:itemTextAppearance="@style/Style_TextView"
+
             android:title="Reports" />
         <item
             android:id="@+id/japInMenu"
-            android:icon="@drawable/gg1"
+            android:icon="@drawable/japiconround"
+            app:itemTextAppearance="@style/Style_TextView"
             android:title="Jap" />
         <item
             android:id="@+id/meditationInMenu"
-            android:icon="@drawable/gg2"
+            android:icon="@drawable/mediconround"
+            app:itemTextAppearance="@style/Style_TextView"
+
             android:title="Meditation" />
         <item
             android:id="@+id/swadhyayInMenu"
-            android:icon="@drawable/gg3"
+            android:icon="@drawable/swaiconround"
+            app:itemTextAppearance="@style/Style_TextView"
+
             android:title="Swadhyay" />
         <item
             android:id="@+id/yagyaInMenu"
-            android:icon="@drawable/gg4"
+            android:icon="@drawable/yagyaiconround"
+            app:itemTextAppearance="@style/Style_TextView"
+
             android:title="Yagya" />
         <item
             android:id="@+id/chat"
             android:icon="@drawable/chatting"
+            app:itemTextAppearance="@style/Style_TextView"
+
             android:title="chat"/>
         <item
             android:id="@+id/payment"
-            android:icon="@drawable/chatting"
+            android:icon="@drawable/ic_payment_black_24dp"
+            app:itemTextAppearance="@style/Style_TextView"
             android:title="Payment"/>
 
     </group>
@@ -39,14 +52,17 @@
         <menu>
             <item
                 android:id="@+id/nav_share"
+                app:itemTextAppearance="@style/Style_TextView"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
+                app:itemTextAppearance="@style/Style_TextView"
                 android:title="Send Your Reports" />
             <item
                 android:id="@+id/nav_about_us"
+                app:itemTextAppearance="@style/Style_TextView"
                 android:icon="@drawable/info"
                 android:title="About us" />
         </menu>

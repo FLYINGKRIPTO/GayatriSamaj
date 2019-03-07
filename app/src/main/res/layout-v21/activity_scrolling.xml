@@ -8,10 +8,13 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".ScrollingActivity">
@@ -20,7 +23,8 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
-        android:background="@drawable/actionbarbg"
+        android:background="#444"
+        app:title="Gayatri Pariwar"
         android:theme="@style/AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -28,22 +32,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            android:background="#444"
             app:contentScrim="?attr/colorPrimary"
+            app:title="Gayatri Pariwar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/PopupOverlay" />
+                android:background="#444"
+                android:layout_height="?attr/actionBarSize"
+                app:title="Gayatri Pariwar"
+                app:titleTextColor="#fff"
+                app:popupTheme="@style/PopupOverlay" >
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Gayatri Pariwar"
+                    android:fontFamily="@font/tahomabo"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                    />
+            </android.support.v7.widget.Toolbar>
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_scrolling" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -54,10 +75,18 @@
         android:visibility="invisible"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/boy" />
-
+    <include layout="@layout/content_scrolling" />
 </android.support.design.widget.CoordinatorLayout>
-
-    <com.rom4ek.arcnavigationview.ArcNavigationView
+   <!-- <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        app:layout_collapseMode="pin"
+        android:background="#707070"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Gayatri Pariwar"
+        app:titleTextColor="#fff"
+       />
+  --><com.rom4ek.arcnavigationview.ArcNavigationView
         android:id="@+id/nav_view_scrolling"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/bgmed4"
+    android:background="#FEFFDB"
 
     android:layout_height="match_parent"
     tools:context=".MessageActivity">
@@ -16,7 +16,7 @@
             android:id="@+id/toolbar_chat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="#444"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/MenuStyle"
             >
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="username"
-                android:textColor="#000"
+                android:textColor="#fff"
                 android:textStyle="bold"
 
 
@@ -68,9 +68,12 @@
 
             android:background="@drawable/corner_bg"
             android:hint="Type a message "
+            android:textColorHint="#fff"
             android:padding="20dp"
+            android:fontFamily="@font/tahomareg"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:textColor="#fff"
             android:paddingBottom="15dp" />
 
         <ImageButton
@@ -82,6 +85,7 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/send"
             android:layout_marginTop="15dp"
+            android:backgroundTint="#707070"
 
             android:paddingStart="20dp"
             android:paddingEnd="20dp" />

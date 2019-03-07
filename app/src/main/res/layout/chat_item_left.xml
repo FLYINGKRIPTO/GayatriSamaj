@@ -19,6 +19,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:text="Hello"
+        android:fontFamily="@font/tahomareg"
         android:id="@+id/show_message"
         android:textSize="18sp"
 

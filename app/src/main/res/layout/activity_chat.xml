@@ -15,7 +15,7 @@
             android:id="@+id/toolbar_chat"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="#FF4E50"
+            android:background="#707070"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/MenuStyle"
             >
@@ -41,9 +41,9 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="@drawable/bgmed4"
-        app:tabSelectedTextColor="#000"
+        android:layout_height="60dp"
+        android:background="#424242"
+        app:tabSelectedTextColor="#fff"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabTextColor="@color/colorPrimaryDark"
 

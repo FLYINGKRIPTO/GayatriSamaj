@@ -21,5 +21,9 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="Style_TextView">textstylr
+        <item name="fontFamily">@font/tahomareg</item>
+    </style>
+
 
 </resources>

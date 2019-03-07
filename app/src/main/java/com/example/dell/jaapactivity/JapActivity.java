@@ -117,10 +117,10 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
         stopJap = findViewById(R.id.stopJap);
         display_time_selected = findViewById(R.id.display_selected_time);
         options_spinner = findViewById(R.id.options);
-        meditationActivity = findViewById(R.id.nextActivity);
-        swadhyayActivity = findViewById(R.id.swadhyayButton);
-        reportsActivity = findViewById(R.id.reportsActivity);
-        yagyaActivity = findViewById(R.id.yagyaActivity);
+       // meditationActivity = findViewById(R.id.nextActivity);
+       // swadhyayActivity = findViewById(R.id.swadhyayButton);
+        //reportsActivity = findViewById(R.id.reportsActivity);
+        //yagyaActivity = findViewById(R.id.yagyaActivity);
         userInput = new EditText(this);
         userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
         startJap.setEnabled(true);
@@ -136,6 +136,7 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
                 this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_scrolling);
         navigationView.setNavigationItemSelectedListener(this);
@@ -169,67 +170,6 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
         //     .duration(millisUntilFinished * 1000)
         //          .build();
         //Adding dummy data in Reports
-
-        rDb.addUserReportData(new ReportData("Jap", 4L, 4L, "Dec",
-                "14", "Fri", "by Time", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4L, 3L, "Dec",
-                "15", "Sat", "by Time", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "17", "Mon", "by Mala", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 6l, 3l, "Dec",
-                "18", "Tue", "with Pujya Mataji", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "20", "Thu", "with Pujya Gurudev", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "23", "Sun", "by Time", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "29", "Sat", "by Mala", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "30", "Sun", "with Pujya Mataji", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "30", "Sun", "with Pujya Gurudev", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "31", "Mon", "with Pujya Mataji", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "31", "Mon", "with Pujya Gurudev", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "30", "Sun", "with Pujya Mataji", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "30", "Sun", "with Pujya Gurudev", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "31", "Mon", "with Pujya Mataji", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Dec",
-                "31", "Mon", "with Pujya Gurudev", "2018"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 6l, "Jan",
-                "1", "Tue", "with Pujya Mataji", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "2", "Wed", "with Pujya Gurudev", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 6l, "Jan",
-                "3", "Thu", "with Pujya Mataji", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "4", "Fri", "with Pujya Gurudev", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "6", "Sun", "with Pujya Mataji", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "9", "Wed", "with Pujya Gurudev", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "12", "Sat", "with Pujya Mataji", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "14", "Mon", "with Pujya Gurudev", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "24", "Wed", "with Pujya Gurudev", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 6l, "Jan",
-                "26", "Thu", "with Pujya Mataji", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "28", "Fri", "with Pujya Gurudev", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "28", "Sun", "with Pujya Mataji", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "28", "Wed", "with Pujya Gurudev", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "29", "Sat", "with Pujya Mataji", "2019"));
-        rDb.addUserReportData(new ReportData("Jap", 4l, 3l, "Jan",
-                "29", "Mon", "with Pujya Gurudev", "2019"));
 
 
         JapTime = promptsView.findViewById(R.id.editTextDialogUserInput);
@@ -315,17 +255,17 @@ public class JapActivity extends Activity implements NavigationView.OnNavigation
                     alertDialog.setView(promptsView);
                     alertDialog.show();
 
-                    params2.topMargin =750;
+                    params2.topMargin =350;
                     buttonLayout.setLayoutParams(params2);
 
                 } else if (item.equalsIgnoreCase("by Mala")) {
 
 
                 } else if (item.equalsIgnoreCase("with Pujya Gurudev")) {
-                       params.topMargin = 730;
+                       params.topMargin = 1030;
                        videoLayout.setLayoutParams(params);
 
-                       params2.topMargin =1350;
+                       params2.topMargin =750;
                        buttonLayout.setLayoutParams(params2);
 
                     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -65,6 +66,7 @@ public class Swadhyay extends AppCompatActivity implements NavigationView.OnNavi
                 this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_scrolling);
         navigationView.setNavigationItemSelectedListener(this);
@@ -96,56 +98,6 @@ public class Swadhyay extends AppCompatActivity implements NavigationView.OnNavi
         final ReportDataBaseHandler rDb = new ReportDataBaseHandler(this);
 
         //adding dummy data to the database
-
-        rDb.addUserReportData(new ReportData("Swadhyay","Dec","22",
-                "Sun",4L,2l,"2018"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Dec","24",
-                "Tue",3L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Dec","27",
-                "Fri",6L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Dec","29",
-                "Sun",1L,1L,"2018"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Dec","30",
-                "Sun",7L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Dec","30",
-                "Sun",8L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Dec","30",
-                "Sun",3L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Dec","31",
-                "Mon",6L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Dec","31",
-                "Mon",6L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Dec","31",
-                "Mon",3L,2L,"2018"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","1",
-                "Tue",7L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","2",
-                "Wed",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","3",
-                "Thu",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","4",
-                "Fri",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","6",
-                "Sun",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","8",
-                "Tue",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","9",
-                "Wed",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","11",
-                "Fri",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","12",
-                "Sat",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","24",
-                "Sun",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","26",
-                "Tue",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","28",
-                "Wed",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","29",
-                "Fri",4L,2L,"2019"));
-        rDb.addUserReportData(new ReportData("Swadhyay","Jan","30",
-                "Sat",4L,2L,"2019"));
-
 
 
         //Alert dialog builder

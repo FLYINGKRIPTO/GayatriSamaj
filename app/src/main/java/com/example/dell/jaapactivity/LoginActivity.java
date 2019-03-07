@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     MaterialEditText email,password;
     Button signIn;
     FirebaseAuth auth;
+    ImageView back;
     ProgressBar loginProgress;
 
     @Override
@@ -31,6 +33,15 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.emailId);
         password = findViewById(R.id.password);
         signIn = findViewById(R.id.signIn);
+        back = findViewById(R.id.logo);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         auth = FirebaseAuth.getInstance();
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
