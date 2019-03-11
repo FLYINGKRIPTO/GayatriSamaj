@@ -28,6 +28,9 @@ Different fields in which reports are generated for user are --
 13. This year's report
 14. Past Year's report
 
+
+### IT also has chat feature
+
 ![Screenshot_20190302-152112](https://user-images.githubusercontent.com/34384226/54112898-2e167c80-440d-11e9-880d-cb014714e5c4.png)
 ![Screenshot_20190302-152119](https://user-images.githubusercontent.com/34384226/54112870-26ef6e80-440d-11e9-9605-de098ff3daa0.png)
 ![Screenshot_20190302-152125](https://user-images.githubusercontent.com/34384226/54112873-28b93200-440d-11e9-9567-ab3d0ffb887a.png)
