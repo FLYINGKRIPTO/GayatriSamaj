@@ -39,6 +39,7 @@ Different fields in which reports are generated for user are --
 ![Screenshot_20190302-152324](https://user-images.githubusercontent.com/34384226/54112882-2a82f580-440d-11e9-8d44-0b87b8d2069d.png)
 ![Screenshot_20190303-102538](https://user-images.githubusercontent.com/34384226/54112886-2bb42280-440d-11e9-8c87-8034f39517fd.png)
 ![Screenshot_20190303-102543](https://user-images.githubusercontent.com/34384226/54112888-2bb42280-440d-11e9-9ae4-613fe276af39.png)
+ ## NEW UI
 ![Screenshot_20190311-141521](https://user-images.githubusercontent.com/34384226/54112892-2c4cb900-440d-11e9-960c-13d69968285c.png)
 ![Screenshot_20190311-141529](https://user-images.githubusercontent.com/34384226/54112893-2ce54f80-440d-11e9-8689-53c39c5598e5.png)
 ![Screenshot_20190311-141552](https://user-images.githubusercontent.com/34384226/54112894-2d7de600-440d-11e9-9dca-eeb03f5eec82.png)
