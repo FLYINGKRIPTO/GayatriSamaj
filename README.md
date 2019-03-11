@@ -51,12 +51,10 @@ Different fields in which reports are generated for user are --
 ![Screenshot_20190311-141613](https://user-images.githubusercontent.com/34384226/54112897-2e167c80-440d-11e9-9d87-ef900478d4de.png)
 
 ## REPORTS
-![Screenshot_20190311-145921](https://user-images.githubusercontent.com/34384226/54114730-0cb78f80-4411-11e9-8216-f35f1f7c6fe2.png)
 ![Screenshot_20190311-150156](https://user-images.githubusercontent.com/34384226/54114731-0d502600-4411-11e9-9624-2fe8655a18a3.png)
 ![Screenshot_20190311-150221](https://user-images.githubusercontent.com/34384226/54114733-0d502600-4411-11e9-9bef-4bede4664802.png)
 ![Screenshot_20190311-150239](https://user-images.githubusercontent.com/34384226/54114734-0de8bc80-4411-11e9-82f6-e217e2556f7f.png)
 ![Screenshot_20190311-150247](https://user-images.githubusercontent.com/34384226/54114735-0de8bc80-4411-11e9-8c92-cb6171168649.png)
-![Screenshot_20190311-150301](https://user-images.githubusercontent.com/34384226/54114736-0de8bc80-4411-11e9-9160-c23710d101f9.png)
-![Screenshot_20190311-150309](https://user-images.githubusercontent.com/34384226/54114737-0e815300-4411-11e9-805c-bf5bd2055059.png)
+![Screenshot_20190311-150301](https://user-images.githubusercontent.com/34384226/54114736-0de8bc80-4411-11e9-9160-c23710d101f9.png)![Screenshot_20190311-150309](https://user-images.githubusercontent.com/34384226/54114737-0e815300-4411-11e9-805c-bf5bd2055059.png)
 
 
